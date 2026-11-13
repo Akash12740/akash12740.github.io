@@ -11,9 +11,11 @@
   <link rel="stylesheet" href="assets/css/style.css" />
 </head>
 <body>
+  <div id="toast"></div>
   <nav>
     <a href="index.html" class="logo"><span><</span>Akash.AI<span>/></span></a>
     <div class="nav-links">
+      <a href="rss.xml" target="_blank">RSS Feed ↗</a>
       <a href="https://substack.com/@akashsaini12740" target="_blank" style="color:var(--accent);">Subscribe on Substack ↗</a>
       <a href="index.html">← Back to Portfolio</a>
     </div>
@@ -21,9 +23,9 @@
   </nav>
 
   <div class="container" style="padding-top:3rem; padding-bottom:4rem; max-width:900px;">
-    <span class="section-tag">// AUTOMATED_DAILY_TECHNICAL_PUBLICATIONS</span>
+    <span class="section-tag">// ENGINEERING_NOTES_&_ARTICLES</span>
     <h1>AI, Machine Learning & Data Science Blog</h1>
-    <p class="hero-desc">Dynamically rendered from <code>data/posts.json</code> and updated daily via GitHub Actions.</p>
+    <p class="hero-desc">Technical notes on Artificial Intelligence, Machine Learning, Data Science, and Mathematics.</p>
 
     <input type="text" id="blogSearch" class="pg-input" placeholder="Search articles by keyword (e.g., RAG, SARIMA, Regularization)..." oninput="renderBlogArchive(window.curTopic || 'all', this.value)" />
 
@@ -34,6 +36,11 @@
       <button class="filter-btn" onclick="window.curTopic='ds'; setActive(this); renderBlogArchive('ds', document.getElementById('blogSearch').value)">Data Science</button>
       <button class="filter-btn" onclick="window.curTopic='da'; setActive(this); renderBlogArchive('da', document.getElementById('blogSearch').value)">Data Analytics</button>
       <button class="filter-btn" onclick="window.curTopic='llm'; setActive(this); renderBlogArchive('llm', document.getElementById('blogSearch').value)">LLMs & RAG</button>
+    </div>
+
+    <div class="card" style="margin-bottom:1.75rem; padding:1.1rem 1.4rem;">
+      <span class="section-tag" style="margin-bottom:0.4rem;">QUICK_JUMP_INDEX</span>
+      <div id="blog-toc"></div>
     </div>
 
     <div id="all-blogs-list"></div>

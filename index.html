@@ -6,15 +6,8 @@
   <title>Akash Saini | AI & ML Engineer</title>
   <meta name="description" content="BITS Pilani M.Sc. Mathematics graduate specializing in LLM Fine-Tuning, RAG Pipelines, AI Reasoning Evaluation, NLP, and MLOps." />
 
-  <!-- Google Analytics 4 -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-VHLC0PBK1D"></script>
-  <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
-    gtag('config', 'G-VHLC0PBK1D');
-  </script>
-  <!-- Cloudflare Web Analytics -->
+  <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-VHLC0PBK1D');</script>
   <script type="module" src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token": "759cdca45cac4461a43be4d13fcd7c42"}'></script>
 
   <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -29,16 +22,36 @@
     <a href="#" class="logo"><span><</span>Akash.AI<span>/></span></a>
     <div class="nav-links">
       <a href="#featured-blogs">// blogs</a>
-      <a href="#live-demo">// live_rag</a>
-      <a href="#reasoning-lab">// llm_eval</a>
+      <a href="#live-demo">// live_demos</a>
+      <a href="#reasoning-lab">// math_lab</a>
+      <a href="#math-games">// math_games</a>
       <a href="#projects">// projects</a>
-      <a href="#services">// work_with_me</a>
+      <a href="#services">// consulting</a>
       <a href="blog.html" style="color:var(--accent);">All Articles ↗</a>
     </div>
-    <button id="themeToggle" class="theme-btn" onclick="toggleTheme()">☀️ Light</button>
+    <div style="display:flex; gap:0.5rem;">
+      <button class="theme-btn" onclick="toggleExecBrief()" style="border-color:var(--accent); color:var(--accent);">⚡ 60s Brief</button>
+      <button id="themeToggle" class="theme-btn" onclick="toggleTheme()">☀️ Light</button>
+    </div>
   </nav>
 
   <div class="container">
+    <!-- 60-Second Hiring Manager / Founder Executive Brief -->
+    <div id="execBriefPanel" class="card" style="display:none; margin-top:1.25rem; border-color:var(--accent);">
+      <div class="item-header">
+        <span class="section-tag" style="margin:0;">// 60-SECOND_EXECUTIVE_SUMMARY_FOR_HIRING_MANAGERS_&_FOUNDERS</span>
+        <button class="theme-btn" onclick="toggleExecBrief()">Close ✕</button>
+      </div>
+      <p style="color:var(--muted); font-size:0.93rem; margin:0.5rem 0 0.85rem;">
+        <strong>Akash Saini</strong> — Integrated M.Sc. Mathematics (BITS Pilani). Proven track record scaling unstructured NLP training corpora by <strong>6,000x</strong> (Swecha), auditing Gemini instruction tuning & safety workflows (Innodata), achieving <strong>95% NLP classification accuracy</strong>, and cutting 15-year energy forecasting RMSE by <strong>60%</strong> via SARIMA.
+      </p>
+      <div class="cta-group">
+        <a href="resume_AkashSaini.pdf" target="_blank" class="btn btn-primary btn-sm">Download Resume.pdf ↓</a>
+        <a href="capabilities.html" class="btn btn-glass btn-sm">1-Page Capabilities Deck →</a>
+        <a href="https://cal.com/akash-saini-12740/15min" target="_blank" class="btn btn-purple btn-sm">Book 15-Min Intro Call ↗</a>
+      </div>
+    </div>
+
     <!-- Hero -->
     <header>
       <div>
@@ -49,16 +62,17 @@
           Integrated M.Sc. Mathematics graduate from <strong>BITS Pilani</strong> specializing in LLM fine-tuning, reasoning trace evaluation, RAG pipelines, NLP, and MLOps.
         </p>
         <div class="cta-group">
-          <a href="#live-demo" class="btn btn-primary">Try Live AI Demo ⚡</a>
-          <a href="#services" class="btn btn-purple">1:1 Mentorship & Kits 🚀</a>
+          <a href="#live-demo" class="btn btn-primary">Try Live AI Demos ⚡</a>
+          <a href="#math-games" class="btn btn-purple">Play Math & AI Games 🎮</a>
           <a href="resume_AkashSaini.pdf" target="_blank" class="btn btn-glass">Resume.pdf ↓</a>
+          <a href="capabilities.html" class="btn btn-glass">Capabilities Brief →</a>
           <a href="https://www.linkedin.com/in/akash-saini-83a42a1b1/" target="_blank" class="btn btn-glass">LinkedIn ↗</a>
         </div>
       </div>
 
       <div class="hero-right">
         <div class="profile-showcase">
-          <div class="avatar-ring"><img src="IMG_Akash_Saini.jpg" alt="Akash Saini" /></div>
+          <div class="avatar-ring"><img src="IMG_Akash_Saini.jpg" alt="Akash Saini" loading="lazy" /></div>
           <div>
             <h3>Akash Saini</h3>
             <span class="uni-badge">🎓 BITS Pilani • Dept. of Mathematics</span>
@@ -76,7 +90,7 @@
             <div class="cmd-output">
               <div>[✓] Degree: Integrated M.Sc. Math @ BITS Pilani</div>
               <div>[✓] Focus: LLM Evaluation, RAG, FAISS, MLOps</div>
-              <div>[✓] Auto-Blog: Daily AI/ML feed active via GitHub Actions</div>
+              <div>[✓] Writing: Technical notes on AI, Math & MLOps</div>
             </div>
           </div>
           <div class="terminal-actions">
@@ -101,46 +115,60 @@
     <section id="featured-blogs">
       <div style="display:flex; justify-content:space-between; align-items:flex-end; flex-wrap:wrap; gap:1rem; margin-bottom:1.25rem;">
         <div>
-          <span class="section-tag">01. LATEST_ENGINEERING_NOTES (AUTO-UPDATED DAILY)</span>
+          <span class="section-tag">01. LATEST_ENGINEERING_NOTES</span>
           <h2 style="margin-bottom:0;">Featured Technical Articles</h2>
         </div>
-        <a href="blog.html" class="btn btn-primary btn-sm">Explore All Blogs & Topics →</a>
+        <div style="display:flex; gap:0.5rem;">
+          <a href="rss.xml" target="_blank" class="btn btn-glass btn-sm">RSS Feed ↗</a>
+          <a href="blog.html" class="btn btn-primary btn-sm">Explore All Blogs →</a>
+        </div>
       </div>
       <div class="grid-3" id="featured-blogs-grid"></div>
     </section>
 
-    <!-- Live Hugging Face Space -->
+    <!-- Live Interactive AI Demos (Hugging Face RAG + Fake News NLP Classifier) -->
     <section id="live-demo">
-      <span class="section-tag">02. HUGGING_FACE_LIVE_APP</span>
-      <h2>Interactive RAG Document Q&A Playground</h2>
-      <div class="card">
+      <span class="section-tag">02. LIVE_AI_PLAYGROUNDS</span>
+      <h2>Interactive AI & NLP Demos</h2>
+      <div class="card" style="margin-bottom:1.5rem;">
         <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:0.75rem;">
-          <p style="color:var(--muted); font-size:0.93rem;">Upload any <code>.txt</code> / <code>.md</code> document or paste custom text below to test real-time semantic chunking and citation-grounded retrieval.</p>
+          <p style="color:var(--muted); font-size:0.93rem;"><strong>Demo 1: RAG Document Q&A Engine</strong> — Upload a <code>.txt</code> / <code>.md</code> document or paste custom text to run semantic chunking and citation-grounded retrieval.</p>
           <a href="https://huggingface.co/spaces/Akash12740/rag-document-qa-demo" target="_blank" class="btn btn-glass btn-sm">Open Fullscreen ↗</a>
         </div>
         <div class="hf-frame-wrap">
           <iframe src="https://akash12740-rag-document-qa-demo.static.hf.space" title="Akash Saini RAG Document Q&A Demo"></iframe>
         </div>
       </div>
+
+      <div class="card">
+        <span class="section-tag">DEMO 2 • CLIENT-SIDE NLP SCORING</span>
+        <h3 style="margin-bottom:0.4rem;">Fake News & Sensationalism Classifier Sandbox</h3>
+        <p style="color:var(--muted); font-size:0.9rem; margin-bottom:0.85rem;">Test how n-gram lexical weighting, capitalization, and credibility markers score news headlines in real time.</p>
+        <input type="text" id="newsInput" class="pg-input" value="SHOCKING secret exposed! Miracle cure 100% guaranteed to ban hospital visits!" />
+        <div style="display:flex; gap:0.5rem; flex-wrap:wrap; margin-bottom:0.85rem;">
+          <button class="btn btn-primary btn-sm" onclick="runFakeNewsDemo()">Analyze Headline ⚡</button>
+          <button class="btn btn-glass btn-sm" onclick="document.getElementById('newsInput').value='According to a peer-reviewed study published by university researchers, renewable grid storage rose 18 percent.'; runFakeNewsDemo();">Test Credible Report</button>
+        </div>
+        <div id="newsOutput" class="trace-box">Click <strong>"Analyze Headline ⚡"</strong> to inspect token signals.</div>
+      </div>
     </section>
 
-    <!-- AI Reasoning & LLM Evaluation Showcase + Math Visualizers -->
+    <!-- AI Reasoning Evaluation & Applied Math Visualizers -->
     <section id="reasoning-lab">
       <span class="section-tag">03. AI_REASONING_EVALUATION_&_MATH_LAB</span>
       <h2>LLM Reasoning Audit & Mathematical Visualizers</h2>
-      <div class="grid-2">
-        <!-- Spot the AI Reasoning Flaw -->
+      <div class="grid-2" style="margin-bottom:1.5rem;">
         <div class="card">
           <span class="section-tag">INTERACTIVE LLM AUDIT</span>
           <h3 style="margin-bottom:0.5rem;">Spot the AI Reasoning Flaw</h3>
           <p style="color:var(--muted); font-size:0.9rem;">
-            <strong>Problem:</strong> Let $A \in M_4(\mathbb{R})$ have minimal polynomial $m(t) = t^3 - t$. How many connected components can $G = \{X \in GL_4(\mathbb{R}) \mid AX = XA\}$ have?
+            <strong>Problem:</strong> Let A ∈ M₄(ℝ) have minimal polynomial m(t) = t³ - t. How many connected components can G = {X ∈ GL₄(ℝ) | AX = XA} have?
           </p>
           <div class="trace-box">
-            <strong>Model Trace A:</strong> Eigenvalues $\{0, 1, -1\}$ have multiplicities $\{2,1,1\}$, so $G \cong GL_2(\mathbb{R}) \times GL_1(\mathbb{R}) \times GL_1(\mathbb{R})$. Since each $GL_n(\mathbb{R})$ is connected, $G$ has <strong>1</strong> component.
+            <strong>Model Trace A:</strong> Eigenvalues {0, 1, -1} have multiplicities {2,1,1}, so G ≅ GL₂(ℝ) × GL₁(ℝ) × GL₁(ℝ). Since each GL_n(ℝ) is connected, G has <strong>1</strong> component.
           </div>
           <div class="trace-box">
-            <strong>Model Trace B:</strong> $G \cong GL_2(\mathbb{R}) \times GL_1(\mathbb{R}) \times GL_1(\mathbb{R})$. Each $GL_n(\mathbb{R})$ splits into $\det > 0$ and $\det < 0$ (2 components), giving $2 \times 2 \times 2 = \mathbf{8}$ components.
+            <strong>Model Trace B:</strong> G ≅ GL₂(ℝ) × GL₁(ℝ) × GL₁(ℝ). Each GL_n(ℝ) splits into det > 0 and det < 0 (2 components), giving 2 × 2 × 2 = <strong>8</strong> components.
           </div>
           <div style="display:flex; gap:0.6rem; flex-wrap:wrap;">
             <button class="btn btn-primary btn-sm" onclick="evaluateTrace('A')">Flag Trace A as Flawed</button>
@@ -149,24 +177,115 @@
           <div id="reasoningVerdict" class="verdict-box"></div>
         </div>
 
-        <!-- 2D Cosine Similarity & Time-Series Visualizers -->
         <div class="card">
-          <span class="section-tag">APPLIED MATHEMATICS EXPLORER</span>
-          <h3 style="margin-bottom:0.4rem;">Cosine Similarity Gate & STL Decomposition</h3>
+          <span class="section-tag">2×2 LINEAR TRANSFORMATION & EIGENVALUE LAB</span>
+          <h3 style="margin-bottom:0.4rem;">Matrix Topology & Determinant Visualizer</h3>
+          <p id="matrixReadout" style="color:var(--muted); font-size:0.83rem;"></p>
+          <div style="display:grid; grid-template-columns:1fr 1fr; gap:0.5rem; margin:0.5rem 0;">
+            <label style="font-size:0.78rem; font-family:'Fira Code',monospace;">a: <input type="range" id="matA" min="-2.5" max="2.5" step="0.5" value="2" oninput="updateMatrixLab()" /></label>
+            <label style="font-size:0.78rem; font-family:'Fira Code',monospace;">b: <input type="range" id="matB" min="-2.5" max="2.5" step="0.5" value="1" oninput="updateMatrixLab()" /></label>
+            <label style="font-size:0.78rem; font-family:'Fira Code',monospace;">c: <input type="range" id="matC" min="-2.5" max="2.5" step="0.5" value="0" oninput="updateMatrixLab()" /></label>
+            <label style="font-size:0.78rem; font-family:'Fira Code',monospace;">d: <input type="range" id="matD" min="-2.5" max="2.5" step="0.5" value="1.5" oninput="updateMatrixLab()" /></label>
+          </div>
+          <canvas id="matrixCanvas" class="math-canvas"></canvas>
+        </div>
+      </div>
+
+      <div class="grid-2">
+        <div class="card">
+          <span class="section-tag">VECTOR SPACE RETRIEVAL</span>
+          <h3 style="margin-bottom:0.4rem;">Cosine Similarity Gate Explorer</h3>
           <p id="cosineReadout" style="color:var(--muted); font-size:0.84rem;"></p>
           <input type="range" id="vecAngle" min="0" max="90" value="25" style="width:100%;" oninput="updateCosineViz()" />
           <canvas id="cosineCanvas" class="math-canvas"></canvas>
-
-          <p id="tsReadout" style="color:var(--muted); font-size:0.84rem; margin-top:0.75rem;"></p>
+        </div>
+        <div class="card">
+          <span class="section-tag">TIME-SERIES DECOMPOSITION</span>
+          <h3 style="margin-bottom:0.4rem;">STL Trend + Seasonality Explorer</h3>
+          <p id="tsReadout" style="color:var(--muted); font-size:0.84rem;"></p>
           <input type="range" id="seasonWeight" min="0" max="100" value="75" style="width:100%;" oninput="updateTsViz()" />
           <canvas id="tsDecompCanvas" class="math-canvas"></canvas>
         </div>
       </div>
     </section>
 
+    <!-- Playable Math & AI Mini-Games -->
+    <section id="math-games">
+      <span class="section-tag">04. INTERACTIVE_MATH_&_AI_GAMES</span>
+      <h2>Playable Math & Optimization Games</h2>
+      <div class="grid-3">
+        <!-- Game 1: Gradient Descent -->
+        <div class="card">
+          <span class="section-tag">GAME 01 • OPTIMIZATION</span>
+          <h3 style="margin-bottom:0.4rem;">Gradient Descent Valley Finder</h3>
+          <p id="gdStatus" style="color:var(--muted); font-size:0.84rem; min-height:2.6rem;"></p>
+          <canvas id="gdCanvas" class="math-canvas"></canvas>
+          <label style="font-size:0.78rem; font-family:'Fira Code',monospace;">Learning Rate α: <input type="range" id="gdLr" min="0.02" max="0.45" step="0.01" value="0.12" /></label>
+          <div style="display:flex; gap:0.5rem; margin-top:0.6rem;">
+            <button class="btn btn-primary btn-sm" onclick="stepGD()">Take Step →</button>
+            <button class="btn btn-glass btn-sm" onclick="resetGD()">Reset</button>
+          </div>
+        </div>
+
+        <!-- Game 2: Matrix Blitz -->
+        <div class="card">
+          <span class="section-tag">GAME 02 • LINEAR ALGEBRA</span>
+          <h3 style="margin-bottom:0.4rem;">Determinant & Trace Blitz</h3>
+          <p id="blitzPrompt" style="color:var(--muted); font-size:0.88rem; margin-bottom:0.75rem;"></p>
+          <input type="number" id="blitzInput" class="pg-input" placeholder="Enter integer answer..." onkeydown="if(event.key==='Enter') checkBlitz()" />
+          <div style="display:flex; gap:0.5rem;">
+            <button class="btn btn-primary btn-sm" onclick="checkBlitz()">Submit Answer</button>
+            <button class="btn btn-glass btn-sm" onclick="nextBlitzQuestion()">Skip ↻</button>
+          </div>
+          <div id="blitzFeedback" style="margin-top:0.75rem; font-family:'Fira Code',monospace; font-size:0.82rem;"></div>
+        </div>
+
+        <!-- Game 3: Monty Hall Monte Carlo -->
+        <div class="card">
+          <span class="section-tag">GAME 03 • BAYESIAN PROBABILITY</span>
+          <h3 style="margin-bottom:0.4rem;">Monty Hall Simulator</h3>
+          <p style="color:var(--muted); font-size:0.86rem; margin-bottom:0.75rem;">Test why switching doors after a goat is revealed doubles your win probability to <strong>2/3 (66.7%)</strong>.</p>
+          <div style="display:flex; gap:0.5rem; flex-wrap:wrap; margin-bottom:0.75rem;">
+            <button class="btn btn-glass btn-sm" onclick="playMontyHall(100, false)">Simulate 100 Stay</button>
+            <button class="btn btn-primary btn-sm" onclick="playMontyHall(100, true)">Simulate 100 Switch</button>
+          </div>
+          <div id="mhStats" class="trace-box" style="font-size:0.8rem;">Run a simulation to compare empirical win rates!</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Fascinating Facts About Math & AI -->
+    <section id="math-ai-facts">
+      <span class="section-tag">05. MATHEMATICAL_FOUNDATIONS_OF_AI</span>
+      <h2>Fascinating Facts About Math & AI</h2>
+      <div class="grid-3">
+        <div class="card">
+          <span class="section-tag">FACT 01 • FORMAL REASONING</span>
+          <h3>From Olympiad Proofs to Lean 4</h3>
+          <p style="color:var(--muted); font-size:0.9rem; margin-top:0.4rem;">
+            AI mathematical reasoning jumped from silver-medal formal translation in 2024 to gold-medal natural-language proofs at IMO 2025 (35/42) and perfect 42/42 scores at IMO 2026—paired with formal verifiers like Lean 4 that check every logical step with 100% mathematical certainty.
+          </p>
+        </div>
+        <div class="card">
+          <span class="section-tag">FACT 02 • VECTOR GEOMETRY</span>
+          <h3>Why Cosine Similarity = Dot Product</h3>
+          <p style="color:var(--muted); font-size:0.9rem; margin-top:0.4rem;">
+            In FAISS vector databases, normalizing embedding vectors to unit L2 length (‖u‖ = ‖v‖ = 1) turns angular cosine similarity into a simple inner product (u·v)—cutting retrieval latency by orders of magnitude across millions of chunks.
+          </p>
+        </div>
+        <div class="card">
+          <span class="section-tag">FACT 03 • HIGH DIMENSIONS</span>
+          <h3>Blessing & Curse of Dimensionality</h3>
+          <p style="color:var(--muted); font-size:0.9rem; margin-top:0.4rem;">
+            In 768-dimensional transformer embedding spaces, two random vectors are almost always nearly orthogonal (~90°)—which is why semantic meaning clusters cleanly into distinct subspaces without colliding.
+          </p>
+        </div>
+      </div>
+    </section>
+
     <!-- Dynamic Projects -->
     <section id="projects">
-      <span class="section-tag">04. DEPLOYED_MODELS (JSON-DRIVEN)</span>
+      <span class="section-tag">06. DEPLOYED_MODELS</span>
       <h2>AI & ML Projects</h2>
       <div class="filter-bar">
         <button class="filter-btn active" onclick="filterItems('project-card', 'all', this)">All Projects</button>
@@ -179,7 +298,7 @@
 
     <!-- Benchmarks -->
     <section id="benchmarks">
-      <span class="section-tag">05. QUANTITATIVE_EVALUATION</span>
+      <span class="section-tag">07. QUANTITATIVE_EVALUATION</span>
       <h2>Model Benchmarks</h2>
       <div class="grid-2">
         <div class="card">
@@ -195,7 +314,7 @@
 
     <!-- Monetization & Work With Me -->
     <section id="services">
-      <span class="section-tag">06. CONSULTING_MENTORSHIP_&_KITS</span>
+      <span class="section-tag">08. CONSULTING_MENTORSHIP_&_KITS</span>
       <h2>Work With Me & Digital Resources</h2>
       <div class="grid-2">
         <div class="card">
@@ -227,14 +346,14 @@
 
     <!-- Endorsements -->
     <section id="testimonials">
-      <span class="section-tag">07. ENDORSEMENTS</span>
+      <span class="section-tag">09. ENDORSEMENTS</span>
       <h2>Collaborator & Mentee Feedback</h2>
       <div class="grid-3" id="testimonials-grid"></div>
     </section>
 
     <!-- Experience -->
     <section id="experience">
-      <span class="section-tag">08. CAREER_LOG</span>
+      <span class="section-tag">10. CAREER_LOG</span>
       <h2>Experience & Education</h2>
       <div class="timeline">
         <div class="card">
@@ -262,7 +381,7 @@
 
     <!-- Contact -->
     <section id="contact">
-      <span class="section-tag">09. INITIATE_HANDSHAKE</span>
+      <span class="section-tag">11. INITIATE_HANDSHAKE</span>
       <h2>Get In Touch</h2>
       <div class="grid-2">
         <div class="card">

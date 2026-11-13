@@ -1,11 +1,12 @@
 ﻿import json
 import os
-import random
 import urllib.request
 from datetime import datetime, timezone
+from email.utils import format_datetime
 
 POSTS_FILE = "data/posts.json"
 SITEMAP_FILE = "sitemap.xml"
+RSS_FILE = "rss.xml"
 
 TOPICS = [
     ("llm", "Large Language Models (LLMs)", "Verifier-Guided Decoding, Constitutional AI & Citation Grounding"),
@@ -74,31 +75,50 @@ def fallback_post(topic_code: str, topic_label: str, angle: str, idx: int) -> di
         "takeaway": f"Combining formal mathematical constraints with automated verification transforms {topic_label} prototypes into dependable systems."
     }
 
-def update_sitemap(today_str: str):
-    xml = f"""<?xml version="1.0" encoding="UTF-8"?>
+def update_feeds(posts: list, today_str: str):
+    sitemap_xml = f"""<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url>
-    <loc>https://akash12740.github.io/</loc>
-    <lastmod>{today_str}</lastmod>
-    <priority>1.0</priority>
-  </url>
-  <url>
-    <loc>https://akash12740.github.io/blog.html</loc>
-    <lastmod>{today_str}</lastmod>
-    <priority>0.9</priority>
-  </url>
+  <url><loc>https://akash12740.github.io/</loc><lastmod>{today_str}</lastmod><priority>1.0</priority></url>
+  <url><loc>https://akash12740.github.io/blog.html</loc><lastmod>{today_str}</lastmod><priority>0.9</priority></url>
+  <url><loc>https://akash12740.github.io/capabilities.html</loc><lastmod>{today_str}</lastmod><priority>0.8</priority></url>
 </urlset>
 """
     with open(SITEMAP_FILE, "w", encoding="utf-8") as f:
-        f.write(xml)
+        f.write(sitemap_xml)
+
+    items_xml = []
+    for p in posts[:15]:
+        pub_date = format_datetime(datetime.now(timezone.utc))
+        items_xml.append(f"""    <item>
+      <title><![CDATA[{p['title']}]]></title>
+      <link>https://akash12740.github.io/blog.html#{p['id']}</link>
+      <guid>https://akash12740.github.io/blog.html#{p['id']}</guid>
+      <pubDate>{pub_date}</pubDate>
+      <description><![CDATA[{p['summary']}]]></description>
+    </item>""")
+
+    rss_xml = f"""<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0">
+  <channel>
+    <title>Akash Saini — AI, Mathematics & Data Science Notes</title>
+    <link>https://akash12740.github.io/blog.html</link>
+    <description>Technical notes on Artificial Intelligence, Machine Learning, Data Science, and Mathematics by Akash Saini (BITS Pilani).</description>
+    <language>en-us</language>
+{chr(10).join(items_xml)}
+  </channel>
+</rss>
+"""
+    with open(RSS_FILE, "w", encoding="utf-8") as f:
+        f.write(rss_xml)
 
 def main():
-    with open(POSTS_FILE, "r", encoding="utf-8") as f:
+    with open(POSTS_FILE, "r", encoding="utf-8-sig") as f:
         posts = json.load(f)
 
     today_str = datetime.now(timezone.utc).strftime("%Y-%m-%d")
     if any(p.get("date") == today_str for p in posts):
-        print(f"Post for {today_str} already exists. Skipping.")
+        print(f"Post for {today_str} already exists. Updating feeds only.")
+        update_feeds(posts, today_str)
         return
 
     topic_code, topic_label, angle = TOPICS[len(posts) % len(TOPICS)]
@@ -126,7 +146,7 @@ def main():
     with open(POSTS_FILE, "w", encoding="utf-8") as f:
         json.dump(posts, f, indent=2, ensure_ascii=False)
 
-    update_sitemap(today_str)
+    update_feeds(posts, today_str)
     print(f"Published: {new_entry['title']}")
 
 if __name__ == "__main__":

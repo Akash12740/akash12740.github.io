@@ -1,9 +1,9 @@
-﻿name: Daily Automated AI/ML Blog Post
+﻿name: Daily Technical Blog Sync
 
 on:
   schedule:
-    - cron: '0 8 * * *' # Runs daily at 08:00 UTC (13:30 IST)
-  workflow_dispatch:     # Allows manual 1-click trigger from GitHub Actions tab
+    - cron: '0 8 * * *'
+  workflow_dispatch:
 
 permissions:
   contents: write
@@ -20,14 +20,14 @@ jobs:
         with:
           python-version: '3.11'
 
-      - name: Generate new technical post & update sitemap
+      - name: Generate new technical post & update feeds
         env:
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
         run: python scripts/generate_daily_blog.py
 
-      - name: Commit and push updated posts.json & sitemap.xml
+      - name: Commit and push updated data & feeds
         run: |
-          git config user.name "AkashAI-Bot"
-          git config user.email "actions@github.com"
-          git add data/posts.json sitemap.xml
-          git diff --staged --quiet || (git commit -m "chore(blog): publish daily AI/ML technical article" && git push)
+          git config user.name "Akash Saini"
+          git config user.email "aksainibits@gmail.com"
+          git add data/posts.json sitemap.xml rss.xml
+          git diff --staged --quiet || (git commit -m "chore(blog): publish technical article and update feeds" && git push)

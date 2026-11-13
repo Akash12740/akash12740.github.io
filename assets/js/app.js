@@ -28,7 +28,15 @@ function copyEmail() {
   showToast('✓ Copied aksainibits@gmail.com to clipboard!');
 }
 
-// Dynamic JSON Loader for Featured Blogs (index.html) & Full Blog Archive (blog.html)
+// 60-Second Hiring Manager / Founder Executive Brief Toggle
+function toggleExecBrief() {
+  const panel = document.getElementById('execBriefPanel');
+  if (!panel) return;
+  const open = panel.style.display === 'block';
+  panel.style.display = open ? 'none' : 'block';
+}
+
+// Dynamic JSON Loader for Blogs + BibTeX & Social Share + TOC
 let ALL_POSTS = [];
 async function loadPosts() {
   const homeContainer = document.getElementById('featured-blogs-grid');
@@ -36,7 +44,8 @@ async function loadPosts() {
   if (!homeContainer && !fullContainer) return;
 
   try {
-    const res = await fetch('data/posts.json?v=' + Date.now());
+    const todayKey = new Date().toISOString().slice(0, 10);
+    const res = await fetch('data/posts.json?v=' + todayKey);
     ALL_POSTS = await res.json();
 
     if (homeContainer) {
@@ -53,7 +62,7 @@ async function loadPosts() {
           </div>
           <div style="display:flex; gap:0.5rem; flex-wrap:wrap;">
             <button class="btn btn-primary btn-sm" onclick="openPostModal('${p.id}')">Read Article →</button>
-            <a href="blog.html" class="btn btn-glass btn-sm">All Posts (${ALL_POSTS.length})</a>
+            <button class="btn btn-glass btn-sm" onclick="copyBibtex('${p.id}')">Cite (BibTeX)</button>
           </div>
         </div>
       `).join('');
@@ -67,8 +76,23 @@ async function loadPosts() {
   }
 }
 
+function copyBibtex(id) {
+  const p = ALL_POSTS.find(x => x.id === id);
+  if (!p) return;
+  const year = (p.date || '2026').slice(0, 4);
+  const bib = `@article{saini${year}_${p.id.replace('-','')},\n  author = {Saini, Akash},\n  title = {${p.title}},\n  journal = {Akash Saini Engineering Notes},\n  year = {${year}},\n  url = {https://akash12740.github.io/blog.html#${p.id}}\n}`;
+  navigator.clipboard.writeText(bib);
+  showToast('✓ Copied BibTeX citation to clipboard!');
+}
+
+function sharePostLinkedIn(id) {
+  const url = encodeURIComponent(`https://akash12740.github.io/blog.html#${id}`);
+  window.open(`https://www.linkedin.com/sharing/share-offsite/?url=${url}`, '_blank');
+}
+
 function renderBlogArchive(topic, query) {
   const fullContainer = document.getElementById('all-blogs-list');
+  const tocContainer = document.getElementById('blog-toc');
   if (!fullContainer) return;
   const q = (query || '').toLowerCase();
   const filtered = ALL_POSTS.filter(p => {
@@ -77,8 +101,12 @@ function renderBlogArchive(topic, query) {
     return matchTopic && matchQuery;
   });
 
+  if (tocContainer) {
+    tocContainer.innerHTML = filtered.map(p => `<a href="#${p.id}" style="color:var(--accent); text-decoration:none; font-size:0.82rem; display:block; margin-bottom:0.35rem;">→ ${p.title}</a>`).join('');
+  }
+
   fullContainer.innerHTML = filtered.map(p => `
-    <article class="card" style="margin-bottom:1.75rem;">
+    <article id="${p.id}" class="card" style="margin-bottom:1.75rem;">
       <div class="item-header">
         <span class="section-tag" style="margin:0;">${p.topic_label} • ${p.date}</span>
         <span class="item-date">${p.read_time}</span>
@@ -91,6 +119,10 @@ function renderBlogArchive(topic, query) {
         <p style="color:var(--muted); font-size:0.94rem;">${s.body}</p>
       `).join('')}
       <div class="verdict-box show" style="margin-top:1rem;"><strong>Key Takeaway:</strong> ${p.takeaway}</div>
+      <div style="display:flex; gap:0.6rem; flex-wrap:wrap; margin-top:1.1rem; padding-top:0.9rem; border-top:1px solid var(--border);">
+        <button class="btn btn-glass btn-sm" onclick="copyBibtex('${p.id}')">📋 Copy BibTeX Citation</button>
+        <button class="btn btn-primary btn-sm" onclick="sharePostLinkedIn('${p.id}')">Share on LinkedIn ↗</button>
+      </div>
     </article>
   `).join('') || '<p style="color:var(--muted);">No articles match that filter.</p>';
 }
@@ -103,20 +135,24 @@ function openPostModal(id) {
   document.getElementById('modalArch').textContent = p.architecture_flow;
   document.getElementById('modalDesc').innerHTML =
     (p.sections || []).map(s => `<p style="margin-bottom:0.8rem;"><strong>${s.heading}:</strong> ${s.body}</p>`).join('') +
-    `<p style="color:var(--accent-green);"><strong>Takeaway:</strong> ${p.takeaway}</p>`;
+    `<p style="color:var(--accent-green); margin-bottom:1rem;"><strong>Takeaway:</strong> ${p.takeaway}</p>` +
+    `<div style="display:flex; gap:0.5rem; flex-wrap:wrap;">
+      <button class="btn btn-glass btn-sm" onclick="copyBibtex('${p.id}')">📋 Copy BibTeX</button>
+      <button class="btn btn-glass btn-sm" onclick="sharePostLinkedIn('${p.id}')">Share on LinkedIn ↗</button>
+    </div>`;
   const link = document.getElementById('modalRepoLink');
   link.textContent = 'Open Full Blog Archive →';
   link.href = 'blog.html';
   document.getElementById('projectModal').classList.add('open');
 }
 
-// Dynamic Projects Loader
+// Dynamic Projects & Testimonials
 let ALL_PROJECTS = [];
 async function loadProjects() {
   const grid = document.getElementById('projects-grid');
   if (!grid) return;
   try {
-    const res = await fetch('data/projects.json?v=' + Date.now());
+    const res = await fetch('data/projects.json');
     ALL_PROJECTS = await res.json();
     grid.innerHTML = ALL_PROJECTS.map(pr => `
       <div class="card project-card" data-cat="${pr.cat}" style="display:flex; flex-direction:column; justify-content:space-between;">
@@ -153,12 +189,11 @@ function openProjectModal(id) {
 function closeModalBtn() { document.getElementById('projectModal').classList.remove('open'); }
 function closeModal(e) { if (e.target.id === 'projectModal') closeModalBtn(); }
 
-// Dynamic Testimonials Loader
 async function loadTestimonials() {
   const wrap = document.getElementById('testimonials-grid');
   if (!wrap) return;
   try {
-    const res = await fetch('data/testimonials.json?v=' + Date.now());
+    const res = await fetch('data/testimonials.json');
     const items = await res.json();
     wrap.innerHTML = items.map(t => `
       <div class="card">
@@ -170,21 +205,201 @@ async function loadTestimonials() {
   } catch (e) { console.error(e); }
 }
 
-// Interactive "Spot the AI Reasoning Flaw" Widget
+// Live NLP Fake News Classifier Sandbox
+function runFakeNewsDemo() {
+  const input = document.getElementById('newsInput');
+  const out = document.getElementById('newsOutput');
+  if (!input || !out) return;
+  const text = input.value.trim();
+  if (!text) return;
+
+  const sensational = ['shocking', 'miracle', 'secret', 'exposed', 'guaranteed', '100%', 'conspiracy', 'breaking', 'unbelievable', 'banned', 'hoax', 'scam'];
+  const credible = ['study', 'dataset', 'university', 'published', 'report', 'according', 'researchers', 'evidence', 'analysis', 'ministry', 'journal', 'percent'];
+
+  const words = text.toLowerCase().replace(/[^a-z0-9%\s]/g, '').split(/\s+/).filter(Boolean);
+  let sensHits = words.filter(w => sensational.includes(w));
+  let credHits = words.filter(w => credible.includes(w));
+  const exclamations = (text.match(/!/g) || []).length;
+  const capsWords = text.split(/\s+/).filter(w => w.length > 3 && w === w.toUpperCase() && /[A-Z]/.test(w));
+
+  let rawScore = 0.25 + (sensHits.length * 0.22) + (exclamations * 0.1) + (capsWords.length * 0.12) - (credHits.length * 0.15);
+  const fakeProb = Math.max(0.04, Math.min(0.98, rawScore));
+  const isFake = fakeProb >= 0.5;
+
+  out.innerHTML = `
+    <div style="color:${isFake ? '#ef4444' : '#10b981'}; font-weight:700;">
+      [${isFake ? '⚠️ HIGH SENSATIONALISM / MISINFORMATION RISK' : '✓ VERIFIED / NEUTRAL REPORTING STYLE'}] • Misinformation Score: ${(fakeProb * 100).toFixed(1)}%
+    </div>
+    <div style="margin-top:0.4rem; color:var(--muted);">
+      Sensational N-Grams: [${sensHits.join(', ') || 'none'}] | Credibility Markers: [${credHits.join(', ') || 'none'}] | Caps/Exclamation Signals: ${capsWords.length + exclamations}
+    </div>
+  `;
+}
+
+// 2x2 Matrix, Eigenvalue & Determinant Lab
+function updateMatrixLab() {
+  const a = +(document.getElementById('matA')?.value || 2);
+  const b = +(document.getElementById('matB')?.value || 1);
+  const c = +(document.getElementById('matC')?.value || 0);
+  const d = +(document.getElementById('matD')?.value || 1.5);
+  const readout = document.getElementById('matrixReadout');
+  const canvas = document.getElementById('matrixCanvas');
+  if (!readout || !canvas) return;
+
+  const det = a * d - b * c;
+  const tr = a + d;
+  const disc = tr * tr - 4 * det;
+  let eigText = '';
+  if (disc >= 0) {
+    const l1 = ((tr + Math.sqrt(disc)) / 2).toFixed(2);
+    const l2 = ((tr - Math.sqrt(disc)) / 2).toFixed(2);
+    eigText = `Real Eigenvalues: λ₁ = ${l1}, λ₂ = ${l2}`;
+  } else {
+    const re = (tr / 2).toFixed(2);
+    const im = (Math.sqrt(-disc) / 2).toFixed(2);
+    eigText = `Complex Eigenvalues: ${re} ± ${im}i`;
+  }
+  const comp = Math.abs(det) < 1e-6 ? 'Singular (Not in GL₂(ℝ))' : (det > 0 ? 'GL₂⁺(ℝ) Component (det > 0)' : 'GL₂⁻(ℝ) Component (det < 0)');
+  readout.innerHTML = `Matrix [[${a}, ${b}], [${c}, ${d}]] | <strong>det(A) = ${det.toFixed(2)}</strong> | tr(A) = ${tr.toFixed(2)}<br>${eigText} | Topology: <span style="color:#00f2fe;">${comp}</span>`;
+
+  const ctx = canvas.getContext('2d');
+  const w = canvas.width = canvas.offsetWidth;
+  const h = canvas.height = 210;
+  ctx.clearRect(0, 0, w, h);
+  const cx = w / 2, cy = h / 2, s = 32;
+
+  ctx.strokeStyle = 'rgba(148,163,184,0.25)';
+  ctx.beginPath(); ctx.moveTo(0, cy); ctx.lineTo(w, cy); ctx.moveTo(cx, 0); ctx.lineTo(cx, h); ctx.stroke();
+
+  // Unit square
+  ctx.strokeStyle = '#64748b'; ctx.setLineDash([4, 4]);
+  ctx.strokeRect(cx, cy - s, s, s);
+  ctx.setLineDash([]);
+
+  // Transformed parallelogram
+  const pts = [[0,0], [a,c], [a+b, c+d], [b,d]];
+  ctx.fillStyle = det >= 0 ? 'rgba(0,242,254,0.22)' : 'rgba(168,85,247,0.25)';
+  ctx.strokeStyle = det >= 0 ? '#00f2fe' : '#a855f7';
+  ctx.lineWidth = 2;
+  ctx.beginPath();
+  pts.forEach(([px, py], idx) => {
+    const sx = cx + px * s, sy = cy - py * s;
+    if (idx === 0) ctx.moveTo(sx, sy); else ctx.lineTo(sx, sy);
+  });
+  ctx.closePath(); ctx.fill(); ctx.stroke();
+}
+
+// GAME 1: Gradient Descent Valley Finder
+let gdX = -3.6, gdSteps = 0;
+function resetGD() {
+  gdX = -3.6; gdSteps = 0;
+  drawGD();
+  const msg = document.getElementById('gdStatus');
+  if (msg) msg.textContent = 'Ball placed at x = -3.60. Choose a learning rate α and step toward the global minimum (x ≈ 1.45)!';
+}
+function stepGD() {
+  const lr = +(document.getElementById('gdLr')?.value || 0.15);
+  // f(x) = 0.25*x^4 - 0.3*x^3 - 1.5*x^2 + 0.8*x + 4
+  const grad = Math.pow(gdX, 3) - 0.9 * Math.pow(gdX, 2) - 3 * gdX + 0.8;
+  gdX = Math.max(-4.2, Math.min(4.2, gdX - lr * grad));
+  gdSteps++;
+  drawGD();
+  const msg = document.getElementById('gdStatus');
+  if (!msg) return;
+  if (Math.abs(gdX - 1.45) < 0.18) {
+    msg.innerHTML = `<span style="color:#10b981;">✓ Global Minimum Reached at x = ${gdX.toFixed(2)} in ${gdSteps} steps!</span>`;
+  } else if (Math.abs(gdX + 1.15) < 0.18 && Math.abs(grad) < 0.15) {
+    msg.innerHTML = `<span style="color:#f59e0b;">⚠️ Trapped in Local Minimum at x = ${gdX.toFixed(2)}! Try a larger α to escape.</span>`;
+  } else {
+    msg.textContent = `Step ${gdSteps}: x = ${gdX.toFixed(2)} | Gradient f'(x) = ${grad.toFixed(2)}`;
+  }
+}
+function drawGD() {
+  const canvas = document.getElementById('gdCanvas');
+  if (!canvas) return;
+  const ctx = canvas.getContext('2d');
+  const w = canvas.width = canvas.offsetWidth;
+  const h = canvas.height = 175;
+  ctx.clearRect(0, 0, w, h);
+
+  const f = x => 0.25 * Math.pow(x, 4) - 0.3 * Math.pow(x, 3) - 1.5 * Math.pow(x, 2) + 0.8 * x + 4.5;
+  const toSx = x => ((x + 4.2) / 8.4) * (w - 30) + 15;
+  const toSy = y => h - 20 - (y / 14) * (h - 35);
+
+  ctx.strokeStyle = '#00f2fe'; ctx.lineWidth = 2; ctx.beginPath();
+  for (let x = -4.0; x <= 4.0; x += 0.08) {
+    const sx = toSx(x), sy = toSy(f(x));
+    if (x === -4.0) ctx.moveTo(sx, sy); else ctx.lineTo(sx, sy);
+  }
+  ctx.stroke();
+
+  // Ball
+  ctx.fillStyle = '#a855f7';
+  ctx.beginPath(); ctx.arc(toSx(gdX), toSy(f(gdX)), 7, 0, Math.PI * 2); ctx.fill();
+}
+
+// GAME 2: Eigenvalue & Determinant Speed Blitz
+let blitzScore = 0, blitzAns = 0;
+function nextBlitzQuestion() {
+  const a = Math.floor(Math.random() * 7) - 3;
+  const b = Math.floor(Math.random() * 7) - 3;
+  const c = Math.floor(Math.random() * 7) - 3;
+  const d = Math.floor(Math.random() * 7) - 3;
+  const askDet = Math.random() > 0.4;
+  blitzAns = askDet ? (a * d - b * c) : (a + d);
+  const qEl = document.getElementById('blitzPrompt');
+  if (qEl) {
+    qEl.innerHTML = `Score: <strong>${blitzScore}</strong> | Compute <strong>${askDet ? 'det(A)' : 'trace(A)'}</strong> for <code>[[${a}, ${b}], [${c}, ${d}]]</code>:`;
+  }
+}
+function checkBlitz() {
+  const inp = document.getElementById('blitzInput');
+  const fb = document.getElementById('blitzFeedback');
+  if (!inp || !fb) return;
+  const val = parseInt(inp.value, 10);
+  if (val === blitzAns) {
+    blitzScore++;
+    fb.innerHTML = `<span style="color:#10b981;">✓ Correct! (${blitzAns})</span>`;
+    inp.value = '';
+    nextBlitzQuestion();
+  } else {
+    fb.innerHTML = `<span style="color:#ef4444;">✕ Try again! Remember det = ad - bc, trace = a + d.</span>`;
+  }
+}
+
+// GAME 3: Monty Hall & Bayesian Intuition Simulator
+let mhStayWins = 0, mhStayTotal = 0, mhSwitchWins = 0, mhSwitchTotal = 0;
+function playMontyHall(trials, doSwitch) {
+  for (let i = 0; i < trials; i++) {
+    const prize = Math.floor(Math.random() * 3);
+    const pick = Math.floor(Math.random() * 3);
+    const won = doSwitch ? (pick !== prize) : (pick === prize);
+    if (doSwitch) { mhSwitchTotal++; if (won) mhSwitchWins++; }
+    else { mhStayTotal++; if (won) mhStayWins++; }
+  }
+  const el = document.getElementById('mhStats');
+  if (el) {
+    const stayPct = mhStayTotal ? ((mhStayWins / mhStayTotal) * 100).toFixed(1) : '0.0';
+    const swPct = mhSwitchTotal ? ((mhSwitchWins / mhSwitchTotal) * 100).toFixed(1) : '0.0';
+    el.innerHTML = `<strong>Stay Strategy:</strong> ${mhStayWins}/${mhStayTotal} wins (${stayPct}%)  |  <strong style="color:#10b981;">Switch Strategy:</strong> ${mhSwitchWins}/${mhSwitchTotal} wins (${swPct}%)`;
+  }
+}
+
+// Spot the AI Reasoning Flaw
 function evaluateTrace(choice) {
   const box = document.getElementById('reasoningVerdict');
   if (!box) return;
   box.classList.add('show');
   if (choice === 'A') {
     box.style.borderLeftColor = 'var(--accent-green)';
-    box.innerHTML = '<strong>✓ Spot On! Trace A contains a subtle topological fallacy.</strong> For $m(t) = t^3 - t$, the eigenvalues $\\{0, 1, -1\\}$ partition $\\mathbb{R}^4$ into eigenspaces of dimensions $(2, 1, 1)$, so $G \\cong GL_2(\\mathbb{R}) \\times GL_1(\\mathbb{R}) \\times GL_1(\\mathbb{R})$. Trace A falsely assumes $GL_n(\\mathbb{R})$ is path-connected (1 component), ignoring $\\det(X) > 0$ vs. $\\det(X) < 0$ (2 components each $\\Rightarrow 2^3 = 8$).';
+    box.innerHTML = '<strong>✓ Spot On! Trace A contains a subtle topological fallacy.</strong> For m(t) = t³ - t, the eigenvalues {0, 1, -1} partition ℝ⁴ into eigenspaces of dimensions (2, 1, 1), so G ≅ GL₂(ℝ) × GL₁(ℝ) × GL₁(ℝ). Trace A falsely assumes GL_n(ℝ) is path-connected (1 component), ignoring det(X) > 0 vs. det(X) < 0 (2 components each ⇒ 2³ = 8).';
   } else {
     box.style.borderLeftColor = 'var(--accent-red)';
-    box.innerHTML = '<strong>✕ Look closer at Trace A!</strong> Trace B correctly decomposes $G \\cong GL_2(\\mathbb{R}) \\times GL_1(\\mathbb{R}) \\times GL_1(\\mathbb{R})$ and multiplies the 2 determinant components per factor ($2 \\times 2 \\times 2 = 8$). Trace A forgets that $GL_n(\\mathbb{R})$ has two disconnected components ($\\det > 0$ and $\\det < 0$).';
+    box.innerHTML = '<strong>✕ Look closer at Trace A!</strong> Trace B correctly decomposes G ≅ GL₂(ℝ) × GL₁(ℝ) × GL₁(ℝ) and multiplies the 2 determinant components per factor (2 × 2 × 2 = 8). Trace A forgets that GL_n(ℝ) has two disconnected components.';
   }
 }
 
-// Interactive 2D Cosine Similarity Explorer
+// 2D Cosine Similarity & Time-Series Visualizers
 function updateCosineViz() {
   const canvas = document.getElementById('cosineCanvas');
   const angleSlider = document.getElementById('vecAngle');
@@ -195,26 +410,20 @@ function updateCosineViz() {
   const rad = (deg * Math.PI) / 180;
   const sim = Math.cos(rad);
   const passes = sim >= 0.70;
-
-  label.innerHTML = `Angle θ = <strong>${deg}°</strong> | Cosine Similarity = <strong>${sim.toFixed(3)}</strong> | Gate (≥ 0.70): <span style="color:${passes ? '#10b981' : '#ef4444'}">${passes ? 'ACCEPTED (Cited)' : 'FILTERED OUT (Blocked)'}</span>`;
+  label.innerHTML = `Angle θ = <strong>${deg}°</strong> | Cosine Similarity = <strong>${sim.toFixed(3)}</strong> | Gate (≥ 0.70): <span style="color:${passes ? '#10b981' : '#ef4444'}">${passes ? 'ACCEPTED' : 'FILTERED OUT'}</span>`;
 
   const ctx = canvas.getContext('2d');
   const w = canvas.width = canvas.offsetWidth;
-  const h = canvas.height = 220;
+  const h = canvas.height = 190;
   ctx.clearRect(0, 0, w, h);
-
-  const ox = 70, oy = h - 40, len = 135;
-  // Axes
+  const ox = 60, oy = h - 30, len = 120;
   ctx.strokeStyle = 'rgba(148,163,184,0.3)';
-  ctx.beginPath(); ctx.moveTo(ox, 20); ctx.lineTo(ox, oy); ctx.lineTo(w - 30, oy); ctx.stroke();
+  ctx.beginPath(); ctx.moveTo(ox, 15); ctx.lineTo(ox, oy); ctx.lineTo(w - 25, oy); ctx.stroke();
 
-  // Query Vector (fixed at 15 deg)
   const qRad = (15 * Math.PI) / 180;
-  drawArrow(ctx, ox, oy, ox + len * Math.cos(qRad), oy - len * Math.sin(qRad), '#00f2fe', 'Query Vector q');
-
-  // Document Chunk Vector (15 + deg)
+  drawArrow(ctx, ox, oy, ox + len * Math.cos(qRad), oy - len * Math.sin(qRad), '#00f2fe', 'Query q');
   const dRad = ((15 + deg) * Math.PI) / 180;
-  drawArrow(ctx, ox, oy, ox + len * Math.cos(dRad), oy - len * Math.sin(dRad), passes ? '#10b981' : '#ef4444', 'Chunk Vector d');
+  drawArrow(ctx, ox, oy, ox + len * Math.cos(dRad), oy - len * Math.sin(dRad), passes ? '#10b981' : '#ef4444', 'Chunk d');
 }
 
 function drawArrow(ctx, x1, y1, x2, y2, color, text) {
@@ -225,7 +434,6 @@ function drawArrow(ctx, x1, y1, x2, y2, color, text) {
   ctx.fillText(text, x2 + 8, y2 + 4);
 }
 
-// Interactive Time-Series Decomposition Visualizer
 function updateTsViz() {
   const canvas = document.getElementById('tsDecompCanvas');
   const seasonSlider = document.getElementById('seasonWeight');
@@ -237,25 +445,17 @@ function updateTsViz() {
 
   const ctx = canvas.getContext('2d');
   const w = canvas.width = canvas.offsetWidth;
-  const h = canvas.height = 220;
+  const h = canvas.height = 190;
   ctx.clearRect(0, 0, w, h);
-
-  ctx.strokeStyle = '#00f2fe';
-  ctx.lineWidth = 2;
-  ctx.beginPath();
+  ctx.strokeStyle = '#00f2fe'; ctx.lineWidth = 2; ctx.beginPath();
   for (let x = 0; x < w - 20; x++) {
     const t = x / 28;
-    const trend = 0.22 * x;
-    const seasonal = sWeight * 42 * Math.sin(t * Math.PI);
-    const noise = 5 * Math.sin(t * 7.3);
-    const y = (h - 35) - (trend + seasonal + noise);
-    if (x === 0) ctx.moveTo(x + 10, y);
-    else ctx.lineTo(x + 10, y);
+    const y = (h - 30) - (0.2 * x + sWeight * 38 * Math.sin(t * Math.PI) + 5 * Math.sin(t * 7.3));
+    if (x === 0) ctx.moveTo(x + 10, y); else ctx.lineTo(x + 10, y);
   }
   ctx.stroke();
 }
 
-// Category Filter
 function filterItems(cardClass, category, btn) {
   btn.parentElement.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
   btn.classList.add('active');
@@ -265,14 +465,12 @@ function filterItems(cardClass, category, btn) {
   });
 }
 
-// Web3Forms Contact Submit
 async function handleContactSubmit(e) {
   e.preventDefault();
   const name = document.getElementById('senderName').value.trim();
   const email = document.getElementById('senderEmail').value.trim();
   const message = document.getElementById('senderMsg').value.trim();
   const key = document.getElementById('web3Key').value.trim();
-
   try {
     const res = await fetch('https://api.web3forms.com/submit', {
       method: 'POST',
@@ -288,15 +486,16 @@ async function handleContactSubmit(e) {
   window.location.href = `mailto:aksainibits@gmail.com?subject=${encodeURIComponent('Portfolio Inquiry from ' + name)}&body=${encodeURIComponent(message)}`;
 }
 
-// Initialize Everything on Load
 document.addEventListener('DOMContentLoaded', () => {
   loadPosts();
   loadProjects();
   loadTestimonials();
   updateCosineViz();
   updateTsViz();
+  updateMatrixLab();
+  resetGD();
+  nextBlitzQuestion();
 
-  // Typing animation
   const typedEl = document.getElementById('typed-text');
   if (typedEl) {
     const roles = ["AI & Machine Learning Engineer", "LLM Evaluation & RAG Specialist", "BITS Pilani Mathematics Graduate", "NLP & Data Pipeline Architect"];
@@ -311,7 +510,6 @@ document.addEventListener('DOMContentLoaded', () => {
     })();
   }
 
-  // Chart.js Benchmarks
   const tsCtx = document.getElementById('tsChart');
   const nlpCtx = document.getElementById('nlpChart');
   if (tsCtx && nlpCtx && typeof Chart !== 'undefined') {
@@ -334,7 +532,6 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 });
 
-// Terminal Commands
 function runCmd(key) {
   const body = document.getElementById('terminal-body');
   const map = {
