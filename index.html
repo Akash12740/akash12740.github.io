@@ -4,32 +4,35 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Akash Saini | AI & ML Engineer</title>
+
+  <!-- Open Graph / Social Preview Meta Tags -->
+  <meta property="og:title" content="Akash Saini | AI & Machine Learning Engineer" />
+  <meta property="og:description" content="BITS Pilani M.Sc. Mathematics graduate specializing in LLM Fine-Tuning, RAG Pipelines, NLP, and MLOps. Interactive AI Playground, Benchmarks & Projects." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://akash12740.github.io/" />
+  <meta property="og:image" content="https://akash12740.github.io/IMG_Akash_Saini.jpg" />
+
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600&family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+
   <style>
     :root {
       --bg: #050811;
-      --surface: rgba(15, 23, 42, 0.65);
+      --surface: rgba(15, 23, 42, 0.68);
       --surface-solid: #0f172a;
       --text: #f8fafc;
       --muted: #94a3b8;
       --accent: #00f2fe;
       --accent-2: #4facfe;
       --accent-purple: #a855f7;
-      --border: rgba(56, 189, 248, 0.18);
+      --border: rgba(56, 189, 248, 0.2);
       --glow: 0 0 25px rgba(0, 242, 254, 0.25);
     }
 
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
-
-    html {
-      scroll-behavior: smooth;
-    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
 
     body {
       font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
@@ -39,132 +42,101 @@
       overflow-x: hidden;
     }
 
-    /* Background Neural Canvas */
     #neural-canvas {
       position: fixed;
-      top: 0;
-      left: 0;
+      inset: 0;
       width: 100%;
       height: 100%;
       z-index: -1;
       pointer-events: none;
     }
 
-    /* Ambient Glow Orbs */
     .orb {
       position: fixed;
       border-radius: 50%;
-      filter: blur(110px);
+      filter: blur(115px);
       z-index: -2;
       opacity: 0.35;
       animation: floatOrb 14s ease-in-out infinite alternate;
     }
-
-    .orb-1 {
-      width: 420px;
-      height: 420px;
-      background: #0284c7;
-      top: -100px;
-      left: -100px;
-    }
-
-    .orb-2 {
-      width: 380px;
-      height: 380px;
-      background: #7e22ce;
-      bottom: -80px;
-      right: -80px;
-      animation-delay: -7s;
-    }
+    .orb-1 { width: 420px; height: 420px; background: #0284c7; top: -100px; left: -100px; }
+    .orb-2 { width: 380px; height: 380px; background: #7e22ce; bottom: -80px; right: -80px; animation-delay: -7s; }
 
     @keyframes floatOrb {
       0% { transform: translate(0, 0) scale(1); }
       100% { transform: translate(60px, 40px) scale(1.15); }
     }
 
-    /* Scroll Progress Bar */
     #scroll-progress {
       position: fixed;
-      top: 0;
-      left: 0;
-      height: 3px;
-      width: 0%;
+      top: 0; left: 0; height: 3px; width: 0%;
       background: linear-gradient(90deg, var(--accent), var(--accent-purple));
       z-index: 1000;
       box-shadow: 0 0 10px var(--accent);
     }
+
+    #toast {
+      position: fixed;
+      bottom: 28px; right: 28px;
+      background: rgba(15, 23, 42, 0.96);
+      border: 1px solid var(--accent);
+      color: var(--text);
+      font-family: 'Fira Code', monospace;
+      font-size: 0.85rem;
+      padding: 0.85rem 1.25rem;
+      border-radius: 10px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6), var(--glow);
+      transform: translateY(100px);
+      opacity: 0;
+      transition: all 0.3s ease;
+      z-index: 2000;
+    }
+    #toast.show { transform: translateY(0); opacity: 1; }
 
     /* Navigation */
     nav {
       position: sticky;
       top: 0;
       z-index: 100;
-      background: rgba(5, 8, 17, 0.78);
+      background: rgba(5, 8, 17, 0.82);
       backdrop-filter: blur(14px);
       border-bottom: 1px solid var(--border);
-      padding: 1rem 6%;
+      padding: 0.95rem 6%;
       display: flex;
       justify-content: space-between;
       align-items: center;
     }
-
     .logo {
       font-family: 'Fira Code', monospace;
       font-weight: 700;
       font-size: 1.15rem;
       color: var(--text);
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
     }
-
-    .logo span {
-      color: var(--accent);
-    }
-
-    .nav-links {
-      display: flex;
-      gap: 1.75rem;
-      align-items: center;
-    }
-
+    .logo span { color: var(--accent); }
+    .nav-links { display: flex; gap: 1.4rem; align-items: center; }
     .nav-links a {
       color: var(--muted);
       text-decoration: none;
-      font-size: 0.9rem;
+      font-size: 0.86rem;
       font-weight: 500;
       position: relative;
       transition: color 0.25s;
     }
-
     .nav-links a::after {
       content: '';
       position: absolute;
-      width: 0;
-      height: 2px;
-      bottom: -4px;
-      left: 0;
+      width: 0; height: 2px; bottom: -4px; left: 0;
       background: linear-gradient(90deg, var(--accent), var(--accent-purple));
       transition: width 0.3s ease;
     }
+    .nav-links a:hover { color: var(--text); }
+    .nav-links a:hover::after { width: 100%; }
 
-    .nav-links a:hover {
-      color: var(--text);
-    }
+    .container { max-width: 1140px; margin: 0 auto; padding: 0 1.5rem; }
 
-    .nav-links a:hover::after {
-      width: 100%;
-    }
-
-    .container {
-      max-width: 1120px;
-      margin: 0 auto;
-      padding: 0 1.5rem;
-    }
-
-    /* Hero Section */
+    /* Hero Section with Photo + Terminal */
     header {
-      padding: 5.5rem 0 4rem;
+      padding: 4.5rem 0 3.5rem;
       display: grid;
       grid-template-columns: 1.15fr 0.85fr;
       gap: 2.5rem;
@@ -178,22 +150,20 @@
       background: rgba(0, 242, 254, 0.08);
       border: 1px solid rgba(0, 242, 254, 0.25);
       color: var(--accent);
-      padding: 0.4rem 0.95rem;
+      padding: 0.38rem 0.9rem;
       border-radius: 999px;
-      font-size: 0.82rem;
+      font-size: 0.8rem;
       font-family: 'Fira Code', monospace;
-      margin-bottom: 1.25rem;
+      margin-bottom: 1.1rem;
     }
 
     .pulse-dot {
-      width: 8px;
-      height: 8px;
+      width: 8px; height: 8px;
       background: #10b981;
       border-radius: 50%;
       box-shadow: 0 0 8px #10b981;
       animation: pulse 1.8s infinite;
     }
-
     @keyframes pulse {
       0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7); }
       70% { transform: scale(1); box-shadow: 0 0 0 8px rgba(16, 185, 129, 0); }
@@ -201,11 +171,11 @@
     }
 
     h1 {
-      font-size: clamp(2.4rem, 5vw, 3.8rem);
+      font-size: clamp(2.3rem, 4.8vw, 3.65rem);
       font-weight: 800;
       line-height: 1.1;
       letter-spacing: -1.5px;
-      margin-bottom: 0.85rem;
+      margin-bottom: 0.8rem;
     }
 
     .gradient-text {
@@ -216,286 +186,329 @@
 
     .typing-wrapper {
       font-family: 'Fira Code', monospace;
-      font-size: 1.1rem;
+      font-size: 1.05rem;
       color: var(--accent);
-      min-height: 1.8rem;
-      margin-bottom: 1.25rem;
+      min-height: 1.7rem;
+      margin-bottom: 1.1rem;
     }
-
     .cursor {
       display: inline-block;
-      width: 2px;
-      height: 1.1em;
+      width: 2px; height: 1.1em;
       background-color: var(--accent);
       vertical-align: middle;
       animation: blink 0.8s infinite;
     }
-
-    @keyframes blink {
-      0%, 49% { opacity: 1; }
-      50%, 100% { opacity: 0; }
-    }
+    @keyframes blink { 0%, 49% { opacity: 1; } 50%, 100% { opacity: 0; } }
 
     .hero-desc {
       color: var(--muted);
-      font-size: 1.05rem;
-      margin-bottom: 2rem;
+      font-size: 1.02rem;
+      margin-bottom: 1.75rem;
       max-width: 580px;
     }
 
-    .cta-group {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 1rem;
-    }
+    .cta-group { display: flex; flex-wrap: wrap; gap: 0.8rem; }
 
     .btn {
       display: inline-flex;
       align-items: center;
-      gap: 0.5rem;
-      padding: 0.8rem 1.5rem;
+      gap: 0.45rem;
+      padding: 0.75rem 1.3rem;
       border-radius: 10px;
       font-weight: 600;
-      font-size: 0.92rem;
+      font-size: 0.88rem;
       text-decoration: none;
       transition: all 0.25s ease;
       cursor: pointer;
     }
-
     .btn-primary {
       background: linear-gradient(135deg, var(--accent), var(--accent-2));
       color: #050811;
       box-shadow: var(--glow);
+      border: none;
     }
-
-    .btn-primary:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 0 32px rgba(0, 242, 254, 0.5);
-    }
-
+    .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 0 32px rgba(0, 242, 254, 0.5); }
     .btn-glass {
       background: var(--surface);
       border: 1px solid var(--border);
       color: var(--text);
       backdrop-filter: blur(10px);
     }
+    .btn-glass:hover { border-color: var(--accent); transform: translateY(-2px); }
 
-    .btn-glass:hover {
-      border-color: var(--accent);
-      transform: translateY(-2px);
+    /* Hero Right Column: Photo Card + Terminal */
+    .hero-right {
+      display: flex;
+      flex-direction: column;
+      gap: 1.25rem;
     }
 
-    /* Interactive Terminal Card */
+    .profile-showcase {
+      display: flex;
+      align-items: center;
+      gap: 1.15rem;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      backdrop-filter: blur(14px);
+      border-radius: 16px;
+      padding: 1rem 1.25rem;
+      box-shadow: 0 12px 35px rgba(0, 0, 0, 0.5);
+    }
+
+    .avatar-ring {
+      position: relative;
+      width: 86px;
+      height: 86px;
+      border-radius: 50%;
+      padding: 3px;
+      background: linear-gradient(135deg, var(--accent), var(--accent-purple));
+      flex-shrink: 0;
+      box-shadow: 0 0 20px rgba(0, 242, 254, 0.35);
+    }
+
+    .avatar-ring img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: top center;
+      border-radius: 50%;
+      display: block;
+      background: #0f172a;
+      transition: transform 0.35s ease;
+    }
+
+    .profile-showcase:hover .avatar-ring img {
+      transform: scale(1.06);
+    }
+
+    .profile-meta h3 {
+      font-size: 1.05rem;
+      font-weight: 700;
+      margin-bottom: 0.15rem;
+    }
+    .profile-meta .uni-badge {
+      font-family: 'Fira Code', monospace;
+      font-size: 0.78rem;
+      color: var(--accent);
+      display: block;
+      margin-bottom: 0.25rem;
+    }
+    .profile-meta .loc-text {
+      font-size: 0.8rem;
+      color: var(--muted);
+    }
+
+    /* Interactive Terminal */
     .terminal {
-      background: rgba(10, 15, 28, 0.88);
+      background: rgba(10, 15, 28, 0.9);
       border: 1px solid var(--border);
       border-radius: 14px;
       overflow: hidden;
       box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6), var(--glow);
       font-family: 'Fira Code', monospace;
-      font-size: 0.85rem;
+      font-size: 0.82rem;
     }
-
     .terminal-header {
-      background: rgba(30, 41, 59, 0.7);
-      padding: 0.65rem 1rem;
+      background: rgba(30, 41, 59, 0.75);
+      padding: 0.6rem 1rem;
       display: flex;
       align-items: center;
       justify-content: space-between;
       border-bottom: 1px solid var(--border);
     }
-
-    .dots {
-      display: flex;
-      gap: 6px;
-    }
-
-    .dot {
-      width: 11px;
-      height: 11px;
-      border-radius: 50%;
-    }
-
+    .dots { display: flex; gap: 6px; }
+    .dot { width: 10px; height: 10px; border-radius: 50%; }
     .dot.red { background: #ef4444; }
     .dot.yellow { background: #f59e0b; }
     .dot.green { background: #10b981; }
-
-    .terminal-title {
-      color: var(--muted);
-      font-size: 0.78rem;
-    }
-
-    .terminal-body {
-      padding: 1.25rem;
-      min-height: 250px;
-      color: #cbd5e1;
-    }
-
-    .cmd-line {
-      margin-bottom: 0.65rem;
-    }
-
-    .prompt-symbol {
-      color: #10b981;
-    }
-
+    .terminal-title { color: var(--muted); font-size: 0.75rem; }
+    .terminal-body { padding: 1.1rem; min-height: 175px; color: #cbd5e1; }
+    .cmd-line { margin-bottom: 0.55rem; }
+    .prompt-symbol { color: #10b981; }
     .cmd-output {
       color: var(--muted);
-      margin-bottom: 0.9rem;
+      margin-bottom: 0.75rem;
       padding-left: 0.75rem;
       border-left: 2px solid rgba(0, 242, 254, 0.3);
     }
-
     .terminal-actions {
       display: flex;
       flex-wrap: wrap;
       gap: 0.45rem;
-      padding: 0.75rem 1.25rem;
-      background: rgba(15, 23, 42, 0.6);
+      padding: 0.7rem 1.1rem;
+      background: rgba(15, 23, 42, 0.65);
       border-top: 1px solid var(--border);
     }
-
     .term-chip {
       background: rgba(56, 189, 248, 0.1);
       border: 1px solid rgba(56, 189, 248, 0.25);
       color: var(--accent);
       font-family: 'Fira Code', monospace;
-      font-size: 0.75rem;
-      padding: 0.3rem 0.6rem;
+      font-size: 0.74rem;
+      padding: 0.28rem 0.58rem;
       border-radius: 6px;
       cursor: pointer;
       transition: all 0.2s;
     }
-
-    .term-chip:hover {
-      background: var(--accent);
-      color: #050811;
-    }
+    .term-chip:hover { background: var(--accent); color: #050811; }
 
     /* Metrics Strip */
     .metrics-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
       gap: 1.25rem;
-      margin: 1rem 0 3rem;
+      margin: 1rem 0 2.5rem;
     }
-
     .metric-card {
       background: var(--surface);
       border: 1px solid var(--border);
       backdrop-filter: blur(12px);
       border-radius: 14px;
-      padding: 1.4rem;
+      padding: 1.35rem;
       text-align: center;
       transition: transform 0.3s, border-color 0.3s;
     }
-
-    .metric-card:hover {
-      transform: translateY(-4px);
-      border-color: var(--accent);
-    }
-
+    .metric-card:hover { transform: translateY(-4px); border-color: var(--accent); }
     .metric-num {
-      font-size: 2rem;
+      font-size: 1.95rem;
       font-weight: 800;
       font-family: 'Fira Code', monospace;
       background: linear-gradient(135deg, var(--accent), var(--accent-purple));
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
     }
-
-    .metric-label {
-      color: var(--muted);
-      font-size: 0.88rem;
-      margin-top: 0.25rem;
-    }
+    .metric-label { color: var(--muted); font-size: 0.86rem; margin-top: 0.25rem; }
 
     /* Section Styling */
-    section {
-      padding: 4.5rem 0;
-    }
-
+    section { padding: 4rem 0; }
     .section-tag {
       font-family: 'Fira Code', monospace;
       color: var(--accent);
-      font-size: 0.85rem;
+      font-size: 0.84rem;
       display: block;
-      margin-bottom: 0.4rem;
+      margin-bottom: 0.35rem;
     }
+    h2 { font-size: 1.95rem; font-weight: 800; letter-spacing: -0.75px; margin-bottom: 1.5rem; }
 
-    h2 {
-      font-size: 2rem;
-      font-weight: 800;
-      letter-spacing: -0.75px;
-      margin-bottom: 2rem;
-    }
+    .reveal { opacity: 0; transform: translateY(28px); transition: opacity 0.7s ease-out, transform 0.7s ease-out; }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
 
-    /* Scroll Reveal Animation */
-    .reveal {
-      opacity: 0;
-      transform: translateY(28px);
-      transition: opacity 0.7s ease-out, transform 0.7s ease-out;
-    }
-
-    .reveal.visible {
-      opacity: 1;
-      transform: translateY(0);
-    }
-
-    /* 3D Tilt Glass Cards */
     .tilt-card {
       background: var(--surface);
       border: 1px solid var(--border);
       backdrop-filter: blur(12px);
       border-radius: 16px;
-      padding: 1.65rem;
+      padding: 1.6rem;
       transition: transform 0.15s ease-out, border-color 0.3s, box-shadow 0.3s;
       transform-style: preserve-3d;
     }
-
     .tilt-card:hover {
       border-color: rgba(0, 242, 254, 0.55);
       box-shadow: 0 12px 35px rgba(0, 0, 0, 0.45), 0 0 20px rgba(0, 242, 254, 0.12);
+    }
+
+    /* Filter Tabs */
+    .filter-bar {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.6rem;
+      margin-bottom: 1.75rem;
+    }
+    .filter-btn {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      color: var(--muted);
+      font-family: 'Fira Code', monospace;
+      font-size: 0.82rem;
+      padding: 0.45rem 0.95rem;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .filter-btn.active, .filter-btn:hover {
+      background: rgba(0, 242, 254, 0.14);
+      border-color: var(--accent);
+      color: var(--accent);
     }
 
     /* Skills Grid */
     .skills-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-      gap: 1.5rem;
+      gap: 1.4rem;
     }
-
     .skill-cat-title {
       font-family: 'Fira Code', monospace;
       color: var(--accent);
-      font-size: 1rem;
-      margin-bottom: 1rem;
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
+      font-size: 0.98rem;
+      margin-bottom: 0.9rem;
     }
-
-    .tags {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.5rem;
-    }
-
+    .tags { display: flex; flex-wrap: wrap; gap: 0.48rem; }
     .tag {
       background: rgba(56, 189, 248, 0.08);
       border: 1px solid rgba(56, 189, 248, 0.2);
       color: var(--text);
-      padding: 0.35rem 0.7rem;
+      padding: 0.32rem 0.65rem;
       border-radius: 7px;
-      font-size: 0.83rem;
+      font-size: 0.81rem;
       font-family: 'Fira Code', monospace;
       transition: all 0.2s;
     }
+    .tag:hover { background: rgba(0, 242, 254, 0.2); border-color: var(--accent); transform: translateY(-2px); }
 
-    .tag:hover {
-      background: rgba(0, 242, 254, 0.2);
-      border-color: var(--accent);
-      transform: translateY(-2px);
+    /* Interactive AI Playground */
+    .playground-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.5rem;
+    }
+    .pg-textarea, .pg-input {
+      width: 100%;
+      background: rgba(5, 8, 17, 0.85);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      color: var(--text);
+      font-family: 'Fira Code', monospace;
+      font-size: 0.85rem;
+      padding: 0.85rem;
+      margin-bottom: 0.85rem;
+      outline: none;
+    }
+    .pg-textarea:focus, .pg-input:focus { border-color: var(--accent); }
+    .pg-result-box {
+      background: rgba(5, 8, 17, 0.85);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 1rem;
+      font-family: 'Fira Code', monospace;
+      font-size: 0.82rem;
+      min-height: 195px;
+      color: #cbd5e1;
+    }
+    .sim-bar-wrap {
+      background: rgba(30, 41, 59, 0.8);
+      border-radius: 6px;
+      height: 8px;
+      margin: 0.45rem 0 0.9rem;
+      overflow: hidden;
+    }
+    .sim-bar-fill {
+      height: 100%;
+      background: linear-gradient(90deg, var(--accent), var(--accent-purple));
+      width: 0%;
+      transition: width 0.5s ease;
+    }
+
+    /* Charts Grid */
+    .charts-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 1.5rem;
+    }
+    .chart-wrap {
+      position: relative;
+      height: 250px;
+      margin-top: 0.75rem;
     }
 
     /* Timeline */
@@ -505,94 +518,122 @@
       border-left: 2px solid rgba(56, 189, 248, 0.25);
       display: flex;
       flex-direction: column;
-      gap: 1.75rem;
+      gap: 1.6rem;
     }
-
-    .timeline-item {
-      position: relative;
-    }
-
+    .timeline-item { position: relative; }
     .timeline-item::before {
       content: '';
       position: absolute;
-      left: -2.42rem;
-      top: 1.65rem;
-      width: 12px;
-      height: 12px;
+      left: -2.42rem; top: 1.65rem;
+      width: 12px; height: 12px;
       border-radius: 50%;
       background: var(--accent);
       box-shadow: 0 0 12px var(--accent);
     }
-
     .item-header {
       display: flex;
       justify-content: space-between;
       align-items: baseline;
       flex-wrap: wrap;
       gap: 0.5rem;
-      margin-bottom: 0.5rem;
+      margin-bottom: 0.45rem;
     }
-
-    .item-title {
-      font-size: 1.15rem;
-      font-weight: 700;
-    }
-
-    .item-company {
-      color: var(--accent);
-      font-weight: 600;
-    }
-
+    .item-title { font-size: 1.12rem; font-weight: 700; }
+    .item-company { color: var(--accent); font-weight: 600; }
     .item-date {
       font-family: 'Fira Code', monospace;
-      font-size: 0.82rem;
+      font-size: 0.8rem;
       color: var(--muted);
       background: rgba(148, 163, 184, 0.1);
       padding: 0.2rem 0.6rem;
       border-radius: 6px;
     }
-
-    .item-list {
-      margin-top: 0.75rem;
-      padding-left: 1.2rem;
-      color: var(--muted);
-      font-size: 0.95rem;
-    }
-
-    .item-list li {
-      margin-bottom: 0.45rem;
-    }
+    .item-list { margin-top: 0.7rem; padding-left: 1.2rem; color: var(--muted); font-size: 0.94rem; }
+    .item-list li { margin-bottom: 0.42rem; }
 
     /* Projects */
     .projects-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-      gap: 1.75rem;
+      grid-template-columns: repeat(auto-fit, minmax(310px, 1fr));
+      gap: 1.6rem;
     }
-
-    .project-card {
+    .project-card { display: flex; flex-direction: column; justify-content: space-between; }
+    .project-card p { color: var(--muted); font-size: 0.94rem; margin: 0.8rem 0 1.25rem; }
+    .project-actions {
       display: flex;
-      flex-direction: column;
-      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 0.65rem;
+      margin-top: 1.2rem;
+      padding-top: 0.95rem;
+      border-top: 1px solid var(--border);
     }
+    .btn-sm { padding: 0.48rem 0.88rem; font-size: 0.79rem; border-radius: 8px; font-family: 'Fira Code', monospace; }
 
-    .project-card p {
-      color: var(--muted);
-      font-size: 0.95rem;
-      margin: 0.85rem 0 1.35rem;
-    }
-
-    /* Contact */
-    .contact-box {
+    /* GitHub Heatmap Card */
+    .gh-graph-wrap {
+      overflow-x: auto;
+      padding: 1rem 0 0.5rem;
       text-align: center;
-      padding: 3rem 1.5rem;
-      background: linear-gradient(145deg, rgba(15, 23, 42, 0.8), rgba(30, 27, 75, 0.5));
+    }
+    .gh-graph-wrap img {
+      max-width: 100%;
+      height: auto;
+      border-radius: 8px;
+      filter: hue-rotate(15deg) brightness(1.08);
     }
 
-    .contact-box p {
-      color: var(--muted);
-      max-width: 560px;
-      margin: 0.75rem auto 2rem;
+    /* Contact Grid */
+    .contact-grid {
+      display: grid;
+      grid-template-columns: 1fr 1.1fr;
+      gap: 2rem;
+      align-items: start;
+    }
+
+    /* Project Modal */
+    .modal-backdrop {
+      position: fixed;
+      inset: 0;
+      background: rgba(5, 8, 17, 0.85);
+      backdrop-filter: blur(8px);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 1500;
+      padding: 1.25rem;
+    }
+    .modal-backdrop.open { display: flex; }
+    .modal-box {
+      background: #0f172a;
+      border: 1px solid var(--accent);
+      border-radius: 16px;
+      max-width: 650px;
+      width: 100%;
+      padding: 2rem;
+      box-shadow: 0 25px 60px rgba(0, 0, 0, 0.8), var(--glow);
+      position: relative;
+    }
+    .modal-close {
+      position: absolute;
+      top: 1.25rem; right: 1.25rem;
+      background: rgba(148, 163, 184, 0.15);
+      border: none;
+      color: var(--text);
+      width: 32px; height: 32px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 1.1rem;
+    }
+    .arch-flow {
+      background: rgba(5, 8, 17, 0.85);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 1rem;
+      font-family: 'Fira Code', monospace;
+      font-size: 0.82rem;
+      color: var(--accent);
+      margin: 1rem 0;
+      line-height: 1.7;
     }
 
     footer {
@@ -601,23 +642,19 @@
       border-top: 1px solid var(--border);
       color: var(--muted);
       font-family: 'Fira Code', monospace;
-      font-size: 0.82rem;
+      font-size: 0.8rem;
     }
 
-    @media (max-width: 860px) {
-      header {
-        grid-template-columns: 1fr;
-        padding-top: 3.5rem;
-      }
-      .nav-links {
-        display: none;
-      }
+    @media (max-width: 900px) {
+      header, .playground-grid, .contact-grid { grid-template-columns: 1fr; }
+      .nav-links { display: none; }
     }
   </style>
 </head>
 <body>
 
   <div id="scroll-progress"></div>
+  <div id="toast">✓ Copied aksainibits@gmail.com to clipboard!</div>
   <div class="orb orb-1"></div>
   <div class="orb orb-2"></div>
   <canvas id="neural-canvas"></canvas>
@@ -625,61 +662,76 @@
   <nav>
     <div class="logo"><span><</span>Akash.AI<span>/></span></div>
     <div class="nav-links">
-      <a href="#skills">// skills</a>
-      <a href="#experience">// experience</a>
+      <a href="#playground">// live_ai</a>
       <a href="#projects">// projects</a>
-      <a href="#education">// education</a>
+      <a href="#benchmarks">// benchmarks</a>
+      <a href="#experience">// experience</a>
+      <a href="#github-activity">// github</a>
       <a href="#contact">// contact</a>
     </div>
   </nav>
 
   <div class="container">
-    <!-- Hero -->
+    <!-- Hero Section -->
     <header>
       <div>
         <div class="status-pill">
           <span class="pulse-dot"></span>
-          <span>AVAILABLE FOR AI/ML & DATA ROLES</span>
+          <span>OPEN TO AI/ML, GENAI & DATA ROLES</span>
         </div>
         <h1>Hi, I'm <span class="gradient-text">Akash Saini</span></h1>
         <div class="typing-wrapper">
           <span id="typed-text"></span><span class="cursor"></span>
         </div>
         <p class="hero-desc">
-          M.Sc. Mathematics graduate from <strong>BITS Pilani</strong> specializing in LLM fine-tuning, RAG architectures, NLP pipelines, and MLOps. Building reliable, scalable intelligence from raw data to production.
+          Integrated M.Sc. Mathematics graduate from <strong>BITS Pilani</strong> specializing in LLM fine-tuning, RAG pipelines, NLP, and MLOps. Turning mathematical rigor into reliable, production-ready AI systems.
         </p>
         <div class="cta-group">
           <a href="#projects" class="btn btn-primary">Explore Projects ⚡</a>
           <a href="resume_AkashSaini.pdf" target="_blank" class="btn btn-glass">Resume.pdf ↓</a>
-          <a href="https://github.com/Akash12740" target="_blank" class="btn btn-glass">GitHub (@Akash12740)</a>
+          <a href="https://www.linkedin.com/in/akash-saini-83a42a1b1/" target="_blank" class="btn btn-glass">LinkedIn ↗</a>
+          <a href="https://github.com/Akash12740" target="_blank" class="btn btn-glass">GitHub ↗</a>
         </div>
       </div>
 
-      <!-- Interactive Terminal -->
-      <div class="terminal">
-        <div class="terminal-header">
-          <div class="dots">
-            <span class="dot red"></span>
-            <span class="dot yellow"></span>
-            <span class="dot green"></span>
+      <!-- Right Column: Photo Card + Interactive Terminal -->
+      <div class="hero-right">
+        <div class="profile-showcase">
+          <div class="avatar-ring">
+            <img src="IMG_Akash_Saini.jpg" alt="Akash Saini - BITS Pilani Mathematics" />
           </div>
-          <span class="terminal-title">akash@bits-pilani: ~/portfolio</span>
-        </div>
-        <div class="terminal-body" id="terminal-body">
-          <div class="cmd-line"><span class="prompt-symbol">➜</span> python3 load_profile.py</div>
-          <div class="cmd-output">
-            <div>[✓] Education: Integrated M.Sc. Math @ BITS Pilani</div>
-            <div>[✓] Focus: LLMs, RAG, NLP, Time-Series, MLOps</div>
-            <div>[✓] Location: Delhi, India (Open to Remote)</div>
-            <div>[✓] Status: Ready to deploy value.</div>
+          <div class="profile-meta">
+            <h3>Akash Saini</h3>
+            <span class="uni-badge">🎓 BITS Pilani • Dept. of Mathematics</span>
+            <span class="loc-text">📍 Delhi, India • AI/LLM & Data Science</span>
           </div>
-          <div class="cmd-line"><span class="prompt-symbol">➜</span> <span style="color:#94a3b8;">Click a command below to inspect:</span></div>
         </div>
-        <div class="terminal-actions">
-          <button class="term-chip" onclick="runCmd('stack')">./stack.sh</button>
-          <button class="term-chip" onclick="runCmd('llm')">./llm_ops.sh</button>
-          <button class="term-chip" onclick="runCmd('impact')">./metrics.sh</button>
-          <button class="term-chip" onclick="runCmd('contact')">./ping.sh</button>
+
+        <div class="terminal">
+          <div class="terminal-header">
+            <div class="dots">
+              <span class="dot red"></span>
+              <span class="dot yellow"></span>
+              <span class="dot green"></span>
+            </div>
+            <span class="terminal-title">akash@bits-pilani: ~/portfolio</span>
+          </div>
+          <div class="terminal-body" id="terminal-body">
+            <div class="cmd-line"><span class="prompt-symbol">➜</span> python3 load_profile.py</div>
+            <div class="cmd-output">
+              <div>[✓] Degree: Integrated M.Sc. Mathematics (BITS Pilani)</div>
+              <div>[✓] Expertise: Gemini Fine-Tuning, RAG, FAISS, NLP</div>
+              <div>[✓] Ops: Docker, Kubernetes, GitHub Actions</div>
+              <div>[✓] Status: Ready to deploy value.</div>
+            </div>
+            <div class="cmd-line"><span class="prompt-symbol">➜</span> <span style="color:#94a3b8;">Click a script below to inspect:</span></div>
+          </div>
+          <div class="terminal-actions">
+            <button class="term-chip" onclick="runCmd('stack')">./stack.sh</button>
+            <button class="term-chip" onclick="runCmd('llm')">./llm_ops.sh</button>
+            <button class="term-chip" onclick="runCmd('impact')">./metrics.sh</button>
+            <button class="term-chip" onclick="runCmd('contact')">./ping.sh</button>
+          </div>
         </div>
       </div>
     </header>
@@ -700,13 +752,145 @@
       </div>
       <div class="metric-card">
         <div class="metric-num" data-target="15" data-suffix=" Yrs">0 Yrs</div>
-        <div class="metric-label">Energy Time-Series Analyzed</div>
+        <div class="metric-label">Energy Time-Series Modeled</div>
       </div>
     </div>
 
+    <!-- Interactive Live AI Playground -->
+    <section id="playground" class="reveal">
+      <span class="section-tag">01. INTERACTIVE_SANDBOX</span>
+      <h2>Live Mini-RAG & NLP Playground</h2>
+      <div class="tilt-card">
+        <p style="color: var(--muted); font-size: 0.94rem; margin-bottom: 1.25rem;">
+          Test a client-side simulation of my <strong>FAISS Cosine Similarity & Citation-Grounding Engine</strong>. Ask a question about my background or paste custom context text below to see semantic chunk scoring and keyword extraction in real time.
+        </p>
+        <div class="playground-grid">
+          <div>
+            <label style="font-family: 'Fira Code', monospace; font-size: 0.8rem; color: var(--accent); display:block; margin-bottom:0.35rem;">KNOWLEDGE BASE CONTEXT</label>
+            <textarea id="pg-context" class="pg-textarea" rows="5">Akash Saini graduated from BITS Pilani with an Integrated M.Sc. in Mathematics. At Innodata, he curated and audited instruction fine-tuning datasets for Gemini models and mitigated hallucinations using prompt engineering. At Swecha, he built Python ingestion pipelines that scaled unstructured text data by 6,000x. His projects include a 95% accurate NLTK Fake News Classifier, a 15-year SARIMA Energy Forecasting model, and a FAISS RAG Document Q&A system.</textarea>
+            <label style="font-family: 'Fira Code', monospace; font-size: 0.8rem; color: var(--accent); display:block; margin-bottom:0.35rem;">QUERY PROMPT</label>
+            <input id="pg-query" class="pg-input" type="text" value="What did Akash build at Innodata and Swecha?" />
+            <div style="display:flex; flex-wrap:wrap; gap:0.5rem;">
+              <button class="btn btn-primary btn-sm" onclick="runRagPlayground()">Run Retrieval & Grounding ⚡</button>
+              <button class="btn btn-glass btn-sm" onclick="setSampleQuery('What is his education and math background?')">Sample: Education</button>
+              <button class="btn btn-glass btn-sm" onclick="setSampleQuery('What accuracy did the Fake News NLP model get?')">Sample: NLP Accuracy</button>
+            </div>
+          </div>
+          <div>
+            <label style="font-family: 'Fira Code', monospace; font-size: 0.8rem; color: var(--accent); display:block; margin-bottom:0.35rem;">GROUNDED RETRIEVAL OUTPUT</label>
+            <div class="pg-result-box" id="pg-output">
+              Click <strong>"Run Retrieval & Grounding ⚡"</strong> to execute TF-IDF + Cosine Similarity matching across context chunks.
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Projects with Filter Tabs -->
+    <section id="projects" class="reveal">
+      <span class="section-tag">02. DEPLOYED_MODELS</span>
+      <h2>AI & ML Projects</h2>
+      <div class="filter-bar">
+        <button class="filter-btn active" onclick="filterItems('project-card', 'all', this)">All Projects (3)</button>
+        <button class="filter-btn" onclick="filterItems('project-card', 'llm', this)">LLM & Vector DB</button>
+        <button class="filter-btn" onclick="filterItems('project-card', 'nlp', this)">NLP & Classification</button>
+        <button class="filter-btn" onclick="filterItems('project-card', 'ts', this)">Time-Series & Stats</button>
+      </div>
+
+      <div class="projects-grid">
+        <div class="tilt-card project-card" data-cat="llm">
+          <div>
+            <div class="item-header">
+              <span class="item-title">RAG Document Q&A Assistant</span>
+              <span class="item-date">LLM & Vector DB</span>
+            </div>
+            <p>
+              Built a Retrieval-Augmented Generation pipeline using Sentence-Transformers and <strong>FAISS</strong> vector indexing with strict citation grounding and similarity thresholds to mitigate LLM hallucinations.
+            </p>
+            <div class="tags">
+              <span class="tag">Python</span>
+              <span class="tag">FAISS</span>
+              <span class="tag">RAG</span>
+              <span class="tag">Prompt Guardrails</span>
+            </div>
+          </div>
+          <div class="project-actions">
+            <a href="https://github.com/Akash12740/rag-document-qa-assistant" target="_blank" class="btn btn-primary btn-sm">View Code ↗</a>
+            <button class="btn btn-glass btn-sm" onclick="openModal('rag')">Architecture →</button>
+          </div>
+        </div>
+
+        <div class="tilt-card project-card" data-cat="nlp">
+          <div>
+            <div class="item-header">
+              <span class="item-title">Fake News Detection Pipeline</span>
+              <span class="item-date">NLP • 95% Acc</span>
+            </div>
+            <p>
+              Engineered an end-to-end NLP text classification pipeline using NLTK for pre-processing, tokenization, and feature engineering. Optimized classifier architectures via hyperparameter tuning to achieve <strong>95% accuracy</strong>.
+            </p>
+            <div class="tags">
+              <span class="tag">Python</span>
+              <span class="tag">NLP</span>
+              <span class="tag">NLTK</span>
+              <span class="tag">GridSearchCV</span>
+            </div>
+          </div>
+          <div class="project-actions">
+            <a href="https://github.com/Akash12740/fake-news-detection-nlp" target="_blank" class="btn btn-primary btn-sm">View Code ↗</a>
+            <button class="btn btn-glass btn-sm" onclick="openModal('fakenews')">Architecture →</button>
+          </div>
+        </div>
+
+        <div class="tilt-card project-card" data-cat="ts">
+          <div>
+            <div class="item-header">
+              <span class="item-title">Statistical Forecasting of Energy Data</span>
+              <span class="item-date">Time Series</span>
+            </div>
+            <p>
+              Engineered a comparative time-series forecasting pipeline analyzing 15 years of state energy data. Executed extensive EDA and evaluated AR, MA, ARIMA, and SARIMA models using RMSE and MAPE metrics.
+            </p>
+            <div class="tags">
+              <span class="tag">Time Series</span>
+              <span class="tag">ARIMA / SARIMA</span>
+              <span class="tag">RMSE & MAPE</span>
+              <span class="tag">statsmodels</span>
+            </div>
+          </div>
+          <div class="project-actions">
+            <a href="https://github.com/Akash12740/energy-demand-time-series-forecasting" target="_blank" class="btn btn-primary btn-sm">View Code ↗</a>
+            <button class="btn btn-glass btn-sm" onclick="openModal('energy')">Architecture →</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Model Benchmarks (Chart.js) -->
+    <section id="benchmarks" class="reveal">
+      <span class="section-tag">03. QUANTITATIVE_EVALUATION</span>
+      <h2>Model Benchmarks & Metrics</h2>
+      <div class="charts-grid">
+        <div class="tilt-card">
+          <div class="skill-cat-title">📉 Time-Series RMSE Comparison (Lower is Better)</div>
+          <p style="color: var(--muted); font-size: 0.86rem;">24-month out-of-sample holdout across 15 years of state energy demand data (SARIMA reduced RMSE by 60% vs AR).</p>
+          <div class="chart-wrap">
+            <canvas id="tsChart"></canvas>
+          </div>
+        </div>
+        <div class="tilt-card">
+          <div class="skill-cat-title">🎯 Fake News Classifier Accuracy Benchmark</div>
+          <p style="color: var(--muted); font-size: 0.86rem;">5-fold stratified cross-validation across sublinear n-gram TF-IDF features.</p>
+          <div class="chart-wrap">
+            <canvas id="nlpChart"></canvas>
+          </div>
+        </div>
+      </div>
+    </section>
+
     <!-- Skills -->
     <section id="skills" class="reveal">
-      <span class="section-tag">01. TECH_STACK</span>
+      <span class="section-tag">04. TECH_STACK</span>
       <h2>Core Competencies</h2>
       <div class="skills-grid">
         <div class="tilt-card">
@@ -755,16 +939,21 @@
       </div>
     </section>
 
-    <!-- Experience -->
+    <!-- Experience with Role Filter -->
     <section id="experience" class="reveal">
-      <span class="section-tag">02. CAREER_LOG</span>
+      <span class="section-tag">05. CAREER_LOG</span>
       <h2>Experience</h2>
+      <div class="filter-bar">
+        <button class="filter-btn active" onclick="filterItems('timeline-item', 'all', this)">All Roles (4)</button>
+        <button class="filter-btn" onclick="filterItems('timeline-item', 'llm', this)">LLM & AI Training</button>
+        <button class="filter-btn" onclick="filterItems('timeline-item', 'ml', this)">ML & Academic</button>
+        <button class="filter-btn" onclick="filterItems('timeline-item', 'swe', this)">Software Engineering</button>
+      </div>
+
       <div class="timeline">
-        <div class="timeline-item tilt-card">
+        <div class="timeline-item tilt-card" data-cat="ml">
           <div class="item-header">
-            <div>
-              <span class="item-title">Learning Facilitator</span> • <span class="item-company">WILP, BITS Pilani</span>
-            </div>
+            <div><span class="item-title">Learning Facilitator</span> • <span class="item-company">WILP, BITS Pilani</span></div>
             <span class="item-date">Aug 2025 – Present</span>
           </div>
           <ul class="item-list">
@@ -772,11 +961,9 @@
           </ul>
         </div>
 
-        <div class="timeline-item tilt-card">
+        <div class="timeline-item tilt-card" data-cat="llm">
           <div class="item-header">
-            <div>
-              <span class="item-title">AI/LLM Training Workflows Senior Associate</span> • <span class="item-company">Innodata</span>
-            </div>
+            <div><span class="item-title">AI/LLM Training Workflows Senior Associate</span> • <span class="item-company">Innodata</span></div>
             <span class="item-date">Jan 2026 – Jun 2026</span>
           </div>
           <ul class="item-list">
@@ -785,11 +972,9 @@
           </ul>
         </div>
 
-        <div class="timeline-item tilt-card">
+        <div class="timeline-item tilt-card" data-cat="swe">
           <div class="item-header">
-            <div>
-              <span class="item-title">Software Development Intern</span> • <span class="item-company">PCHF</span>
-            </div>
+            <div><span class="item-title">Software Development Intern</span> • <span class="item-company">PCHF</span></div>
             <span class="item-date">Jul 2022 – Dec 2022</span>
           </div>
           <ul class="item-list">
@@ -799,11 +984,9 @@
           </ul>
         </div>
 
-        <div class="timeline-item tilt-card">
+        <div class="timeline-item tilt-card" data-cat="ml">
           <div class="item-header">
-            <div>
-              <span class="item-title">Machine Learning Engineer Intern</span> • <span class="item-company">Swecha</span>
-            </div>
+            <div><span class="item-title">Machine Learning Engineer Intern</span> • <span class="item-company">Swecha</span></div>
             <span class="item-date">May 2021 – Jul 2021</span>
           </div>
           <ul class="item-list">
@@ -814,71 +997,24 @@
       </div>
     </section>
 
-    <!-- Projects -->
-    <section id="projects" class="reveal">
-      <span class="section-tag">03. DEPLOYED_MODELS</span>
-      <h2>AI & ML Projects</h2>
-      <div class="projects-grid">
-        <div class="tilt-card project-card">
-          <div>
-            <div class="item-header">
-              <span class="item-title">Fake News Detection Pipeline</span>
-              <span class="item-date">2023</span>
-            </div>
-            <p>
-              Engineered an end-to-end NLP text classification pipeline using NLTK for pre-processing, tokenization, and feature engineering. Optimized classifier architectures via hyperparameter tuning to achieve <strong>95% accuracy</strong>.
-            </p>
-          </div>
-          <div class="tags">
-            <span class="tag">Python</span>
-            <span class="tag">NLP</span>
-            <span class="tag">NLTK</span>
-            <span class="tag">Hyperparameter Tuning</span>
-          </div>
-        </div>
-
-        <div class="tilt-card project-card">
-          <div>
-            <div class="item-header">
-              <span class="item-title">Statistical Forecasting of Energy Data</span>
-              <span class="item-date">2022</span>
-            </div>
-            <p>
-              Engineered a comparative time-series forecasting pipeline analyzing 15 years of state energy data. Executed extensive EDA and evaluated AR, MA, ARIMA, and SARIMA models using RMSE and MAPE metrics.
-            </p>
-          </div>
-          <div class="tags">
-            <span class="tag">Time Series</span>
-            <span class="tag">ARIMA / SARIMA</span>
-            <span class="tag">RMSE & MAPE</span>
-            <span class="tag">EDA</span>
-          </div>
-        </div>
-      </div>
-    </section>
-
     <!-- Education & Leadership -->
     <section id="education" class="reveal">
-      <span class="section-tag">04. CREDENTIALS</span>
+      <span class="section-tag">06. CREDENTIALS</span>
       <h2>Education & Leadership</h2>
       <div class="timeline">
         <div class="timeline-item tilt-card">
           <div class="item-header">
-            <div>
-              <span class="item-title">Integrated Master of Science in Mathematics</span> • <span class="item-company">BITS Pilani</span>
-            </div>
+            <div><span class="item-title">Integrated Master of Science in Mathematics</span> • <span class="item-company">BITS Pilani (Pilani Campus)</span></div>
             <span class="item-date">2019 – 2023</span>
           </div>
-          <p style="color: var(--muted); font-size: 0.95rem; margin-top: 0.5rem;">
+          <p style="color: var(--muted); font-size: 0.94rem; margin-top: 0.5rem;">
             <strong>Coursework:</strong> Machine Learning, Artificial Intelligence, Foundations of Data Science, Optimization, Probability & Statistics, Information Retrieval, Linear Algebra, Applied Statistical Methods.
           </p>
         </div>
 
         <div class="timeline-item tilt-card">
           <div class="item-header">
-            <div>
-              <span class="item-title">Leadership & Operations</span> • <span class="item-company">BITS Pilani</span>
-            </div>
+            <div><span class="item-title">Leadership & Operations</span> • <span class="item-company">BITS Pilani</span></div>
             <span class="item-date">2019 – 2023</span>
           </div>
           <ul class="item-list">
@@ -889,39 +1025,275 @@
       </div>
     </section>
 
-    <!-- Contact -->
+    <!-- Live GitHub Activity -->
+    <section id="github-activity" class="reveal">
+      <span class="section-tag">07. OPEN_SOURCE_PULSE</span>
+      <h2>GitHub Contributions (@Akash12740)</h2>
+      <div class="tilt-card">
+        <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:0.75rem; margin-bottom:0.75rem;">
+          <span style="color: var(--muted); font-size: 0.92rem;">Live commit activity & repository streak synced from GitHub</span>
+          <a href="https://github.com/Akash12740" target="_blank" class="btn btn-glass btn-sm">Follow @Akash12740 ↗</a>
+        </div>
+        <div class="gh-graph-wrap">
+          <img src="https://ghchart.rshah.org/00f2fe/Akash12740" alt="Akash12740 GitHub Contribution Graph" />
+        </div>
+      </div>
+    </section>
+
+    <!-- Contact Section with Direct Form -->
     <section id="contact" class="reveal">
-      <div class="tilt-card contact-box">
-        <span class="section-tag">05. INITIATE_HANDSHAKE</span>
-        <h2>Let's Build Something Intelligent</h2>
-        <p>
-          Actively seeking opportunities in AI/ML Engineering, LLM Fine-Tuning & Evaluation, and Data Science. Reach out directly via email or connect on GitHub.
-        </p>
-        <div class="cta-group" style="justify-content: center;">
-          <a href="mailto:aksainibits@gmail.com" class="btn btn-primary">aksainibits@gmail.com</a>
-          <a href="https://github.com/Akash12740" target="_blank" class="btn btn-glass">GitHub (@Akash12740)</a>
-          <a href="resume_AkashSaini.pdf" target="_blank" class="btn btn-glass">Download Resume</a>
+      <span class="section-tag">08. INITIATE_HANDSHAKE</span>
+      <h2>Let's Build Something Intelligent</h2>
+      <div class="contact-grid">
+        <div class="tilt-card">
+          <h3 style="font-size: 1.25rem; margin-bottom: 0.75rem;">Direct Channels</h3>
+          <p style="color: var(--muted); font-size: 0.94rem; margin-bottom: 1.5rem;">
+            Actively seeking opportunities in <strong>AI/ML Engineering</strong>, <strong>LLM Evaluation & Fine-Tuning</strong>, and <strong>Data Science</strong>. Click below to copy my email or connect on LinkedIn & GitHub.
+          </p>
+          <div class="cta-group" style="flex-direction: column; align-items: stretch;">
+            <button onclick="copyEmail()" class="btn btn-primary" style="justify-content:center;">📋 Copy Email: aksainibits@gmail.com</button>
+            <a href="https://www.linkedin.com/in/akash-saini-83a42a1b1/" target="_blank" class="btn btn-glass" style="justify-content:center;">LinkedIn Profile ↗</a>
+            <a href="https://github.com/Akash12740" target="_blank" class="btn btn-glass" style="justify-content:center;">GitHub (@Akash12740) ↗</a>
+            <a href="resume_AkashSaini.pdf" target="_blank" class="btn btn-glass" style="justify-content:center;">Download Resume (PDF) ↓</a>
+          </div>
+        </div>
+
+        <div class="tilt-card">
+          <h3 style="font-size: 1.25rem; margin-bottom: 0.75rem;">Send a Quick Message</h3>
+          <form id="contactForm" onsubmit="handleContactSubmit(event)">
+            <!-- Optional: Replace YOUR_WEB3FORMS_ACCESS_KEY with a free key from web3forms.com -->
+            <input type="hidden" id="web3Key" value="b85a0e4a-e4c4-4c83-84cf-5deb470c88c1" />
+            <input type="text" id="senderName" class="pg-input" placeholder="Your Name / Company" required />
+            <input type="email" id="senderEmail" class="pg-input" placeholder="Your Email Address" required />
+            <textarea id="senderMsg" class="pg-textarea" rows="4" placeholder="Hi Akash, we'd love to discuss an AI/ML role..." required></textarea>
+            <button type="submit" class="btn btn-primary" style="width:100%; justify-content:center;">Send Message 🚀</button>
+          </form>
         </div>
       </div>
     </section>
   </div>
 
+  <!-- Project Architecture Modal -->
+  <div class="modal-backdrop" id="projectModal" onclick="closeModal(event)">
+    <div class="modal-box">
+      <button class="modal-close" onclick="closeModalBtn()">✕</button>
+      <span class="section-tag" id="modalTag">SYSTEM_BLUEPRINT</span>
+      <h3 id="modalTitle" style="font-size: 1.4rem; margin-bottom: 0.5rem;">Project Title</h3>
+      <div class="arch-flow" id="modalArch"></div>
+      <p id="modalDesc" style="color: var(--muted); font-size: 0.95rem; margin-bottom: 1.25rem;"></p>
+      <a id="modalRepoLink" href="#" target="_blank" class="btn btn-primary btn-sm">Open GitHub Repository ↗</a>
+    </div>
+  </div>
+
   <footer>
     <div class="container">
-      SYSTEM.STATUS: ONLINE • © 2026 AKASH SAINI • HOSTED ON GITHUB PAGES
+      SYSTEM.STATUS: ONLINE • © 2026 AKASH SAINI • BITS PILANI • HOSTED ON GITHUB PAGES
     </div>
   </footer>
 
   <script>
-    // 1. Scroll Progress Bar
+    // Copy Email Toast
+    function showToast(msg) {
+      const toast = document.getElementById('toast');
+      toast.textContent = msg;
+      toast.classList.add('show');
+      setTimeout(() => toast.classList.remove('show'), 3200);
+    }
+
+    function copyEmail() {
+      navigator.clipboard.writeText('aksainibits@gmail.com');
+      showToast('✓ Copied aksainibits@gmail.com to clipboard!');
+    }
+
+    // Contact Form Handler (Supports Web3Forms API or instant Mailto Fallback)
+    async function handleContactSubmit(e) {
+      e.preventDefault();
+      const name = document.getElementById('senderName').value.trim();
+      const email = document.getElementById('senderEmail').value.trim();
+      const message = document.getElementById('senderMsg').value.trim();
+      const key = document.getElementById('web3Key').value.trim();
+
+      if (key && key !== 'YOUR_WEB3FORMS_ACCESS_KEY') {
+        try {
+          const res = await fetch('https://api.web3forms.com/submit', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ access_key: key, name, email, message, subject: `Portfolio Inquiry from ${name}` })
+          });
+          if (res.ok) {
+            showToast('✓ Message sent directly to Akash!');
+            document.getElementById('contactForm').reset();
+            return;
+          }
+        } catch (_) {}
+      }
+
+      const mailtoUrl = `mailto:aksainibits@gmail.com?subject=${encodeURIComponent('Portfolio Inquiry from ' + name)}&body=${encodeURIComponent(`From: ${name} (${email})\n\n${message}`)}`;
+      window.location.href = mailtoUrl;
+      showToast('✓ Opening email client with your message...');
+    }
+
+    // Live Mini-RAG & NLP Playground
+    function setSampleQuery(q) {
+      document.getElementById('pg-query').value = q;
+      runRagPlayground();
+    }
+
+    function runRagPlayground() {
+      const contextText = document.getElementById('pg-context').value.trim();
+      const queryText = document.getElementById('pg-query').value.trim();
+      const outBox = document.getElementById('pg-output');
+
+      if (!contextText || !queryText) {
+        outBox.innerHTML = '<span style="color:#f59e0b;">Please enter both context text and a query prompt.</span>';
+        return;
+      }
+
+      const stop = new Set(['the','is','at','which','on','and','a','an','in','to','of','for','with','he','his','from','by','what','did']);
+      const tokenize = str => str.toLowerCase().replace(/[^a-z0-9\s]/g, '').split(/\s+/).filter(w => w.length > 1 && !stop.has(w));
+
+      const qTokens = tokenize(queryText);
+      const sentences = contextText.split(/(?<=[.!?])\s+/).filter(Boolean);
+
+      const scored = sentences.map((sent, idx) => {
+        const sTokens = tokenize(sent);
+        const overlap = qTokens.filter(t => sTokens.includes(t)).length;
+        const denom = Math.sqrt((qTokens.length || 1) * (sTokens.length || 1));
+        const sim = Math.min(0.98, +(overlap / denom + (overlap > 0 ? 0.28 : 0)).toFixed(3));
+        return { idx, sent, sim };
+      }).sort((a, b) => b.sim - a.sim);
+
+      const top = scored[0];
+      const pct = Math.round(top.sim * 100);
+
+      outBox.innerHTML = `
+        <div style="color:#10b981; margin-bottom:0.4rem;">[✓] FAISS Top-1 Chunk Retrieved (chunk_${top.idx})</div>
+        <div style="font-size:0.78rem; color:var(--muted);">Cosine Similarity Score: <strong style="color:var(--accent);">${top.sim} (${pct}%)</strong></div>
+        <div class="sim-bar-wrap"><div class="sim-bar-fill" style="width:${pct}%;"></div></div>
+        <div style="border-left:2px solid var(--accent); padding-left:0.75rem; color:#f8fafc; margin-bottom:0.65rem;">
+          "${top.sent}" <span style="color:var(--accent);">[source | chunk_${top.idx}]</span>
+        </div>
+        <div style="font-size:0.76rem; color:var(--muted);">Matched Keywords: ${qTokens.join(', ') || 'none'}</div>
+      `;
+    }
+
+    // Category Filter Buttons
+    function filterItems(cardClass, category, btn) {
+      const parent = btn.parentElement;
+      parent.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+
+      document.querySelectorAll('.' + cardClass).forEach(card => {
+        const cat = card.getAttribute('data-cat');
+        if (category === 'all' || cat === category) {
+          card.style.display = '';
+        } else {
+          card.style.display = 'none';
+        }
+      });
+    }
+
+    // Chart.js Model Benchmarks
+    function initCharts() {
+      const tsCtx = document.getElementById('tsChart');
+      const nlpCtx = document.getElementById('nlpChart');
+      if (!tsCtx || !nlpCtx || typeof Chart === 'undefined') return;
+
+      new Chart(tsCtx, {
+        type: 'bar',
+        data: {
+          labels: ['AR(2,1,0)', 'MA(0,1,2)', 'ARIMA(2,1,2)', 'SARIMA (Optimal)'],
+          datasets: [{
+            label: 'RMSE (MWh)',
+            data: [412.8, 398.5, 341.2, 164.7],
+            backgroundColor: ['rgba(148,163,184,0.45)', 'rgba(148,163,184,0.55)', 'rgba(79,172,254,0.7)', 'rgba(0,242,254,0.9)'],
+            borderColor: ['#94a3b8', '#94a3b8', '#4facfe', '#00f2fe'],
+            borderWidth: 1,
+            borderRadius: 6
+          }]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: { legend: { display: false } },
+          scales: {
+            y: { ticks: { color: '#94a3b8' }, grid: { color: 'rgba(148,163,184,0.1)' } },
+            x: { ticks: { color: '#cbd5e1', font: { family: 'Fira Code', size: 11 } }, grid: { display: false } }
+          }
+        }
+      });
+
+      new Chart(nlpCtx, {
+        type: 'bar',
+        data: {
+          labels: ['Naive Bayes', 'Logistic Reg (Tuned)', 'Passive-Aggressive (Tuned)'],
+          datasets: [{
+            label: 'Test Accuracy (%)',
+            data: [90.4, 94.2, 95.0],
+            backgroundColor: ['rgba(168,85,247,0.55)', 'rgba(79,172,254,0.75)', 'rgba(0,242,254,0.9)'],
+            borderColor: ['#a855f7', '#4facfe', '#00f2fe'],
+            borderWidth: 1,
+            borderRadius: 6
+          }]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: { legend: { display: false } },
+          scales: {
+            y: { min: 80, max: 100, ticks: { color: '#94a3b8' }, grid: { color: 'rgba(148,163,184,0.1)' } },
+            x: { ticks: { color: '#cbd5e1', font: { family: 'Fira Code', size: 11 } }, grid: { display: false } }
+          }
+        }
+      });
+    }
+    initCharts();
+
+    // Project Modal Data
+    const modalData = {
+      rag: {
+        tag: "LLM_RETRIEVAL_PIPELINE",
+        title: "RAG Document Q&A Assistant",
+        arch: "Documents (.pdf / .txt) → Overlapping Semantic Chunking → all-MiniLM-L6-v2 Embeddings → FAISS Inner-Product Index → Similarity Threshold Filter → Citation-Grounded Prompt",
+        desc: "Eliminates out-of-context hallucinations by enforcing minimum cosine similarity gates and mandatory [doc_id | chunk] source citations in every generated answer.",
+        repo: "https://github.com/Akash12740/rag-document-qa-assistant"
+      },
+      fakenews: {
+        tag: "NLP_CLASSIFICATION_PIPELINE",
+        title: "Fake News Detection Pipeline",
+        arch: "Raw News Corpus → Regex Cleaning & Stopword Removal (NLTK) → WordNet Lemmatization → Sublinear TF-IDF (1,2-grams) → 5-Fold GridSearchCV → Passive-Aggressive / Logistic Classifier (95% Acc)",
+        desc: "Designed to filter misinformation at scale by combining linguistic pre-processing with n-gram TF-IDF features and regularized classifiers evaluated via stratified cross-validation.",
+        repo: "https://github.com/Akash12740/fake-news-detection-nlp"
+      },
+      energy: {
+        tag: "TIME_SERIES_FORECASTING",
+        title: "Statistical Forecasting of Energy Data",
+        arch: "15-Year State Energy Dataset → Missing Value Imputation & Stationarity Tests (ADF) → Seasonal Decomposition → AR / MA / ARIMA / SARIMA Benchmark → RMSE & MAPE Selection",
+        desc: "Modeled long-term seasonal and trend components across 15 years of state power consumption data, identifying SARIMA(1,1,1)(1,1,1,12) configurations that minimized out-of-sample RMSE and MAPE.",
+        repo: "https://github.com/Akash12740/energy-demand-time-series-forecasting"
+      }
+    };
+
+    function openModal(key) {
+      const data = modalData[key];
+      document.getElementById('modalTag').textContent = data.tag;
+      document.getElementById('modalTitle').textContent = data.title;
+      document.getElementById('modalArch').textContent = data.arch;
+      document.getElementById('modalDesc').textContent = data.desc;
+      document.getElementById('modalRepoLink').href = data.repo;
+      document.getElementById('projectModal').classList.add('open');
+    }
+    function closeModalBtn() { document.getElementById('projectModal').classList.remove('open'); }
+    function closeModal(e) { if (e.target.id === 'projectModal') closeModalBtn(); }
+
+    // Scroll Progress Bar
     window.addEventListener('scroll', () => {
       const scrollTop = document.documentElement.scrollTop;
       const scrollHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
-      const progress = (scrollTop / scrollHeight) * 100;
-      document.getElementById('scroll-progress').style.width = progress + '%';
+      document.getElementById('scroll-progress').style.width = ((scrollTop / scrollHeight) * 100) + '%';
     });
 
-    // 2. Typing Effect
+    // Typing Effect
     const roles = [
       "AI & Machine Learning Engineer",
       "LLM Fine-Tuning & RAG Specialist",
@@ -933,24 +1305,15 @@
 
     function typeLoop() {
       const current = roles[roleIdx];
-      typedEl.textContent = isDeleting
-        ? current.substring(0, charIdx--)
-        : current.substring(0, charIdx++);
-
+      typedEl.textContent = isDeleting ? current.substring(0, charIdx--) : current.substring(0, charIdx++);
       let speed = isDeleting ? 40 : 85;
-      if (!isDeleting && charIdx === current.length + 1) {
-        speed = 1800;
-        isDeleting = true;
-      } else if (isDeleting && charIdx === 0) {
-        isDeleting = false;
-        roleIdx = (roleIdx + 1) % roles.length;
-        speed = 400;
-      }
+      if (!isDeleting && charIdx === current.length + 1) { speed = 1800; isDeleting = true; }
+      else if (isDeleting && charIdx === 0) { isDeleting = false; roleIdx = (roleIdx + 1) % roles.length; speed = 400; }
       setTimeout(typeLoop, speed);
     }
     typeLoop();
 
-    // 3. Interactive Terminal Commands
+    // Interactive Terminal Commands
     const termBody = document.getElementById('terminal-body');
     const commands = {
       stack: {
@@ -974,8 +1337,8 @@
       contact: {
         cmd: "echo $CONTACT_INFO",
         out: `<div>Email: aksainibits@gmail.com</div>
-              <div>GitHub: github.com/Akash12740</div>
-              <div>Phone: +91 9636100337 | Delhi, India</div>`
+              <div>LinkedIn: linkedin.com/in/akash-saini-83a42a1b1</div>
+              <div>GitHub: github.com/Akash12740</div>`
       }
     };
 
@@ -988,7 +1351,7 @@
       `;
     }
 
-    // 4. Scroll Reveal + Animated Metric Counters
+    // Scroll Reveal + Animated Metric Counters
     const revealEls = document.querySelectorAll('.reveal');
     const metricNums = document.querySelectorAll('.metric-num');
     let metricsAnimated = false;
@@ -1017,20 +1380,17 @@
           }
         }
       });
-    }, { threshold: 0.15 });
-
+    }, { threshold: 0.12 });
     revealEls.forEach(el => observer.observe(el));
 
-    // 5. 3D Mouse Tilt Effect on Cards
+    // 3D Mouse Tilt Effect
     document.querySelectorAll('.tilt-card').forEach(card => {
       card.addEventListener('mousemove', (e) => {
         const rect = card.getBoundingClientRect();
         const x = e.clientX - rect.left;
         const y = e.clientY - rect.top;
-        const centerX = rect.width / 2;
-        const centerY = rect.height / 2;
-        const rotateX = ((y - centerY) / centerY) * -4;
-        const rotateY = ((x - centerX) / centerX) * 4;
+        const rotateX = ((y - rect.height / 2) / (rect.height / 2)) * -3.5;
+        const rotateY = ((x - rect.width / 2) / (rect.width / 2)) * 3.5;
         card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.01, 1.01, 1.01)`;
       });
       card.addEventListener('mouseleave', () => {
@@ -1038,23 +1398,16 @@
       });
     });
 
-    // 6. Interactive Neural Network Particle Background
+    // Interactive Neural Network Particle Background
     const canvas = document.getElementById('neural-canvas');
     const ctx = canvas.getContext('2d');
     let particles = [];
     const mouse = { x: null, y: null, radius: 140 };
 
-    function resizeCanvas() {
-      canvas.width = window.innerWidth;
-      canvas.height = window.innerHeight;
-    }
+    function resizeCanvas() { canvas.width = window.innerWidth; canvas.height = window.innerHeight; }
     window.addEventListener('resize', resizeCanvas);
     resizeCanvas();
-
-    window.addEventListener('mousemove', (e) => {
-      mouse.x = e.x;
-      mouse.y = e.y;
-    });
+    window.addEventListener('mousemove', e => { mouse.x = e.x; mouse.y = e.y; });
 
     class Particle {
       constructor() {
@@ -1065,19 +1418,13 @@
         this.size = Math.random() * 2 + 1;
       }
       update() {
-        this.x += this.vx;
-        this.y += this.vy;
+        this.x += this.vx; this.y += this.vy;
         if (this.x < 0 || this.x > canvas.width) this.vx *= -1;
         if (this.y < 0 || this.y > canvas.height) this.vy *= -1;
-
         if (mouse.x !== null) {
-          const dx = mouse.x - this.x;
-          const dy = mouse.y - this.y;
+          const dx = mouse.x - this.x, dy = mouse.y - this.y;
           const dist = Math.sqrt(dx * dx + dy * dy);
-          if (dist < mouse.radius) {
-            this.x -= dx * 0.015;
-            this.y -= dy * 0.015;
-          }
+          if (dist < mouse.radius) { this.x -= dx * 0.015; this.y -= dy * 0.015; }
         }
       }
       draw() {
@@ -1102,8 +1449,7 @@
         particles[i].update();
         particles[i].draw();
         for (let j = i + 1; j < particles.length; j++) {
-          const dx = particles[i].x - particles[j].x;
-          const dy = particles[i].y - particles[j].y;
+          const dx = particles[i].x - particles[j].x, dy = particles[i].y - particles[j].y;
           const dist = Math.sqrt(dx * dx + dy * dy);
           if (dist < 130) {
             ctx.beginPath();
