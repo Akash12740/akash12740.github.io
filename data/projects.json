@@ -1,0 +1,35 @@
+﻿[
+  {
+    "id": "rag",
+    "cat": "llm",
+    "title": "RAG Document Q&A Assistant",
+    "badge": "LLM & Vector DB",
+    "summary": "Built a Retrieval-Augmented Generation pipeline using Sentence-Transformers and FAISS vector indexing with strict citation grounding and similarity thresholds to mitigate LLM hallucinations.",
+    "tags": ["Python", "FAISS", "RAG", "Prompt Guardrails"],
+    "repo": "https://github.com/Akash12740/rag-document-qa-assistant",
+    "arch": "Documents (.pdf / .txt) -> Overlapping Semantic Chunking -> all-MiniLM-L6-v2 Embeddings -> FAISS Inner-Product Index -> Similarity Threshold Filter -> Citation-Grounded Prompt",
+    "details": "Eliminates out-of-context hallucinations by enforcing minimum cosine similarity gates and mandatory [doc_id | chunk] source citations in every generated answer."
+  },
+  {
+    "id": "fakenews",
+    "cat": "nlp",
+    "title": "Fake News Detection Pipeline",
+    "badge": "NLP • 95% Acc",
+    "summary": "Engineered an end-to-end NLP text classification pipeline using NLTK for pre-processing, tokenization, and feature engineering. Optimized classifier architectures via hyperparameter tuning to achieve 95% accuracy.",
+    "tags": ["Python", "NLP", "NLTK", "GridSearchCV"],
+    "repo": "https://github.com/Akash12740/fake-news-detection-nlp",
+    "arch": "Raw News Corpus -> Regex Cleaning & Stopword Removal (NLTK) -> WordNet Lemmatization -> Sublinear TF-IDF (1,2-grams) -> 5-Fold GridSearchCV -> Passive-Aggressive / Logistic Classifier (95% Acc)",
+    "details": "Designed to filter misinformation at scale by combining linguistic pre-processing with n-gram TF-IDF features and regularized classifiers evaluated via stratified cross-validation."
+  },
+  {
+    "id": "energy",
+    "cat": "ts",
+    "title": "Statistical Forecasting of Energy Data",
+    "badge": "Time Series",
+    "summary": "Engineered a comparative time-series forecasting pipeline analyzing 15 years of state energy data. Executed extensive EDA and evaluated AR, MA, ARIMA, and SARIMA models using RMSE and MAPE metrics.",
+    "tags": ["Time Series", "ARIMA / SARIMA", "RMSE & MAPE", "statsmodels"],
+    "repo": "https://github.com/Akash12740/energy-demand-time-series-forecasting",
+    "arch": "15-Year State Energy Dataset -> Missing Value Imputation & Stationarity Tests (ADF) -> Seasonal Decomposition -> AR / MA / ARIMA / SARIMA Benchmark -> RMSE & MAPE Selection",
+    "details": "Modeled long-term seasonal and trend components across 15 years of state power consumption data, identifying SARIMA(1,1,1)(1,1,1,12) configurations that minimized out-of-sample RMSE and MAPE."
+  }
+]

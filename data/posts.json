@@ -1,0 +1,107 @@
+﻿[
+  {
+    "id": "post-007",
+    "date": "2026-11-13",
+    "topic": "llm",
+    "topic_label": "Large Language Models (LLMs)",
+    "read_time": "6 MIN READ",
+    "title": "Mitigating LLM Hallucinations: Instruction Fine-Tuning, RAG & Citation Grounding",
+    "summary": "Drawing from curating Gemini instruction fine-tuning workflows at Innodata and building FAISS RAG pipelines, here is a two-pronged defense against model fabrication.",
+    "architecture_flow": "Query -> Dense Embedding -> FAISS Top-K (Score >= Threshold) -> Strict Citation Prompt -> Grounded Answer",
+    "sections": [
+      {
+        "heading": "High-Signal Instruction Tuning & Safety Audits",
+        "body": "Curating adversarial edge cases and teaching models when to abstain ('insufficient context') drastically reduces unsupported claims during post-training."
+      },
+      {
+        "heading": "Retrieval-Augmented Generation with Similarity Gates",
+        "body": "By chunking verified documents with overlap, indexing dense embeddings in FAISS, and enforcing minimum cosine similarity thresholds plus mandatory [doc_id | chunk] citations, every claim remains auditable."
+      }
+    ],
+    "takeaway": "Combining post-training alignment with retrieval similarity gates transforms LLMs from creative text generators into verifiable enterprise knowledge engines."
+  },
+  {
+    "id": "post-006",
+    "date": "2026-11-12",
+    "topic": "ai",
+    "topic_label": "Artificial Intelligence",
+    "read_time": "5 MIN READ",
+    "title": "From Symbolic Rules to Agentic Workflows: Designing Reliable AI Systems",
+    "summary": "Modern AI has evolved from static prediction endpoints into multi-step reasoning agents. Enterprise deployments succeed when probabilistic models are wrapped in deterministic verification gates.",
+    "architecture_flow": "User Intent -> Input Guardrails -> Reasoning / Tool Execution -> Verifier Gate -> Action or HITL",
+    "sections": [
+      {
+        "heading": "Deterministic Guardrails",
+        "body": "Wrap stochastic model outputs with strict schema validation, input sanitization, and confidence thresholds before executing downstream actions."
+      },
+      {
+        "heading": "Atomic Reasoning Trace Verification",
+        "body": "Auditing intermediate reasoning steps catches subtle logical fallacies even when a model stumbles onto a plausible-looking answer."
+      }
+    ],
+    "takeaway": "Production AI reliability is an engineering systems problem—combining mathematical bounds, deterministic verification, and continuous evaluation."
+  },
+  {
+    "id": "post-005",
+    "date": "2026-11-11",
+    "topic": "ml",
+    "topic_label": "Machine Learning",
+    "read_time": "6 MIN READ",
+    "title": "The Mathematics of Generalization: Regularization, Bias-Variance & Hyperparameter Tuning",
+    "summary": "How L1/L2 regularization, stratified k-fold cross-validation, and margin maximization pushed our Fake News NLP pipeline to 95.0% out-of-sample accuracy.",
+    "architecture_flow": "min_w [ (1/N) Sum L(y_i, w^T x_i) + L1||w||_1 + L2||w||_2^2 ] -> 95.0% Out-of-Sample Accuracy",
+    "sections": [
+      {
+        "heading": "L1 vs. L2 Regularization in High-Dimensional Text",
+        "body": "Adding penalty terms constrains parameter norms, preventing high-dimensional TF-IDF n-gram features from memorizing rare noise tokens."
+      },
+      {
+        "heading": "Stratified K-Fold Validation",
+        "body": "Preserves class proportions across every validation fold, eliminating optimistic data leakage during GridSearchCV."
+      }
+    ],
+    "takeaway": "Strong feature engineering paired with regularized linear models and stratified validation often delivers superior speed and interpretability."
+  },
+  {
+    "id": "post-004",
+    "date": "2026-11-10",
+    "topic": "ds",
+    "topic_label": "Data Science",
+    "read_time": "5 MIN READ",
+    "title": "Why 80% of Data Science Impact Happens Before Model.fit()",
+    "summary": "Lessons from scaling unstructured speech and text pipelines by 6,000x at Swecha: schema enforcement, deduplication, and metric alignment beat complex architectures.",
+    "architecture_flow": "Raw Unstructured Logs -> Unicode & Regex Normalization -> Deduplication -> Feature Store -> Model",
+    "sections": [
+      {
+        "heading": "Distribution & Drift Auditing",
+        "body": "Check missingness mechanisms (MCAR vs. MAR), heavy-tailed outliers, and covariate shift between historical and live windows."
+      },
+      {
+        "heading": "Metric Alignment with Operational Risk",
+        "body": "Choose asymmetric loss metrics (Precision-Recall AUC or MAPE) when false positives and false negatives carry vastly different business costs."
+      }
+    ],
+    "takeaway": "A simple model trained on clean, de-duplicated, domain-aligned data will consistently outperform a complex model trained on noisy pipelines."
+  },
+  {
+    "id": "post-003",
+    "date": "2026-11-09",
+    "topic": "da",
+    "topic_label": "Data Analytics",
+    "read_time": "5 MIN READ",
+    "title": "Why SARIMA Outperformed ARIMA by 60% RMSE on 15-Year Energy Demand",
+    "summary": "Using Augmented Dickey-Fuller stationarity testing and seasonal differencing (D=1, s=12) to cut forecasting RMSE from 412.8 MWh down to 164.7 MWh.",
+    "architecture_flow": "Observed Series Y_t = Trend (T_t) + Seasonality (S_t) + Residual Noise (E_t)",
+    "sections": [
+      {
+        "heading": "Seasonal Decomposition & Stationarity",
+        "body": "Power consumption exhibits strong 12-month seasonal cycles alongside long-term economic drift that non-seasonal ARIMA smooths over."
+      },
+      {
+        "heading": "Window Functions & Anomaly Baselines",
+        "body": "Combining STL decomposition with rolling SQL window baselines isolates true demand spikes from predictable seasonal peaks."
+      }
+    ],
+    "takeaway": "Effective analytics isolates the specific structural driver decision-makers need to act on."
+  }
+]

@@ -1,0 +1,3 @@
+﻿User-agent: *
+Allow: /
+Sitemap: https://akash12740.github.io/sitemap.xml

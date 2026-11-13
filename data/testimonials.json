@@ -1,0 +1,17 @@
+﻿[
+  {
+    "quote": "Akash combines deep mathematical intuition from BITS Pilani with hands-on software rigor—turning messy unstructured text into a 6,000x scaled production training corpus.",
+    "author": "Engineering Lead • Swecha Voice Initiative",
+    "role": "Open-Source Speech & NLP Systems"
+  },
+  {
+    "quote": "His attention to reasoning trace verification, edge-case prompt auditing, and hallucination mitigation set the quality benchmark for our LLM instruction tuning workflows.",
+    "author": "Workflow Team • Innodata AI",
+    "role": "Gemini Fine-Tuning & AI Safety"
+  },
+  {
+    "quote": "Akash breaks down Linear Algebra, Optimization, and ML interview concepts into crystal-clear atomic steps that immediately click.",
+    "author": "WILP Learners & Topmate Mentees",
+    "role": "BITS Pilani & 1:1 Mentorship"
+  }
+]

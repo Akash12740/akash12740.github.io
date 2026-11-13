@@ -1,0 +1,33 @@
+﻿name: Daily Automated AI/ML Blog Post
+
+on:
+  schedule:
+    - cron: '0 8 * * *' # Runs daily at 08:00 UTC (13:30 IST)
+  workflow_dispatch:     # Allows manual 1-click trigger from GitHub Actions tab
+
+permissions:
+  contents: write
+
+jobs:
+  publish-post:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python 3.11
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Generate new technical post & update sitemap
+        env:
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+        run: python scripts/generate_daily_blog.py
+
+      - name: Commit and push updated posts.json & sitemap.xml
+        run: |
+          git config user.name "AkashAI-Bot"
+          git config user.email "actions@github.com"
+          git add data/posts.json sitemap.xml
+          git diff --staged --quiet || (git commit -m "chore(blog): publish daily AI/ML technical article" && git push)

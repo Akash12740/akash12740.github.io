@@ -1,324 +1,46 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Engineering Notes & Technical Blog | Akash Saini</title>
-  <meta name="description" content="Technical articles on Artificial Intelligence, Machine Learning, Data Science, Data Analytics, and Large Language Models (LLMs) by Akash Saini (BITS Pilani)." />
-
-  <!-- Google Analytics 4 -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-VHLC0PBK1D"></script>
-  <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
-    gtag('config', 'G-VHLC0PBK1D');
-  </script>
-
-  <!-- Cloudflare Web Analytics -->
+  <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-VHLC0PBK1D');</script>
   <script type="module" src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token": "759cdca45cac4461a43be4d13fcd7c42"}'></script>
-
   <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-  <style>
-    :root {
-      --bg: #050811;
-      --surface: rgba(15, 23, 42, 0.78);
-      --text: #f8fafc;
-      --muted: #94a3b8;
-      --accent: #00f2fe;
-      --accent-2: #4facfe;
-      --accent-purple: #a855f7;
-      --accent-green: #10b981;
-      --border: rgba(56, 189, 248, 0.22);
-    }
-    * { box-sizing: border-box; margin: 0; padding: 0; }
-    html { scroll-behavior: smooth; }
-    body {
-      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-      background: var(--bg);
-      color: var(--text);
-      line-height: 1.75;
-    }
-    nav {
-      position: sticky; top: 0; z-index: 100;
-      background: rgba(5, 8, 17, 0.88);
-      backdrop-filter: blur(12px);
-      border-bottom: 1px solid var(--border);
-      padding: 1rem 6%;
-      display: flex; justify-content: space-between; align-items: center;
-      flex-wrap: wrap; gap: 0.75rem;
-    }
-    .logo { font-family: 'Fira Code', monospace; font-weight: 700; color: var(--text); text-decoration: none; font-size: 1.1rem; }
-    .logo span { color: var(--accent); }
-    .nav-right { display: flex; gap: 1.25rem; align-items: center; }
-    .back-link { color: var(--accent); text-decoration: none; font-family: 'Fira Code', monospace; font-size: 0.86rem; }
-    .sub-btn {
-      background: linear-gradient(135deg, var(--accent), var(--accent-2));
-      color: #050811;
-      text-decoration: none;
-      font-family: 'Fira Code', monospace;
-      font-size: 0.8rem;
-      font-weight: 700;
-      padding: 0.42rem 0.85rem;
-      border-radius: 7px;
-    }
-    .container { max-width: 880px; margin: 0 auto; padding: 3.25rem 1.5rem 5rem; }
-    .tag { font-family: 'Fira Code', monospace; color: var(--accent); font-size: 0.82rem; display: block; margin-bottom: 0.45rem; }
-    h1 { font-size: clamp(2rem, 4vw, 2.5rem); font-weight: 800; margin-bottom: 0.65rem; letter-spacing: -1px; }
-    .subtitle { color: var(--muted); font-size: 1.02rem; margin-bottom: 2rem; }
-
-    /* Category Filter Bar */
-    .filter-bar { display: flex; flex-wrap: wrap; gap: 0.55rem; margin-bottom: 2.25rem; }
-    .filter-btn {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      color: var(--muted);
-      font-family: 'Fira Code', monospace;
-      font-size: 0.8rem;
-      padding: 0.45rem 0.9rem;
-      border-radius: 8px;
-      cursor: pointer;
-      transition: all 0.2s;
-    }
-    .filter-btn.active, .filter-btn:hover {
-      background: rgba(0, 242, 254, 0.14);
-      border-color: var(--accent);
-      color: var(--accent);
-    }
-
-    article {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: 16px;
-      padding: 2.1rem;
-      margin-bottom: 2rem;
-      transition: border-color 0.25s ease;
-    }
-    article:hover { border-color: rgba(0, 242, 254, 0.45); }
-    .meta {
-      font-family: 'Fira Code', monospace;
-      font-size: 0.78rem;
-      color: var(--accent);
-      margin-bottom: 0.55rem;
-      display: flex;
-      justify-content: space-between;
-      flex-wrap: wrap;
-      gap: 0.5rem;
-    }
-    article h2 { font-size: 1.45rem; margin-bottom: 0.9rem; line-height: 1.3; }
-    article h3 { font-size: 1.05rem; color: var(--text); margin: 1.15rem 0 0.45rem; font-family: 'Fira Code', monospace; }
-    article p { color: #cbd5e1; margin-bottom: 0.95rem; font-size: 0.96rem; }
-    article ul { padding-left: 1.3rem; color: #cbd5e1; margin-bottom: 1rem; font-size: 0.95rem; }
-    article li { margin-bottom: 0.4rem; }
-    .code-box {
-      background: #020617;
-      border: 1px solid var(--border);
-      border-radius: 10px;
-      padding: 1rem;
-      font-family: 'Fira Code', monospace;
-      font-size: 0.81rem;
-      color: var(--accent);
-      overflow-x: auto;
-      margin: 1rem 0;
-      line-height: 1.65;
-    }
-    .takeaway {
-      background: rgba(16, 185, 129, 0.08);
-      border-left: 3px solid var(--accent-green);
-      padding: 0.85rem 1rem;
-      border-radius: 0 8px 8px 0;
-      font-size: 0.92rem;
-      color: #e2e8f0;
-      margin-top: 1rem;
-    }
-    footer {
-      text-align: center;
-      padding: 2rem;
-      border-top: 1px solid var(--border);
-      color: var(--muted);
-      font-family: 'Fira Code', monospace;
-      font-size: 0.8rem;
-    }
-  </style>
+  <link rel="stylesheet" href="assets/css/style.css" />
 </head>
 <body>
   <nav>
     <a href="index.html" class="logo"><span><</span>Akash.AI<span>/></span></a>
-    <div class="nav-right">
-      <a href="https://substack.com/@akashsaini12740" target="_blank" class="sub-btn">Subscribe on Substack ↗</a>
-      <a href="index.html" class="back-link">← Back to Portfolio</a>
+    <div class="nav-links">
+      <a href="https://substack.com/@akashsaini12740" target="_blank" style="color:var(--accent);">Subscribe on Substack ↗</a>
+      <a href="index.html">← Back to Portfolio</a>
     </div>
+    <button id="themeToggle" class="theme-btn" onclick="toggleTheme()">☀️ Light</button>
   </nav>
 
-  <div class="container">
-    <span class="tag">// TECHNICAL_PUBLICATIONS_&_CASE_STUDIES</span>
-    <h1>AI, Machine Learning & Data Engineering Blog</h1>
-    <p class="subtitle">Practical architectures, mathematical foundations, and production lessons by Akash Saini (Integrated M.Sc. Mathematics, BITS Pilani).</p>
+  <div class="container" style="padding-top:3rem; padding-bottom:4rem; max-width:900px;">
+    <span class="section-tag">// AUTOMATED_DAILY_TECHNICAL_PUBLICATIONS</span>
+    <h1>AI, Machine Learning & Data Science Blog</h1>
+    <p class="hero-desc">Dynamically rendered from <code>data/posts.json</code> and updated daily via GitHub Actions.</p>
 
-    <!-- Interactive Category Filter -->
+    <input type="text" id="blogSearch" class="pg-input" placeholder="Search articles by keyword (e.g., RAG, SARIMA, Regularization)..." oninput="renderBlogArchive(window.curTopic || 'all', this.value)" />
+
     <div class="filter-bar">
-      <button class="filter-btn active" onclick="filterPosts('all', this)">All Posts (7)</button>
-      <button class="filter-btn" onclick="filterPosts('ai', this)">Artificial Intelligence</button>
-      <button class="filter-btn" onclick="filterPosts('ml', this)">Machine Learning</button>
-      <button class="filter-btn" onclick="filterPosts('ds', this)">Data Science</button>
-      <button class="filter-btn" onclick="filterPosts('da', this)">Data Analytics</button>
-      <button class="filter-btn" onclick="filterPosts('llm', this)">LLMs & RAG</button>
+      <button class="filter-btn active" onclick="window.curTopic='all'; setActive(this); renderBlogArchive('all', document.getElementById('blogSearch').value)">All Topics</button>
+      <button class="filter-btn" onclick="window.curTopic='ai'; setActive(this); renderBlogArchive('ai', document.getElementById('blogSearch').value)">AI</button>
+      <button class="filter-btn" onclick="window.curTopic='ml'; setActive(this); renderBlogArchive('ml', document.getElementById('blogSearch').value)">Machine Learning</button>
+      <button class="filter-btn" onclick="window.curTopic='ds'; setActive(this); renderBlogArchive('ds', document.getElementById('blogSearch').value)">Data Science</button>
+      <button class="filter-btn" onclick="window.curTopic='da'; setActive(this); renderBlogArchive('da', document.getElementById('blogSearch').value)">Data Analytics</button>
+      <button class="filter-btn" onclick="window.curTopic='llm'; setActive(this); renderBlogArchive('llm', document.getElementById('blogSearch').value)">LLMs & RAG</button>
     </div>
 
-    <!-- BLOG 1: ARTIFICIAL INTELLIGENCE -->
-    <article class="post-card" data-topic="ai">
-      <div class="meta">
-        <span>TOPIC 01 • ARTIFICIAL INTELLIGENCE</span>
-        <span>5 MIN READ</span>
-      </div>
-      <h2>From Symbolic Rules to Agentic Workflows: Designing Reliable AI Systems</h2>
-      <p>
-        Modern Artificial Intelligence has evolved rapidly from static prediction endpoints into autonomous, tool-using agents capable of planning multi-step tasks. However, deploying AI in enterprise environments fails when teams treat probabilistic models as deterministic software.
-      </p>
-      <h3>The 3-Layer Reliability Architecture</h3>
-      <ul>
-        <li><strong>Deterministic Guardrails:</strong> Wrap stochastic model outputs with strict schema validation, input sanitization, and confidence thresholds before executing downstream actions.</li>
-        <li><strong>Human-in-the-Loop (HITL) Escalation:</strong> Route low-confidence edge cases to human reviewers while logging failure traces for continuous dataset improvement.</li>
-        <li><strong>Closed-Loop Evaluation:</strong> Measure system-level task completion rates and safety compliance rather than relying solely on offline benchmark scores.</li>
-      </ul>
-      <div class="code-box">User Intent ──▶ Input Guardrails ──▶ Reasoning / Tool Execution ──▶ Verifier Gate ──▶ Action or HITL</div>
-      <div class="takeaway">
-        <strong>Key Takeaway:</strong> Production AI reliability is an engineering systems problem—combining mathematical bounds, deterministic verification, and continuous evaluation.
-      </div>
-    </article>
-
-    <!-- BLOG 2: MACHINE LEARNING -->
-    <article class="post-card" data-topic="ml">
-      <div class="meta">
-        <span>TOPIC 02 • MACHINE LEARNING</span>
-        <span>6 MIN READ</span>
-      </div>
-      <h2>The Mathematics of Generalization: Regularization, Bias-Variance & Hyperparameter Tuning</h2>
-      <p>
-        Training a classifier to achieve 99% accuracy on a training split is easy; ensuring it maintains 95%+ accuracy on unseen real-world distributions is the true craft of Machine Learning. When building my <strong>Fake News Detection NLP pipeline</strong>, disciplined regularization made the difference between overfitting noise and learning generalizable linguistic signals.
-      </p>
-      <h3>Why Mathematical Foundations Matter in ML</h3>
-      <ul>
-        <li><strong>L1 vs. L2 Regularization:</strong> Adding a penalty term to the loss function constrains parameter norms, preventing high-dimensional TF-IDF n-gram features from memorizing rare tokens.</li>
-        <li><strong>Stratified K-Fold Cross-Validation:</strong> Preserves class proportions across every validation fold, eliminating optimistic data leakage during <code>GridSearchCV</code>.</li>
-        <li><strong>Margin Maximization:</strong> Online linear classifiers like Passive-Aggressive algorithms update weights only when margin violations occur, yielding fast, sparse, and robust text boundaries.</li>
-      </ul>
-      <div class="code-box">Objective: min_w [ (1/N) Σ L(y_i, wᵀx_i) + λ₁‖w‖₁ + λ₂‖w‖₂² ] ──▶ 95.0% Out-of-Sample Accuracy</div>
-      <div class="takeaway">
-        <strong>Key Takeaway:</strong> Before reaching for heavier neural architectures, strong feature engineering paired with regularized linear models and stratified validation often delivers superior speed and interpretability.
-      </div>
-    </article>
-
-    <!-- BLOG 3: DATA SCIENCE -->
-    <article class="post-card" data-topic="ds">
-      <div class="meta">
-        <span>TOPIC 03 • DATA SCIENCE</span>
-        <span>5 MIN READ</span>
-      </div>
-      <h2>Why 80% of Data Science Impact Happens Before Model.fit()</h2>
-      <p>
-        In academic competitions, datasets arrive cleanly formatted in a single CSV. In real-world Data Science, signal is buried inside noisy, duplicated, and inconsistently encoded raw logs. Great data scientists treat data ingestion and hypothesis formulation as first-class engineering problems.
-      </p>
-      <h3>End-to-End Scientific Workflow</h3>
-      <ul>
-        <li><strong>Distribution & Drift Auditing:</strong> Check missingness mechanisms (MCAR vs. MAR), heavy-tailed outliers, and covariate shift between historical and current windows.</li>
-        <li><strong>Deterministic Preprocessing Pipelines:</strong> Encapsulate cleaning, imputation, and scaling inside reproducible pipelines so training and inference transformations never diverge.</li>
-        <li><strong>Metric Alignment with Business Risk:</strong> Choose asymmetric loss metrics (e.g., Precision-Recall AUC or MAPE) when false positives and false negatives carry vastly different operational costs.</li>
-      </ul>
-      <div class="code-box">Raw Unstructured Logs ──▶ Schema & Anomaly Checks ──▶ Feature Store ──▶ Hypothesis Testing ──▶ Model</div>
-      <div class="takeaway">
-        <strong>Key Takeaway:</strong> A simple model trained on clean, de-duplicated, domain-aligned data will consistently outperform a complex model trained on noisy pipelines.
-      </div>
-    </article>
-
-    <!-- BLOG 4: DATA ANALYTICS -->
-    <article class="post-card" data-topic="da">
-      <div class="meta">
-        <span>TOPIC 04 • DATA ANALYTICS</span>
-        <span>5 MIN READ</span>
-      </div>
-      <h2>Turning Raw Operational Metrics into Executive Decisions with SQL & Time-Series EDA</h2>
-      <p>
-        Data Analytics bridges the gap between raw database tables and strategic action. Whether auditing loan transaction anomalies in PostgreSQL/MongoDB or decomposing 15 years of state power demand, clarity comes from isolating signal from seasonal noise.
-      </p>
-      <h3>Practical Analytics Playbook</h3>
-      <ul>
-        <li><strong>Cohort & Funnel Decomposition:</strong> Aggregate metrics alone hide churn; slicing KPIs by acquisition cohort, region, and time window exposes root causes immediately.</li>
-        <li><strong>Window Functions in SQL:</strong> Use <code>LAG()</code>, <code>LEAD()</code>, and rolling <code>AVG() OVER (ROWS BETWEEN 6 PRECEDING AND CURRENT ROW)</code> to compute moving baselines and detect sudden anomalies.</li>
-        <li><strong>Seasonal Decomposition (STL):</strong> Separate long-term trend, recurring seasonal cycles, and residual variance before setting operational forecasts or SLAs.</li>
-      </ul>
-      <div class="code-box">Observed Series Y_t = Trend (T_t) + Seasonality (S_t) + Residual Noise (E_t)</div>
-      <div class="takeaway">
-        <strong>Key Takeaway:</strong> Effective analytics doesn't just describe what happened—it isolates the specific lever decision-makers need to pull next.
-      </div>
-    </article>
-
-    <!-- BLOG 5: LARGE LANGUAGE MODELS (LLMs) -->
-    <article class="post-card" data-topic="llm">
-      <div class="meta">
-        <span>TOPIC 05 • LARGE LANGUAGE MODELS (LLMs)</span>
-        <span>6 MIN READ</span>
-      </div>
-      <h2>Mitigating LLM Hallucinations: Instruction Fine-Tuning, RAG & Citation Grounding</h2>
-      <p>
-        Large Language Models are trained to predict plausible next tokens, which makes them fluent—but prone to confident fabrication when queried on private or specialized knowledge. Drawing from my experience curating Gemini instruction fine-tuning workflows at <strong>Innodata</strong> and building <strong>FAISS RAG pipelines</strong>, mitigating hallucinations requires a two-pronged defense.
-      </p>
-      <h3>Two Pillars of Trustworthy LLMs</h3>
-      <ul>
-        <li><strong>High-Signal Instruction Tuning & Safety Audits:</strong> Curating adversarial edge cases and teaching models when to abstain ("insufficient context") drastically reduces unsupported claims during post-training.</li>
-        <li><strong>Retrieval-Augmented Generation (RAG) with Similarity Gates:</strong> By chunking verified documents with overlap, indexing dense embeddings in FAISS, and enforcing minimum cosine similarity thresholds plus mandatory <code>[doc_id | chunk]</code> citations, every claim remains auditable.</li>
-      </ul>
-      <div class="code-box">Query ──▶ Dense Embedding ──▶ FAISS Top-K (Score ≥ Threshold) ──▶ Strict Citation Prompt ──▶ Grounded Answer</div>
-      <div class="takeaway">
-        <strong>Key Takeaway:</strong> Combining post-training alignment with retrieval similarity gates transforms LLMs from creative text generators into verifiable enterprise knowledge engines.
-      </div>
-    </article>
-
-    <!-- EXISTING CASE STUDY 01 -->
-    <article class="post-card" data-topic="ds">
-      <div class="meta">
-        <span>CASE STUDY 01 • DATA ENGINEERING & NLP</span>
-        <span>4 MIN READ</span>
-      </div>
-      <h2>How We Scaled Unstructured Speech & Text Training Data by 6,000x</h2>
-      <p>
-        During my ML Engineering internship at Swecha building <strong>"Swecha Voice"</strong>, our primary bottleneck wasn't model architecture—it was severe data scarcity and inconsistent text formatting across raw regional corpora.
-      </p>
-      <div class="code-box">Raw Unstructured Text ──▶ Unicode & Regex Normalization ──▶ Automated Deduplication ──▶ Indexed Training Corpus (6,000x Scale)</div>
-      <p>
-        By replacing manual cleaning with deterministic Python ingestion pipelines, automated schema validation, and batch tokenization, we expanded the clean training database by over 6,000x while cutting preprocessing latency for downstream acoustic and language models.
-      </p>
-    </article>
-
-    <!-- EXISTING CASE STUDY 02 -->
-    <article class="post-card" data-topic="da">
-      <div class="meta">
-        <span>CASE STUDY 02 • TIME-SERIES & ANALYTICS</span>
-        <span>5 MIN READ</span>
-      </div>
-      <h2>Why SARIMA Outperformed ARIMA by 60% RMSE on 15-Year Energy Demand</h2>
-      <p>
-        Standard autoregressive models often fail on multi-year utility datasets because power consumption exhibits strong 12-month seasonal cycles alongside long-term economic drift.
-      </p>
-      <div class="code-box">SARIMA(1, 1, 1) × (1, 1, 1, 12) ──▶ RMSE: 164.7 MWh | MAPE: 2.38% (vs. AR RMSE: 412.8 MWh)</div>
-      <p>
-        Using Augmented Dickey-Fuller (ADF) stationarity testing and seasonal differencing (D=1, s=12), SARIMA captured recurring summer/winter load peaks that non-seasonal ARIMA smoothed over—reducing out-of-sample RMSE from 412.8 to 164.7.
-      </p>
-    </article>
+    <div id="all-blogs-list"></div>
   </div>
 
   <footer>© 2026 AKASH SAINI • ENGINEERING BLOG • AKASH12740.GITHUB.IO</footer>
-
-  <script>
-    function filterPosts(topic, btn) {
-      document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
-      btn.classList.add('active');
-
-      document.querySelectorAll('.post-card').forEach(card => {
-        const cardTopic = card.getAttribute('data-topic');
-        card.style.display = (topic === 'all' || cardTopic === topic) ? '' : 'none';
-      });
-    }
-  </script>
+  <script>function setActive(b){document.querySelectorAll('.filter-btn').forEach(x=>x.classList.remove('active'));b.classList.add('active');}</script>
+  <script src="assets/js/app.js"></script>
 </body>
 </html>
