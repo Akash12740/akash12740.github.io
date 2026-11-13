@@ -5,9 +5,21 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Akash Saini | AI & ML Engineer</title>
 
+  <!-- Google Analytics 4 -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-VHLC0PBK1D"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-VHLC0PBK1D');
+  </script>
+
+  <!-- Cloudflare Web Analytics -->
+  <script type="module" src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token": "759cdca45cac4461a43be4d13fcd7c42"}'></script>
+
   <!-- Open Graph / Social Preview Meta Tags -->
   <meta property="og:title" content="Akash Saini | AI & Machine Learning Engineer" />
-  <meta property="og:description" content="BITS Pilani M.Sc. Mathematics graduate specializing in LLM Fine-Tuning, RAG Pipelines, NLP, and MLOps. Interactive AI Playground, Benchmarks & Projects." />
+  <meta property="og:description" content="BITS Pilani M.Sc. Mathematics graduate specializing in LLM Fine-Tuning, RAG Pipelines, NLP, and MLOps. Live AI Demos, Case Studies, Consulting & Digital Kits." />
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://akash12740.github.io/" />
   <meta property="og:image" content="https://akash12740.github.io/IMG_Akash_Saini.jpg" />
@@ -20,14 +32,15 @@
   <style>
     :root {
       --bg: #050811;
-      --surface: rgba(15, 23, 42, 0.68);
+      --surface: rgba(15, 23, 42, 0.7);
       --surface-solid: #0f172a;
       --text: #f8fafc;
       --muted: #94a3b8;
       --accent: #00f2fe;
       --accent-2: #4facfe;
       --accent-purple: #a855f7;
-      --border: rgba(56, 189, 248, 0.2);
+      --accent-green: #10b981;
+      --border: rgba(56, 189, 248, 0.22);
       --glow: 0 0 25px rgba(0, 242, 254, 0.25);
     }
 
@@ -98,10 +111,10 @@
       position: sticky;
       top: 0;
       z-index: 100;
-      background: rgba(5, 8, 17, 0.82);
+      background: rgba(5, 8, 17, 0.85);
       backdrop-filter: blur(14px);
       border-bottom: 1px solid var(--border);
-      padding: 0.95rem 6%;
+      padding: 0.95rem 5%;
       display: flex;
       justify-content: space-between;
       align-items: center;
@@ -111,13 +124,14 @@
       font-weight: 700;
       font-size: 1.15rem;
       color: var(--text);
+      text-decoration: none;
     }
     .logo span { color: var(--accent); }
-    .nav-links { display: flex; gap: 1.4rem; align-items: center; }
+    .nav-links { display: flex; gap: 1.25rem; align-items: center; }
     .nav-links a {
       color: var(--muted);
       text-decoration: none;
-      font-size: 0.86rem;
+      font-size: 0.84rem;
       font-weight: 500;
       position: relative;
       transition: color 0.25s;
@@ -131,10 +145,17 @@
     }
     .nav-links a:hover { color: var(--text); }
     .nav-links a:hover::after { width: 100%; }
+    .nav-highlight {
+      color: var(--accent) !important;
+      border: 1px solid rgba(0, 242, 254, 0.35);
+      padding: 0.3rem 0.65rem;
+      border-radius: 6px;
+      background: rgba(0, 242, 254, 0.08);
+    }
 
     .container { max-width: 1140px; margin: 0 auto; padding: 0 1.5rem; }
 
-    /* Hero Section with Photo + Terminal */
+    /* Hero Section */
     header {
       padding: 4.5rem 0 3.5rem;
       display: grid;
@@ -207,16 +228,16 @@
       max-width: 580px;
     }
 
-    .cta-group { display: flex; flex-wrap: wrap; gap: 0.8rem; }
+    .cta-group { display: flex; flex-wrap: wrap; gap: 0.75rem; }
 
     .btn {
       display: inline-flex;
       align-items: center;
       gap: 0.45rem;
-      padding: 0.75rem 1.3rem;
+      padding: 0.75rem 1.25rem;
       border-radius: 10px;
       font-weight: 600;
-      font-size: 0.88rem;
+      font-size: 0.86rem;
       text-decoration: none;
       transition: all 0.25s ease;
       cursor: pointer;
@@ -228,6 +249,13 @@
       border: none;
     }
     .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 0 32px rgba(0, 242, 254, 0.5); }
+    .btn-purple {
+      background: linear-gradient(135deg, #a855f7, #6366f1);
+      color: #ffffff;
+      border: none;
+      box-shadow: 0 0 22px rgba(168, 85, 247, 0.3);
+    }
+    .btn-purple:hover { transform: translateY(-2px); box-shadow: 0 0 30px rgba(168, 85, 247, 0.55); }
     .btn-glass {
       background: var(--surface);
       border: 1px solid var(--border);
@@ -237,11 +265,7 @@
     .btn-glass:hover { border-color: var(--accent); transform: translateY(-2px); }
 
     /* Hero Right Column: Photo Card + Terminal */
-    .hero-right {
-      display: flex;
-      flex-direction: column;
-      gap: 1.25rem;
-    }
+    .hero-right { display: flex; flex-direction: column; gap: 1.25rem; }
 
     .profile-showcase {
       display: flex;
@@ -276,16 +300,9 @@
       background: #0f172a;
       transition: transform 0.35s ease;
     }
+    .profile-showcase:hover .avatar-ring img { transform: scale(1.06); }
 
-    .profile-showcase:hover .avatar-ring img {
-      transform: scale(1.06);
-    }
-
-    .profile-meta h3 {
-      font-size: 1.05rem;
-      font-weight: 700;
-      margin-bottom: 0.15rem;
-    }
+    .profile-meta h3 { font-size: 1.05rem; font-weight: 700; margin-bottom: 0.15rem; }
     .profile-meta .uni-badge {
       font-family: 'Fira Code', monospace;
       font-size: 0.78rem;
@@ -293,10 +310,7 @@
       display: block;
       margin-bottom: 0.25rem;
     }
-    .profile-meta .loc-text {
-      font-size: 0.8rem;
-      color: var(--muted);
-    }
+    .profile-meta .loc-text { font-size: 0.8rem; color: var(--muted); }
 
     /* Interactive Terminal */
     .terminal {
@@ -322,7 +336,7 @@
     .dot.yellow { background: #f59e0b; }
     .dot.green { background: #10b981; }
     .terminal-title { color: var(--muted); font-size: 0.75rem; }
-    .terminal-body { padding: 1.1rem; min-height: 175px; color: #cbd5e1; }
+    .terminal-body { padding: 1.1rem; min-height: 170px; color: #cbd5e1; }
     .cmd-line { margin-bottom: 0.55rem; }
     .prompt-symbol { color: #10b981; }
     .cmd-output {
@@ -407,13 +421,51 @@
       box-shadow: 0 12px 35px rgba(0, 0, 0, 0.45), 0 0 20px rgba(0, 242, 254, 0.12);
     }
 
-    /* Filter Tabs */
-    .filter-bar {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.6rem;
-      margin-bottom: 1.75rem;
+    /* Live Hugging Face Space Embed */
+    .hf-frame-wrap {
+      border-radius: 12px;
+      overflow: hidden;
+      border: 1px solid var(--border);
+      background: #020617;
+      margin-top: 1rem;
     }
+    .hf-frame-wrap iframe {
+      width: 100%;
+      height: 540px;
+      border: none;
+      display: block;
+    }
+
+    /* Monetization & Services Grid */
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 1.5rem;
+    }
+    .service-card {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      border-top: 3px solid var(--accent);
+    }
+    .service-card.purple-top { border-top-color: var(--accent-purple); }
+    .service-card.green-top { border-top-color: var(--accent-green); }
+    .service-badge {
+      font-family: 'Fira Code', monospace;
+      font-size: 0.75rem;
+      color: var(--accent);
+      background: rgba(0, 242, 254, 0.1);
+      padding: 0.25rem 0.6rem;
+      border-radius: 6px;
+      display: inline-block;
+      margin-bottom: 0.75rem;
+      width: fit-content;
+    }
+    .service-card h3 { font-size: 1.18rem; margin-bottom: 0.55rem; }
+    .service-card p { color: var(--muted); font-size: 0.92rem; margin-bottom: 1.25rem; }
+
+    /* Filter Tabs */
+    .filter-bar { display: flex; flex-wrap: wrap; gap: 0.6rem; margin-bottom: 1.75rem; }
     .filter-btn {
       background: var(--surface);
       border: 1px solid var(--border);
@@ -431,18 +483,9 @@
       color: var(--accent);
     }
 
-    /* Skills Grid */
-    .skills-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-      gap: 1.4rem;
-    }
-    .skill-cat-title {
-      font-family: 'Fira Code', monospace;
-      color: var(--accent);
-      font-size: 0.98rem;
-      margin-bottom: 0.9rem;
-    }
+    /* Skills & Charts */
+    .skills-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 1.4rem; }
+    .skill-cat-title { font-family: 'Fira Code', monospace; color: var(--accent); font-size: 0.98rem; margin-bottom: 0.9rem; }
     .tags { display: flex; flex-wrap: wrap; gap: 0.48rem; }
     .tag {
       background: rgba(56, 189, 248, 0.08);
@@ -456,60 +499,8 @@
     }
     .tag:hover { background: rgba(0, 242, 254, 0.2); border-color: var(--accent); transform: translateY(-2px); }
 
-    /* Interactive AI Playground */
-    .playground-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 1.5rem;
-    }
-    .pg-textarea, .pg-input {
-      width: 100%;
-      background: rgba(5, 8, 17, 0.85);
-      border: 1px solid var(--border);
-      border-radius: 10px;
-      color: var(--text);
-      font-family: 'Fira Code', monospace;
-      font-size: 0.85rem;
-      padding: 0.85rem;
-      margin-bottom: 0.85rem;
-      outline: none;
-    }
-    .pg-textarea:focus, .pg-input:focus { border-color: var(--accent); }
-    .pg-result-box {
-      background: rgba(5, 8, 17, 0.85);
-      border: 1px solid var(--border);
-      border-radius: 10px;
-      padding: 1rem;
-      font-family: 'Fira Code', monospace;
-      font-size: 0.82rem;
-      min-height: 195px;
-      color: #cbd5e1;
-    }
-    .sim-bar-wrap {
-      background: rgba(30, 41, 59, 0.8);
-      border-radius: 6px;
-      height: 8px;
-      margin: 0.45rem 0 0.9rem;
-      overflow: hidden;
-    }
-    .sim-bar-fill {
-      height: 100%;
-      background: linear-gradient(90deg, var(--accent), var(--accent-purple));
-      width: 0%;
-      transition: width 0.5s ease;
-    }
-
-    /* Charts Grid */
-    .charts-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-      gap: 1.5rem;
-    }
-    .chart-wrap {
-      position: relative;
-      height: 250px;
-      margin-top: 0.75rem;
-    }
+    .charts-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 1.5rem; }
+    .chart-wrap { position: relative; height: 250px; margin-top: 0.75rem; }
 
     /* Timeline */
     .timeline {
@@ -552,11 +543,7 @@
     .item-list li { margin-bottom: 0.42rem; }
 
     /* Projects */
-    .projects-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(310px, 1fr));
-      gap: 1.6rem;
-    }
+    .projects-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(310px, 1fr)); gap: 1.6rem; }
     .project-card { display: flex; flex-direction: column; justify-content: space-between; }
     .project-card p { color: var(--muted); font-size: 0.94rem; margin: 0.8rem 0 1.25rem; }
     .project-actions {
@@ -569,26 +556,25 @@
     }
     .btn-sm { padding: 0.48rem 0.88rem; font-size: 0.79rem; border-radius: 8px; font-family: 'Fira Code', monospace; }
 
-    /* GitHub Heatmap Card */
-    .gh-graph-wrap {
-      overflow-x: auto;
-      padding: 1rem 0 0.5rem;
-      text-align: center;
-    }
-    .gh-graph-wrap img {
-      max-width: 100%;
-      height: auto;
-      border-radius: 8px;
-      filter: hue-rotate(15deg) brightness(1.08);
-    }
+    /* GitHub Heatmap */
+    .gh-graph-wrap { overflow-x: auto; padding: 1rem 0 0.5rem; text-align: center; }
+    .gh-graph-wrap img { max-width: 100%; height: auto; border-radius: 8px; filter: hue-rotate(15deg) brightness(1.08); }
 
-    /* Contact Grid */
-    .contact-grid {
-      display: grid;
-      grid-template-columns: 1fr 1.1fr;
-      gap: 2rem;
-      align-items: start;
+    /* Contact & Inputs */
+    .contact-grid { display: grid; grid-template-columns: 1fr 1.1fr; gap: 2rem; align-items: start; }
+    .pg-textarea, .pg-input {
+      width: 100%;
+      background: rgba(5, 8, 17, 0.85);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      color: var(--text);
+      font-family: 'Fira Code', monospace;
+      font-size: 0.85rem;
+      padding: 0.85rem;
+      margin-bottom: 0.85rem;
+      outline: none;
     }
+    .pg-textarea:focus, .pg-input:focus { border-color: var(--accent); }
 
     /* Project Modal */
     .modal-backdrop {
@@ -645,9 +631,10 @@
       font-size: 0.8rem;
     }
 
-    @media (max-width: 900px) {
-      header, .playground-grid, .contact-grid { grid-template-columns: 1fr; }
+    @media (max-width: 920px) {
+      header, .contact-grid { grid-template-columns: 1fr; }
       .nav-links { display: none; }
+      .hf-frame-wrap iframe { height: 620px; }
     }
   </style>
 </head>
@@ -660,13 +647,13 @@
   <canvas id="neural-canvas"></canvas>
 
   <nav>
-    <div class="logo"><span><</span>Akash.AI<span>/></span></div>
+    <a href="#" class="logo"><span><</span>Akash.AI<span>/></span></a>
     <div class="nav-links">
-      <a href="#playground">// live_ai</a>
+      <a href="#live-demo">// live_rag</a>
       <a href="#projects">// projects</a>
-      <a href="#benchmarks">// benchmarks</a>
+      <a href="#services">// work_with_me</a>
       <a href="#experience">// experience</a>
-      <a href="#github-activity">// github</a>
+      <a href="blog.html" class="nav-highlight">Case Studies ↗</a>
       <a href="#contact">// contact</a>
     </div>
   </nav>
@@ -677,7 +664,7 @@
       <div>
         <div class="status-pill">
           <span class="pulse-dot"></span>
-          <span>OPEN TO AI/ML, GENAI & DATA ROLES</span>
+          <span>AVAILABLE FOR AI/ML ROLES & CONSULTING</span>
         </div>
         <h1>Hi, I'm <span class="gradient-text">Akash Saini</span></h1>
         <div class="typing-wrapper">
@@ -687,14 +674,15 @@
           Integrated M.Sc. Mathematics graduate from <strong>BITS Pilani</strong> specializing in LLM fine-tuning, RAG pipelines, NLP, and MLOps. Turning mathematical rigor into reliable, production-ready AI systems.
         </p>
         <div class="cta-group">
-          <a href="#projects" class="btn btn-primary">Explore Projects ⚡</a>
+          <a href="#live-demo" class="btn btn-primary">Try Live AI Demo ⚡</a>
+          <a href="#services" class="btn btn-purple">1:1 Mentorship & Kits 🚀</a>
           <a href="resume_AkashSaini.pdf" target="_blank" class="btn btn-glass">Resume.pdf ↓</a>
           <a href="https://www.linkedin.com/in/akash-saini-83a42a1b1/" target="_blank" class="btn btn-glass">LinkedIn ↗</a>
           <a href="https://github.com/Akash12740" target="_blank" class="btn btn-glass">GitHub ↗</a>
         </div>
       </div>
 
-      <!-- Right Column: Photo Card + Interactive Terminal -->
+      <!-- Right Column: Photo Card + Terminal -->
       <div class="hero-right">
         <div class="profile-showcase">
           <div class="avatar-ring">
@@ -719,10 +707,10 @@
           <div class="terminal-body" id="terminal-body">
             <div class="cmd-line"><span class="prompt-symbol">➜</span> python3 load_profile.py</div>
             <div class="cmd-output">
-              <div>[✓] Degree: Integrated M.Sc. Mathematics (BITS Pilani)</div>
-              <div>[✓] Expertise: Gemini Fine-Tuning, RAG, FAISS, NLP</div>
-              <div>[✓] Ops: Docker, Kubernetes, GitHub Actions</div>
-              <div>[✓] Status: Ready to deploy value.</div>
+              <div>[✓] Degree: Integrated M.Sc. Math @ BITS Pilani</div>
+              <div>[✓] Focus: Gemini Fine-Tuning, RAG, FAISS, MLOps</div>
+              <div>[✓] Live Demo: huggingface.co/spaces/Akash12740</div>
+              <div>[✓] Consulting: topmate.io/akash12740</div>
             </div>
             <div class="cmd-line"><span class="prompt-symbol">➜</span> <span style="color:#94a3b8;">Click a script below to inspect:</span></div>
           </div>
@@ -756,32 +744,19 @@
       </div>
     </div>
 
-    <!-- Interactive Live AI Playground -->
-    <section id="playground" class="reveal">
-      <span class="section-tag">01. INTERACTIVE_SANDBOX</span>
-      <h2>Live Mini-RAG & NLP Playground</h2>
+    <!-- Live Hugging Face Space Embed -->
+    <section id="live-demo" class="reveal">
+      <span class="section-tag">01. HUGGING_FACE_LIVE_APP</span>
+      <h2>Interactive RAG Document Q&A Playground</h2>
       <div class="tilt-card">
-        <p style="color: var(--muted); font-size: 0.94rem; margin-bottom: 1.25rem;">
-          Test a client-side simulation of my <strong>FAISS Cosine Similarity & Citation-Grounding Engine</strong>. Ask a question about my background or paste custom context text below to see semantic chunk scoring and keyword extraction in real time.
-        </p>
-        <div class="playground-grid">
-          <div>
-            <label style="font-family: 'Fira Code', monospace; font-size: 0.8rem; color: var(--accent); display:block; margin-bottom:0.35rem;">KNOWLEDGE BASE CONTEXT</label>
-            <textarea id="pg-context" class="pg-textarea" rows="5">Akash Saini graduated from BITS Pilani with an Integrated M.Sc. in Mathematics. At Innodata, he curated and audited instruction fine-tuning datasets for Gemini models and mitigated hallucinations using prompt engineering. At Swecha, he built Python ingestion pipelines that scaled unstructured text data by 6,000x. His projects include a 95% accurate NLTK Fake News Classifier, a 15-year SARIMA Energy Forecasting model, and a FAISS RAG Document Q&A system.</textarea>
-            <label style="font-family: 'Fira Code', monospace; font-size: 0.8rem; color: var(--accent); display:block; margin-bottom:0.35rem;">QUERY PROMPT</label>
-            <input id="pg-query" class="pg-input" type="text" value="What did Akash build at Innodata and Swecha?" />
-            <div style="display:flex; flex-wrap:wrap; gap:0.5rem;">
-              <button class="btn btn-primary btn-sm" onclick="runRagPlayground()">Run Retrieval & Grounding ⚡</button>
-              <button class="btn btn-glass btn-sm" onclick="setSampleQuery('What is his education and math background?')">Sample: Education</button>
-              <button class="btn btn-glass btn-sm" onclick="setSampleQuery('What accuracy did the Fake News NLP model get?')">Sample: NLP Accuracy</button>
-            </div>
-          </div>
-          <div>
-            <label style="font-family: 'Fira Code', monospace; font-size: 0.8rem; color: var(--accent); display:block; margin-bottom:0.35rem;">GROUNDED RETRIEVAL OUTPUT</label>
-            <div class="pg-result-box" id="pg-output">
-              Click <strong>"Run Retrieval & Grounding ⚡"</strong> to execute TF-IDF + Cosine Similarity matching across context chunks.
-            </div>
-          </div>
+        <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:0.75rem;">
+          <p style="color: var(--muted); font-size: 0.94rem; max-width: 720px;">
+            Upload any <code>.txt</code> / <code>.md</code> document or paste custom text directly into my hosted <strong>Hugging Face Space</strong> below to test real-time semantic chunking and citation-grounded retrieval.
+          </p>
+          <a href="https://huggingface.co/spaces/Akash12740/rag-document-qa-demo" target="_blank" class="btn btn-glass btn-sm">Open Fullscreen on Hugging Face ↗</a>
+        </div>
+        <div class="hf-frame-wrap">
+          <iframe src="https://akash12740-rag-document-qa-demo.hf.space" title="Akash Saini RAG Document Q&A Demo"></iframe>
         </div>
       </div>
     </section>
@@ -866,9 +841,67 @@
       </div>
     </section>
 
+    <!-- Monetization, Services, Mentorship, Kits & Newsletter -->
+    <section id="services" class="reveal">
+      <span class="section-tag">03. CONSULTING_MENTORSHIP_&_KITS</span>
+      <h2>Work With Me & Digital Resources</h2>
+      <div class="services-grid">
+        <!-- Card 1: Topmate 1:1 Mentorship -->
+        <div class="tilt-card service-card">
+          <div>
+            <span class="service-badge">1:1 MENTORSHIP • TOPMATE</span>
+            <h3>AI/ML Career Guidance & Mock Interviews</h3>
+            <p>
+              Book a 1:1 session for resume reviews, ML/Math interview prep (BITS Pilani curriculum insights), or breaking into LLM fine-tuning and data science roles.
+            </p>
+          </div>
+          <a href="https://topmate.io/akash12740/" target="_blank" class="btn btn-primary btn-sm" style="justify-content:center;">Book on Topmate ↗</a>
+        </div>
+
+        <!-- Card 2: Cal.com Consulting -->
+        <div class="tilt-card service-card purple-top">
+          <div>
+            <span class="service-badge" style="color:#c084fc; background:rgba(168,85,247,0.12);">AI CONSULTING • CAL.COM</span>
+            <h3>Custom RAG & LLM Evaluation Discovery Call</h3>
+            <p>
+              Need a custom RAG document assistant, prompt evaluation rubric, or statistical forecasting pipeline for your team? Schedule a focused 15-minute discovery call.
+            </p>
+          </div>
+          <a href="https://cal.com/akash-saini-12740/15min" target="_blank" class="btn btn-purple btn-sm" style="justify-content:center;">Schedule 15-Min Call ↗</a>
+        </div>
+
+        <!-- Card 3: Gumroad Digital Kits -->
+        <div class="tilt-card service-card green-top">
+          <div>
+            <span class="service-badge" style="color:#34d399; background:rgba(16,185,129,0.12);">STARTER KITS • GUMROAD</span>
+            <h3>Production RAG Templates & Math Notes</h3>
+            <p>
+              Download ready-to-deploy FAISS RAG starter codebases, LLM hallucination audit checklists, and Linear Algebra / Optimization cheat sheets for ML interviews.
+            </p>
+          </div>
+          <a href="https://akashsaini12740.gumroad.com" target="_blank" class="btn btn-glass btn-sm" style="justify-content:center;">Browse Gumroad Store ↗</a>
+        </div>
+
+        <!-- Card 4: Substack Newsletter & Engineering Blog -->
+        <div class="tilt-card service-card">
+          <div>
+            <span class="service-badge">NEWSLETTER & CASE STUDIES</span>
+            <h3>AI, Math & MLOps Deep Dives</h3>
+            <p>
+              Read my technical engineering case studies on scaling pipelines 6,000x and subscribe to my Substack for weekly breakdowns on LLM safety and applied mathematics.
+            </p>
+          </div>
+          <div style="display:flex; flex-direction:column; gap:0.5rem;">
+            <a href="https://substack.com/@akashsaini12740" target="_blank" class="btn btn-primary btn-sm" style="justify-content:center;">Subscribe on Substack ↗</a>
+            <a href="blog.html" class="btn btn-glass btn-sm" style="justify-content:center;">Read Case Studies (blog.html) →</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
     <!-- Model Benchmarks (Chart.js) -->
     <section id="benchmarks" class="reveal">
-      <span class="section-tag">03. QUANTITATIVE_EVALUATION</span>
+      <span class="section-tag">04. QUANTITATIVE_EVALUATION</span>
       <h2>Model Benchmarks & Metrics</h2>
       <div class="charts-grid">
         <div class="tilt-card">
@@ -890,7 +923,7 @@
 
     <!-- Skills -->
     <section id="skills" class="reveal">
-      <span class="section-tag">04. TECH_STACK</span>
+      <span class="section-tag">05. TECH_STACK</span>
       <h2>Core Competencies</h2>
       <div class="skills-grid">
         <div class="tilt-card">
@@ -941,7 +974,7 @@
 
     <!-- Experience with Role Filter -->
     <section id="experience" class="reveal">
-      <span class="section-tag">05. CAREER_LOG</span>
+      <span class="section-tag">06. CAREER_LOG</span>
       <h2>Experience</h2>
       <div class="filter-bar">
         <button class="filter-btn active" onclick="filterItems('timeline-item', 'all', this)">All Roles (4)</button>
@@ -999,7 +1032,7 @@
 
     <!-- Education & Leadership -->
     <section id="education" class="reveal">
-      <span class="section-tag">06. CREDENTIALS</span>
+      <span class="section-tag">07. CREDENTIALS</span>
       <h2>Education & Leadership</h2>
       <div class="timeline">
         <div class="timeline-item tilt-card">
@@ -1027,7 +1060,7 @@
 
     <!-- Live GitHub Activity -->
     <section id="github-activity" class="reveal">
-      <span class="section-tag">07. OPEN_SOURCE_PULSE</span>
+      <span class="section-tag">08. OPEN_SOURCE_PULSE</span>
       <h2>GitHub Contributions (@Akash12740)</h2>
       <div class="tilt-card">
         <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:0.75rem; margin-bottom:0.75rem;">
@@ -1040,18 +1073,20 @@
       </div>
     </section>
 
-    <!-- Contact Section with Direct Form -->
+    <!-- Contact Section with Direct Web3Forms Form -->
     <section id="contact" class="reveal">
-      <span class="section-tag">08. INITIATE_HANDSHAKE</span>
+      <span class="section-tag">09. INITIATE_HANDSHAKE</span>
       <h2>Let's Build Something Intelligent</h2>
       <div class="contact-grid">
         <div class="tilt-card">
           <h3 style="font-size: 1.25rem; margin-bottom: 0.75rem;">Direct Channels</h3>
           <p style="color: var(--muted); font-size: 0.94rem; margin-bottom: 1.5rem;">
-            Actively seeking opportunities in <strong>AI/ML Engineering</strong>, <strong>LLM Evaluation & Fine-Tuning</strong>, and <strong>Data Science</strong>. Click below to copy my email or connect on LinkedIn & GitHub.
+            Actively seeking opportunities in <strong>AI/ML Engineering</strong>, <strong>LLM Evaluation & Fine-Tuning</strong>, and <strong>Data Science</strong>. Connect directly or book a 1:1 session.
           </p>
           <div class="cta-group" style="flex-direction: column; align-items: stretch;">
             <button onclick="copyEmail()" class="btn btn-primary" style="justify-content:center;">📋 Copy Email: aksainibits@gmail.com</button>
+            <a href="https://topmate.io/akash12740/" target="_blank" class="btn btn-purple" style="justify-content:center;">1:1 Mentorship on Topmate ↗</a>
+            <a href="https://cal.com/akash-saini-12740/15min" target="_blank" class="btn btn-glass" style="justify-content:center;">Book 15-Min Call (Cal.com) ↗</a>
             <a href="https://www.linkedin.com/in/akash-saini-83a42a1b1/" target="_blank" class="btn btn-glass" style="justify-content:center;">LinkedIn Profile ↗</a>
             <a href="https://github.com/Akash12740" target="_blank" class="btn btn-glass" style="justify-content:center;">GitHub (@Akash12740) ↗</a>
             <a href="resume_AkashSaini.pdf" target="_blank" class="btn btn-glass" style="justify-content:center;">Download Resume (PDF) ↓</a>
@@ -1061,11 +1096,10 @@
         <div class="tilt-card">
           <h3 style="font-size: 1.25rem; margin-bottom: 0.75rem;">Send a Quick Message</h3>
           <form id="contactForm" onsubmit="handleContactSubmit(event)">
-            <!-- Optional: Replace YOUR_WEB3FORMS_ACCESS_KEY with a free key from web3forms.com -->
             <input type="hidden" id="web3Key" value="b85a0e4a-e4c4-4c83-84cf-5deb470c88c1" />
             <input type="text" id="senderName" class="pg-input" placeholder="Your Name / Company" required />
             <input type="email" id="senderEmail" class="pg-input" placeholder="Your Email Address" required />
-            <textarea id="senderMsg" class="pg-textarea" rows="4" placeholder="Hi Akash, we'd love to discuss an AI/ML role..." required></textarea>
+            <textarea id="senderMsg" class="pg-textarea" rows="5" placeholder="Hi Akash, we'd love to discuss an AI/ML role or consulting project..." required></textarea>
             <button type="submit" class="btn btn-primary" style="width:100%; justify-content:center;">Send Message 🚀</button>
           </form>
         </div>
@@ -1092,7 +1126,6 @@
   </footer>
 
   <script>
-    // Copy Email Toast
     function showToast(msg) {
       const toast = document.getElementById('toast');
       toast.textContent = msg;
@@ -1105,7 +1138,7 @@
       showToast('✓ Copied aksainibits@gmail.com to clipboard!');
     }
 
-    // Contact Form Handler (Supports Web3Forms API or instant Mailto Fallback)
+    // Web3Forms Contact Form Handler
     async function handleContactSubmit(e) {
       e.preventDefault();
       const name = document.getElementById('senderName').value.trim();
@@ -1113,68 +1146,28 @@
       const message = document.getElementById('senderMsg').value.trim();
       const key = document.getElementById('web3Key').value.trim();
 
-      if (key && key !== 'YOUR_WEB3FORMS_ACCESS_KEY') {
-        try {
-          const res = await fetch('https://api.web3forms.com/submit', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ access_key: key, name, email, message, subject: `Portfolio Inquiry from ${name}` })
-          });
-          if (res.ok) {
-            showToast('✓ Message sent directly to Akash!');
-            document.getElementById('contactForm').reset();
-            return;
-          }
-        } catch (_) {}
-      }
+      try {
+        const res = await fetch('https://api.web3forms.com/submit', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            access_key: key,
+            name,
+            email,
+            message,
+            subject: `Portfolio Inquiry from ${name}`
+          })
+        });
+        if (res.ok) {
+          showToast('✓ Message sent directly to Akash!');
+          document.getElementById('contactForm').reset();
+          return;
+        }
+      } catch (_) {}
 
       const mailtoUrl = `mailto:aksainibits@gmail.com?subject=${encodeURIComponent('Portfolio Inquiry from ' + name)}&body=${encodeURIComponent(`From: ${name} (${email})\n\n${message}`)}`;
       window.location.href = mailtoUrl;
       showToast('✓ Opening email client with your message...');
-    }
-
-    // Live Mini-RAG & NLP Playground
-    function setSampleQuery(q) {
-      document.getElementById('pg-query').value = q;
-      runRagPlayground();
-    }
-
-    function runRagPlayground() {
-      const contextText = document.getElementById('pg-context').value.trim();
-      const queryText = document.getElementById('pg-query').value.trim();
-      const outBox = document.getElementById('pg-output');
-
-      if (!contextText || !queryText) {
-        outBox.innerHTML = '<span style="color:#f59e0b;">Please enter both context text and a query prompt.</span>';
-        return;
-      }
-
-      const stop = new Set(['the','is','at','which','on','and','a','an','in','to','of','for','with','he','his','from','by','what','did']);
-      const tokenize = str => str.toLowerCase().replace(/[^a-z0-9\s]/g, '').split(/\s+/).filter(w => w.length > 1 && !stop.has(w));
-
-      const qTokens = tokenize(queryText);
-      const sentences = contextText.split(/(?<=[.!?])\s+/).filter(Boolean);
-
-      const scored = sentences.map((sent, idx) => {
-        const sTokens = tokenize(sent);
-        const overlap = qTokens.filter(t => sTokens.includes(t)).length;
-        const denom = Math.sqrt((qTokens.length || 1) * (sTokens.length || 1));
-        const sim = Math.min(0.98, +(overlap / denom + (overlap > 0 ? 0.28 : 0)).toFixed(3));
-        return { idx, sent, sim };
-      }).sort((a, b) => b.sim - a.sim);
-
-      const top = scored[0];
-      const pct = Math.round(top.sim * 100);
-
-      outBox.innerHTML = `
-        <div style="color:#10b981; margin-bottom:0.4rem;">[✓] FAISS Top-1 Chunk Retrieved (chunk_${top.idx})</div>
-        <div style="font-size:0.78rem; color:var(--muted);">Cosine Similarity Score: <strong style="color:var(--accent);">${top.sim} (${pct}%)</strong></div>
-        <div class="sim-bar-wrap"><div class="sim-bar-fill" style="width:${pct}%;"></div></div>
-        <div style="border-left:2px solid var(--accent); padding-left:0.75rem; color:#f8fafc; margin-bottom:0.65rem;">
-          "${top.sent}" <span style="color:var(--accent);">[source | chunk_${top.idx}]</span>
-        </div>
-        <div style="font-size:0.76rem; color:var(--muted);">Matched Keywords: ${qTokens.join(', ') || 'none'}</div>
-      `;
     }
 
     // Category Filter Buttons
@@ -1185,11 +1178,7 @@
 
       document.querySelectorAll('.' + cardClass).forEach(card => {
         const cat = card.getAttribute('data-cat');
-        if (category === 'all' || cat === category) {
-          card.style.display = '';
-        } else {
-          card.style.display = 'none';
-        }
+        card.style.display = (category === 'all' || cat === category) ? '' : 'none';
       });
     }
 
@@ -1335,10 +1324,10 @@
               <div>• PCHF Backend: 40+ bugs resolved & API security hardened</div>`
       },
       contact: {
-        cmd: "echo $CONTACT_INFO",
-        out: `<div>Email: aksainibits@gmail.com</div>
-              <div>LinkedIn: linkedin.com/in/akash-saini-83a42a1b1</div>
-              <div>GitHub: github.com/Akash12740</div>`
+        cmd: "echo $LINKS",
+        out: `<div>Topmate: topmate.io/akash12740</div>
+              <div>Gumroad: akashsaini12740.gumroad.com</div>
+              <div>Substack: substack.com/@akashsaini12740</div>`
       }
     };
 
