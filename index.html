@@ -1,0 +1,557 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Akash Saini | AI & Machine Learning Engineer</title>
+  <style>
+    :root {
+      --bg: #0f172a;
+      --surface: #1e293b;
+      --text: #f8fafc;
+      --muted: #94a3b8;
+      --accent: #38bdf8;
+      --accent-hover: #0284c7;
+      --border: #334155;
+      --tag-bg: rgba(56, 189, 248, 0.12);
+    }
+
+    body.light {
+      --bg: #f8fafc;
+      --surface: #ffffff;
+      --text: #0f172a;
+      --muted: #475569;
+      --accent: #0284c7;
+      --accent-hover: #0369a1;
+      --border: #e2e8f0;
+      --tag-bg: rgba(2, 132, 199, 0.1);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      background-color: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      transition: background-color 0.25s, color 0.25s;
+    }
+
+    a {
+      color: var(--accent);
+      text-decoration: none;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+
+    /* Navigation */
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(15, 23, 42, 0.85);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid var(--border);
+      padding: 1rem 5%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    body.light nav {
+      background: rgba(248, 250, 252, 0.85);
+    }
+
+    .logo {
+      font-weight: 700;
+      font-size: 1.2rem;
+      color: var(--text);
+      letter-spacing: -0.5px;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 1.5rem;
+      align-items: center;
+    }
+
+    .nav-links a {
+      color: var(--muted);
+      font-size: 0.95rem;
+      font-weight: 500;
+    }
+
+    .nav-links a:hover {
+      color: var(--accent);
+      text-decoration: none;
+    }
+
+    .theme-btn {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      color: var(--text);
+      padding: 0.4rem 0.75rem;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 0.85rem;
+    }
+
+    /* Container */
+    .container {
+      max-width: 1000px;
+      margin: 0 auto;
+      padding: 0 1.5rem;
+    }
+
+    /* Hero */
+    header {
+      padding: 5rem 0 4rem;
+    }
+
+    .badge {
+      display: inline-block;
+      background: var(--tag-bg);
+      color: var(--accent);
+      padding: 0.35rem 0.85rem;
+      border-radius: 999px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      margin-bottom: 1rem;
+    }
+
+    h1 {
+      font-size: clamp(2.2rem, 5vw, 3.5rem);
+      line-height: 1.15;
+      margin-bottom: 1rem;
+      letter-spacing: -1px;
+    }
+
+    .subtitle {
+      font-size: 1.15rem;
+      color: var(--muted);
+      max-width: 680px;
+      margin-bottom: 2rem;
+    }
+
+    .cta-group {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+
+    .btn {
+      display: inline-block;
+      padding: 0.75rem 1.5rem;
+      border-radius: 8px;
+      font-weight: 600;
+      font-size: 0.95rem;
+      transition: all 0.2s;
+    }
+
+    .btn-primary {
+      background: var(--accent);
+      color: #0f172a;
+    }
+
+    .btn-primary:hover {
+      background: var(--accent-hover);
+      color: #ffffff;
+      text-decoration: none;
+    }
+
+    .btn-outline {
+      border: 1px solid var(--border);
+      background: var(--surface);
+      color: var(--text);
+    }
+
+    .btn-outline:hover {
+      border-color: var(--accent);
+      text-decoration: none;
+    }
+
+    /* Sections */
+    section {
+      padding: 3.5rem 0;
+      border-top: 1px solid var(--border);
+    }
+
+    h2 {
+      font-size: 1.75rem;
+      margin-bottom: 1.75rem;
+      letter-spacing: -0.5px;
+    }
+
+    /* Skills Grid */
+    .skills-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 1.25rem;
+    }
+
+    .card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 1.5rem;
+    }
+
+    .card h3 {
+      font-size: 1.05rem;
+      margin-bottom: 0.85rem;
+      color: var(--accent);
+    }
+
+    .tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+
+    .tag {
+      background: var(--tag-bg);
+      color: var(--text);
+      padding: 0.3rem 0.65rem;
+      border-radius: 6px;
+      font-size: 0.85rem;
+      font-weight: 500;
+    }
+
+    /* Timeline (Experience & Education) */
+    .timeline {
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+    }
+
+    .item-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-bottom: 0.35rem;
+    }
+
+    .item-title {
+      font-size: 1.15rem;
+      font-weight: 700;
+    }
+
+    .item-company {
+      color: var(--accent);
+      font-weight: 600;
+    }
+
+    .item-date {
+      font-size: 0.88rem;
+      color: var(--muted);
+    }
+
+    .item-list {
+      margin-top: 0.65rem;
+      padding-left: 1.2rem;
+      color: var(--muted);
+      font-size: 0.95rem;
+    }
+
+    .item-list li {
+      margin-bottom: 0.4rem;
+    }
+
+    /* Projects Grid */
+    .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .project-card {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .project-card p {
+      color: var(--muted);
+      font-size: 0.95rem;
+      margin: 0.75rem 0 1.25rem;
+    }
+
+    /* Contact / Footer */
+    .contact-box {
+      text-align: center;
+      padding: 2.5rem 1.5rem;
+    }
+
+    .contact-box p {
+      color: var(--muted);
+      max-width: 550px;
+      margin: 0.75rem auto 1.75rem;
+    }
+
+    footer {
+      text-align: center;
+      padding: 2rem 0;
+      border-top: 1px solid var(--border);
+      color: var(--muted);
+      font-size: 0.9rem;
+    }
+
+    @media (max-width: 640px) {
+      .nav-links a {
+        display: none;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <div class="logo">Akash Saini</div>
+    <div class="nav-links">
+      <a href="#skills">Skills</a>
+      <a href="#experience">Experience</a>
+      <a href="#projects">Projects</a>
+      <a href="#education">Education</a>
+      <a href="#contact">Contact</a>
+      <button class="theme-btn" id="themeToggle" aria-label="Toggle Theme">☀️ Light</button>
+    </div>
+  </nav>
+
+  <div class="container">
+    <!-- Hero Section -->
+    <header>
+      <span class="badge">Open to AI / ML & Data Science Opportunities • Delhi / Remote</span>
+      <h1>Hi, I'm Akash Saini.<br />AI & Machine Learning Engineer.</h1>
+      <p class="subtitle">
+        BITS Pilani Mathematics graduate specializing in LLM fine-tuning, RAG pipelines, NLP, and scalable ML systems. Experienced in curating high-precision training workflows, evaluating foundation models, and building production data pipelines.
+      </p>
+      <div class="cta-group">
+        <a href="#projects" class="btn btn-primary">View My Projects</a>
+        <a href="resume_AkashSaini.pdf" target="_blank" class="btn btn-outline">Download Resume (PDF)</a>
+        <a href="#contact" class="btn btn-outline">Get in Touch</a>
+      </div>
+    </header>
+
+    <!-- Core Competencies -->
+    <section id="skills">
+      <h2>Core Competencies</h2>
+      <div class="skills-grid">
+        <div class="card">
+          <h3>AI & Frameworks</h3>
+          <div class="tags">
+            <span class="tag">Python</span>
+            <span class="tag">PyTorch</span>
+            <span class="tag">TensorFlow</span>
+            <span class="tag">Hugging Face Transformers</span>
+            <span class="tag">scikit-learn</span>
+            <span class="tag">NLTK</span>
+          </div>
+        </div>
+        <div class="card">
+          <h3>LLM & Agentic AI</h3>
+          <div class="tags">
+            <span class="tag">RAG Pipelines</span>
+            <span class="tag">Vector DBs (Chroma, FAISS)</span>
+            <span class="tag">Prompt Engineering</span>
+            <span class="tag">Instruction Fine-Tuning</span>
+            <span class="tag">LLM Evaluation</span>
+          </div>
+        </div>
+        <div class="card">
+          <h3>MLOps & Infrastructure</h3>
+          <div class="tags">
+            <span class="tag">Docker</span>
+            <span class="tag">Kubernetes</span>
+            <span class="tag">GitHub Actions</span>
+            <span class="tag">Linux</span>
+          </div>
+        </div>
+        <div class="card">
+          <h3>Cloud & Data</h3>
+          <div class="tags">
+            <span class="tag">PostgreSQL</span>
+            <span class="tag">MySQL</span>
+            <span class="tag">MongoDB</span>
+            <span class="tag">SQL</span>
+            <span class="tag">Pandas</span>
+            <span class="tag">NumPy</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Experience -->
+    <section id="experience">
+      <h2>Experience</h2>
+      <div class="timeline">
+        <div class="card">
+          <div class="item-header">
+            <div>
+              <span class="item-title">Learning Facilitator</span> • <span class="item-company">WILP, BITS Pilani</span>
+            </div>
+            <span class="item-date">Aug 2025 – Present</span>
+          </div>
+          <ul class="item-list">
+            <li>Collaborate with faculty and technical teams to manage digital learning platforms and facilitate core AI-foundation courses, including Computer Programming, Linear Algebra, and Optimization.</li>
+          </ul>
+        </div>
+
+        <div class="card">
+          <div class="item-header">
+            <div>
+              <span class="item-title">AI/LLM Training Workflows Senior Associate</span> • <span class="item-company">Innodata</span>
+            </div>
+            <span class="item-date">Jan 2026 – Jun 2026</span>
+          </div>
+          <ul class="item-list">
+            <li>Curated and audited large-scale textual datasets for instruction fine-tuning of Gemini models, ensuring high response accuracy, context relevance, and strict compliance with AI safety guidelines.</li>
+            <li>Applied prompt engineering techniques to rigorously evaluate LLM outputs, identifying edge cases and mitigating hallucinations to improve foundational NLP capabilities.</li>
+          </ul>
+        </div>
+
+        <div class="card">
+          <div class="item-header">
+            <div>
+              <span class="item-title">Software Development Intern</span> • <span class="item-company">PCHF</span>
+            </div>
+            <span class="item-date">Jul 2022 – Dec 2022</span>
+          </div>
+          <ul class="item-list">
+            <li>Resolved 40+ production bugs and authored Java unit tests to improve system reliability and test coverage.</li>
+            <li>Designed and deployed APIs for loan status updates, built Python/MongoDB database scripts, and implemented security validation checks against malicious file uploads.</li>
+            <li>Investigated root causes for token expiry and duplicate records, deploying automated alerts and uniqueness checks within an Agile/SCRUM workflow.</li>
+          </ul>
+        </div>
+
+        <div class="card">
+          <div class="item-header">
+            <div>
+              <span class="item-title">Machine Learning Engineer Intern</span> • <span class="item-company">Swecha</span>
+            </div>
+            <span class="item-date">May 2021 – Jul 2021</span>
+          </div>
+          <ul class="item-list">
+            <li>Engineered automated data ingestion and pre-processing pipelines in Python, transforming unstructured text to scale the training database by over 6,000x.</li>
+            <li>Led a 10-member team to develop "Swecha Voice," an open-source, NLP-driven speech recognition AI system.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- Projects -->
+    <section id="projects">
+      <h2>AI & ML Projects</h2>
+      <div class="projects-grid">
+        <div class="card project-card">
+          <div>
+            <div class="item-header">
+              <span class="item-title">Fake News Detection Pipeline</span>
+              <span class="item-date">Jan 2023 – May 2023</span>
+            </div>
+            <p>
+              Engineered an end-to-end NLP text classification pipeline using NLTK for pre-processing, tokenization, and feature engineering. Optimized classifier architectures via hyperparameter tuning to achieve 95% accuracy.
+            </p>
+          </div>
+          <div class="tags">
+            <span class="tag">Python</span>
+            <span class="tag">NLP</span>
+            <span class="tag">NLTK</span>
+            <span class="tag">scikit-learn</span>
+          </div>
+        </div>
+
+        <div class="card project-card">
+          <div>
+            <div class="item-header">
+              <span class="item-title">Statistical Forecasting of Energy Data</span>
+              <span class="item-date">Feb 2022 – Jun 2022</span>
+            </div>
+            <p>
+              Built a comparative time-series modeling pipeline analyzing 15 years of state energy data. Conducted extensive data cleaning, EDA, and benchmarked AR, MA, ARIMA, and SARIMA models using RMSE and MAPE metrics.
+            </p>
+          </div>
+          <div class="tags">
+            <span class="tag">Time Series</span>
+            <span class="tag">ARIMA / SARIMA</span>
+            <span class="tag">Pandas</span>
+            <span class="tag">Statistical Modeling</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Education & Leadership -->
+    <section id="education">
+      <h2>Education & Leadership</h2>
+      <div class="timeline">
+        <div class="card">
+          <div class="item-header">
+            <div>
+              <span class="item-title">Integrated Master of Science in Mathematics</span> • <span class="item-company">BITS Pilani (Pilani Campus)</span>
+            </div>
+            <span class="item-date">Aug 2019 – May 2023</span>
+          </div>
+          <p style="color: var(--muted); font-size: 0.95rem; margin-top: 0.4rem;">
+            <strong>Relevant Coursework:</strong> Machine Learning, Artificial Intelligence, Foundations of Data Science, Optimization, Probability & Statistics, Information Retrieval, Linear Algebra, Applied Statistical Methods.
+          </p>
+        </div>
+
+        <div class="card">
+          <div class="item-header">
+            <div>
+              <span class="item-title">Leadership & Campus Roles</span> • <span class="item-company">BITS Pilani</span>
+            </div>
+            <span class="item-date">2019 – 2023</span>
+          </div>
+          <ul class="item-list">
+            <li><strong>Head of Data Science Team – Mathematics Association (2021–2022):</strong> Founded and mentored a 10-member data science team, directing technical strategy and end-to-end analytics pipelines.</li>
+            <li><strong>Head of Operations – Nirmaan Organization (2019–2023):</strong> Directed operations and cross-functional collaboration for a non-profit, leading 100+ volunteers across large-scale projects.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- Contact -->
+    <section id="contact">
+      <div class="card contact-box">
+        <h2>Let's Connect</h2>
+        <p>
+          I'm actively looking for roles in AI/ML Engineering, LLM Evaluation & Fine-Tuning, and Data Science. Feel free to reach out via email or LinkedIn.
+        </p>
+        <div class="cta-group" style="justify-content: center;">
+          <a href="mailto:aksainibits@gmail.com" class="btn btn-primary">aksainibits@gmail.com</a>
+          <a href="https://www.linkedin.com/" target="_blank" class="btn btn-outline" id="linkedinLink">LinkedIn Profile</a>
+          <a href="https://github.com/" target="_blank" class="btn btn-outline" id="githubLink">GitHub Profile</a>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <footer>
+    <div class="container">
+      © 2026 Akash Saini • Built & Hosted on GitHub Pages
+    </div>
+  </footer>
+
+  <script>
+    const toggleBtn = document.getElementById("themeToggle");
+    toggleBtn.addEventListener("click", () => {
+      document.body.classList.toggle("light");
+      const isLight = document.body.classList.contains("light");
+      toggleBtn.textContent = isLight ? "🌙 Dark" : "☀️ Light";
+    });
+  </script>
+</body>
+</html>
