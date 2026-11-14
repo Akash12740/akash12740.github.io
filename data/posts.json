@@ -1,4 +1,29 @@
-﻿[
+[
+  {
+    "id": "post-006",
+    "date": "2026-11-14",
+    "topic": "llm",
+    "topic_label": "Large Language Models (LLMs)",
+    "read_time": "5 MIN READ",
+    "title": "Applied Verifier-Guided Decoding, Constitutional AI & Citation Grounding: Mathematical Foundations & Production Patterns (#6)",
+    "summary": "A practical engineering breakdown of verifier-guided decoding, constitutional ai & citation grounding designed for high-reliability AI systems, bridging statistical rigor with production deployment.",
+    "architecture_flow": "Raw Input -> Schema Validation -> Mathematical Transformation -> Verifier Gate -> Production Output",
+    "sections": [
+      {
+        "heading": "Why Mathematical Rigor Matters in Production",
+        "body": "Deploying verifier-guided decoding, constitutional ai & citation grounding requires bounding variance and eliminating silent distribution shifts before predictions reach downstream users."
+      },
+      {
+        "heading": "Deterministic Verification & Evaluation",
+        "body": "Every probabilistic model output should pass through automated invariant checks, confidence thresholds, and stratified holdout validation."
+      },
+      {
+        "heading": "Operationalizing for Low Latency",
+        "body": "Separating offline feature/index computation from lightweight online inference ensures sub-100ms p95 latency at scale."
+      }
+    ],
+    "takeaway": "Combining formal mathematical constraints with automated verification transforms Large Language Models (LLMs) prototypes into dependable systems."
+  },
   {
     "id": "post-007",
     "date": "2026-11-13",
