@@ -730,28 +730,9 @@
 </div>
 <div id="shapeTooltip"></div>
 <!-- Floating Free Cheat Sheet Button + Instant Popups (Cheat Sheet & Free Tuition Demo) -->
-<button type="button" onclick="openCheatSheetPopup(false)" class="btn btn-primary btn-sm" style="position:fixed; bottom: 105px; left: 24px; z-index:1700;">
-  🎁 Free Math & LLM PDF
-</button>
 
-<div id="cheatSheetModal" class="modal-backdrop" onclick="if(event.target===this) closePopups()">
-  <div class="modal-box" style="max-width:440px; padding:1.75rem;">
-    <button type="button" class="modal-close" onclick="closePopups()">✕</button>
-    <span class="section-tag">FREE_PDF_DOWNLOAD • BITS_PILANI_NOTES</span>
-    <h3 style="font-size:1.3rem; margin:0.35rem 0 0.5rem;">BITS Pilani Math & LLM Cheat Sheet</h3>
-    <p style="color:var(--muted); font-size:0.86rem; margin-bottom:1rem;">
-      Enter your email to unlock my visual guide covering <strong>Linear Algebra, Vector Space RAG Math & LLM Audits</strong>.
-    </p>
-    <form onsubmit="submitCheatSheetLead(event)">
-      <input type="text" id="csName" class="pg-input" placeholder="Your First Name" required />
-      <input type="email" id="csEmail" class="pg-input" placeholder="Your Email Address" required />
-      <button type="submit" class="btn btn-primary" style="width:100%; justify-content:center;">Unlock & Download PDF ↓</button>
-    </form>
-    <div id="csUnlockLink" style="display:none; margin-top:0.8rem; text-align:center;">
-      <a href="BITS_Pilani_Math_LLM_Cheat_Sheet.pdf" target="_blank" download class="btn btn-glass btn-sm">✓ Open Cheat Sheet PDF Now ↗</a>
-    </div>
-  </div>
-</div>
+
+
 
 <div id="tuitionDemoModal" class="modal-backdrop" onclick="if(event.target===this) closePopups()">
   <div class="modal-box" style="max-width:450px; padding:1.75rem;">
@@ -849,11 +830,7 @@
     }
   });
 
-  window.addEventListener('load', () => {
-    if (!localStorage.getItem('csUnlocked') && !sessionStorage.getItem('popupClosed')) {
-      setTimeout(() => openCheatSheetPopup(true), 15000);
-    }
-  });
+  
 </script>  
 </body>
 </html>
