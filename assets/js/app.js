@@ -570,3 +570,109 @@ window.addEventListener('resize', () => {
     if (typeof drawGD === 'function') drawGD();
   }, 150);
 });
+// Interactive Sprint Scope & Pricing Estimator
+let EST_CURRENCY = 'USD';
+const SPRINT_CATALOG = {
+  rag:      { name: 'Sprint 01: Custom RAG & Citation-Grounded Q&A', usd: [1400, 2200], inr: [65000, 110000], days: [7, 10] },
+  audit:    { name: 'Sprint 02: LLM Evaluation & Hallucination Audit', usd: [1000, 1800], inr: [45000, 85000], days: [5, 7] },
+  nlp:      { name: 'Sprint 03: NLP Classification / SARIMA Forecasting Engine', usd: [1200, 2400], inr: [55000, 115000], days: [7, 14] },
+  retainer: { name: 'Monthly Fractional AI & Eval Advisor (10 hrs/mo)', usd: [1500, 2500], inr: [75000, 125000], days: [30, 30] }
+};
+
+function setEstimatorCurrency(curr) {
+  EST_CURRENCY = curr;
+  const usdBtn = document.getElementById('currUsdBtn');
+  const inrBtn = document.getElementById('currInrBtn');
+  if (usdBtn) usdBtn.classList.toggle('active', curr === 'USD');
+  if (inrBtn) inrBtn.classList.toggle('active', curr === 'INR');
+  updateSprintEstimate();
+}
+
+function updateSprintEstimate() {
+  const trackEl = document.getElementById('estTrack');
+  if (!trackEl) return;
+  const base = SPRINT_CATALOG[trackEl.value] || SPRINT_CATALOG.rag;
+  const addEval = document.getElementById('addonEval')?.checked;
+  const addDocker = document.getElementById('addonDocker')?.checked;
+  const addUi = document.getElementById('addonUi')?.checked;
+  const addonCount = (addEval ? 1 : 0) + (addDocker ? 1 : 0) + (addUi ? 1 : 0);
+
+  const minDays = base.days[0] + addonCount * 2;
+  const maxDays = base.days[1] + addonCount * 2;
+
+  let priceStr = '';
+  if (EST_CURRENCY === 'USD') {
+    const low = base.usd[0] + addonCount * 350;
+    const high = base.usd[1] + addonCount * 450;
+    priceStr = `$${low.toLocaleString()} – $${high.toLocaleString()}`;
+  } else {
+    const low = base.inr[0] + addonCount * 18000;
+    const high = base.inr[1] + addonCount * 25000;
+    priceStr = `₹${low.toLocaleString('en-IN')} – ₹${high.toLocaleString('en-IN')}`;
+  }
+
+  const priceEl = document.getElementById('estPriceDisplay');
+  const timeEl = document.getElementById('estTimeDisplay');
+  if (priceEl) priceEl.textContent = priceStr + (trackEl.value === 'retainer' ? ' / mo' : '');
+  if (timeEl) timeEl.textContent = trackEl.value === 'retainer'
+    ? 'Ongoing Monthly Advisory • Async Slack + Weekly Syncs'
+    : `Estimated Timeline: ${minDays}–${maxDays} Business Days`;
+}
+
+function applyEstimateToContact() {
+  const trackEl = document.getElementById('estTrack');
+  const msgBox = document.getElementById('senderMsg');
+  const contactSec = document.getElementById('contact');
+  if (!trackEl || !msgBox) return;
+
+  const base = SPRINT_CATALOG[trackEl.value];
+  const addons = [];
+  if (document.getElementById('addonEval')?.checked) addons.push('Automated Adversarial Eval Harness');
+  if (document.getElementById('addonDocker')?.checked) addons.push('FastAPI + Docker Deployment');
+  if (document.getElementById('addonUi')?.checked) addons.push('Custom Interactive Web UI');
+
+  const priceText = document.getElementById('estPriceDisplay')?.textContent || '';
+  const timeText = document.getElementById('estTimeDisplay')?.textContent || '';
+
+  msgBox.value = `Hi Akash,\n\nI'd like to scope an engagement:\n• Track: ${base.name}\n• Add-ons: ${addons.length ? addons.join(', ') : 'Core Sprint Only'}\n• Estimator Range: ${priceText} (${timeText})\n\nProject context & dataset details:\n`;
+  if (contactSec) contactSec.scrollIntoView({ behavior: 'smooth' });
+  msgBox.focus();
+  showToast('✓ Sprint scope pre-filled in the project brief below!');
+}
+
+async function handleLeadMagnetSubmit(e) {
+  e.preventDefault();
+  const emailInput = document.getElementById('leadEmail');
+  const key = document.getElementById('web3Key')?.value.trim();
+  if (!emailInput) return;
+  const email = emailInput.value.trim();
+
+  fetch('https://script.google.com/macros/s/AKfycbx-lUmYJISZwTFuuh4gx4GqqNUJDf0wEFIL6fRD_gB1q9gSyPxeWbo1Zj2QIH0aKQa2/exec', {
+    method: 'POST',
+    mode: 'no-cors',
+    body: JSON.stringify({ name: 'Lead Magnet Subscriber', email, message: 'Requested 12-Point LLM Hallucination Audit Checklist' })
+  });
+
+  if (key) {
+    try {
+      await fetch('https://api.web3forms.com/submit', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          access_key: key,
+          name: 'Checklist Lead',
+          email,
+          subject: 'New Lead Magnet Request: 12-Point LLM Hallucination Checklist',
+          message: `Subscriber email: ${email} requested the 12-Point LLM Hallucination Audit Checklist.`
+        })
+      });
+    } catch (_) {}
+  }
+
+  emailInput.value = '';
+  showToast('✓ Request received! Check your inbox shortly for the 12-Point LLM Checklist.');
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+  if (typeof updateSprintEstimate === 'function') updateSprintEstimate();
+});

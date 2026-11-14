@@ -281,7 +281,49 @@
         </div>
       </div>
 
-      <!-- 1:1 Mentorship, Starter Kits & Newsletter -->
+        <!-- Interactive Sprint Scope & Pricing Estimator -->
+  <div class="card" id="sprint-estimator" style="margin-bottom:1.5rem; border-color:var(--accent);">
+    <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:0.75rem; margin-bottom:0.85rem;">
+      <div>
+        <span class="section-tag" style="margin-bottom:0.2rem;">INTERACTIVE_SCOPE_&_ESTIMATOR</span>
+        <h3 style="margin:0;">Instant Sprint Timeline & Investment Estimator</h3>
+      </div>
+      <div style="display:flex; gap:0.4rem;">
+        <button type="button" class="filter-btn active" id="currUsdBtn" onclick="setEstimatorCurrency('USD')">USD ($)</button>
+        <button type="button" class="filter-btn" id="currInrBtn" onclick="setEstimatorCurrency('INR')">INR (₹)</button>
+      </div>
+    </div>
+    <div class="grid-2" style="align-items:start;">
+      <div>
+        <label style="display:block; font-family:'Fira Code',monospace; font-size:0.8rem; color:var(--muted); margin-bottom:0.35rem;">1. Select Core Engagement Track:</label>
+        <select id="estTrack" class="pg-input" onchange="updateSprintEstimate()">
+          <option value="rag">Sprint 01: Custom RAG & Citation-Grounded Q&A</option>
+          <option value="audit">Sprint 02: LLM Evaluation & Hallucination Audit</option>
+          <option value="nlp">Sprint 03: NLP Classification / SARIMA Forecasting Engine</option>
+          <option value="retainer">Monthly Fractional AI & Eval Advisor (10 hrs/mo)</option>
+        </select>
+        <label style="display:block; font-family:'Fira Code',monospace; font-size:0.8rem; color:var(--muted); margin:0.4rem 0;">2. Optional Production Add-Ons:</label>
+        <div style="display:flex; flex-direction:column; gap:0.45rem; font-size:0.86rem; color:var(--text);">
+          <label style="cursor:pointer;"><input type="checkbox" id="addonEval" onchange="updateSprintEstimate()" /> Automated Adversarial Eval Harness (+2 days)</label>
+          <label style="cursor:pointer;"><input type="checkbox" id="addonDocker" onchange="updateSprintEstimate()" /> Production FastAPI + Docker Deployment (+2 days)</label>
+          <label style="cursor:pointer;"><input type="checkbox" id="addonUi" onchange="updateSprintEstimate()" /> Custom Interactive Web Frontend (+2 days)</label>
+        </div>
+      </div>
+      <div class="trace-box" style="margin:0; display:flex; flex-direction:column; justify-content:space-between; min-height:205px;">
+        <div>
+          <div style="color:var(--muted); font-size:0.78rem;">ESTIMATED DELIVERY & STARTING INVESTMENT</div>
+          <div id="estPriceDisplay" style="font-size:1.55rem; font-weight:800; color:var(--accent); margin:0.35rem 0;">$1,400 – $2,200</div>
+          <div id="estTimeDisplay" style="font-size:0.86rem; color:var(--accent-green); margin-bottom:0.55rem;">Estimated Timeline: 7–10 Business Days</div>
+          <div id="estDeliverables" style="font-size:0.8rem; color:var(--muted);">Includes: Reproducible GitHub repo, architecture docs, unit tests & full IP transfer.</div>
+        </div>
+        <div style="display:flex; gap:0.5rem; flex-wrap:wrap; margin-top:1rem;">
+          <button type="button" class="btn btn-primary btn-sm" onclick="applyEstimateToContact()">Auto-Fill Project Brief ↓</button>
+          <a href="https://cal.com/akash-saini-12740/15min" target="_blank" rel="noopener" class="btn btn-glass btn-sm">Book 15-Min Call ↗</a>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- 1:1 Mentorship, Starter Kits & Newsletter -->
       <div class="grid-3">
         <div class="card">
           <span class="section-tag">1:1 MENTORSHIP • TOPMATE</span>
