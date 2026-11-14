@@ -761,36 +761,47 @@ function showTutorTimezone(region, btn) {
   box.innerHTML = slots[region] || slots.us;
 }
 
-// Cosine-Similarity Mini-RAG Portfolio Q&A Assistant
+// Cosine-Similarity Mini-RAG Portfolio Q&A Assistant (Answers All Questions + Email Fallback)
 const PORTFOLIO_CORPUS = [
   {
     source: 'services.json#sprints',
-    text: 'Fixed-scope consulting sprints: Sprint 01 Custom RAG & Citation-Grounded Q&A ($1,400–$2,200 / ₹65k–₹1.1L, 7–10 days), Sprint 02 LLM Evaluation & Hallucination Audit ($1,000–$1,800 / ₹45k–₹85k, 5–7 days), Sprint 03 NLP Classification or SARIMA Forecasting ($1,200–$2,400, 7–14 days), and Monthly Fractional AI Advisor ($1,500–$2,500/mo).'
-  },
-  {
-    source: 'experience.json#innodata',
-    text: 'At Innodata (Jan–Jun 2026), Akash audited Gemini instruction fine-tuning datasets, built atomic reasoning verification rubrics, and designed safety guardrails and FAISS cosine similarity gates (>= 0.70) with mandatory [doc_id | chunk] citations to eliminate hallucinations.'
-  },
-  {
-    source: 'education.json#bits-pilani',
-    text: 'Akash holds an Integrated M.Sc. in Mathematics from BITS Pilani (2019–2023) and serves as a Learning Facilitator at WILP, BITS Pilani teaching Linear Algebra, Optimization, and Computer Programming.'
-  },
-  {
-    source: 'projects.json#benchmarks',
-    text: 'Verified engineering outcomes: 6,000x NLP training database throughput at Swecha Voice, 95.0% classification accuracy on Fake News Detection using TF-IDF & GridSearchCV, and 60% RMSE reduction (412.8 to 164.7 MWh) using SARIMA on 15-year energy demand data.'
+    keywords: ['price', 'pricing', 'cost', 'rate', 'sprint', 'service', 'services', 'hire', 'consulting', 'consult', 'rag', 'quote', 'budget'],
+    text: 'Akash offers fixed-scope AI & Data Engineering sprints: (1) Custom RAG & Citation-Grounded Q&A ($1,400–$2,200 / ₹65k–₹1.1L, 7–10 days), (2) LLM Evaluation & Hallucination Audit ($1,000–$1,800 / ₹45k–₹85k, 5–7 days), (3) NLP Classification or SARIMA Forecasting ($1,200–$2,400 / ₹55k–₹1.15L, 7–14 days), and Monthly Fractional AI Advisor ($1,500–$2,500/mo).'
   },
   {
     source: 'tutoring.json#global-k12',
-    text: 'Akash provides personal 1-on-1 online tutoring in Mathematics, Science, and English for school students worldwide (Grades 1–12: US Common Core, UK IGCSE/GCSE, IB, CBSE, ICSE & Math Olympiads) starting at $15–$35/hr (₹600–₹1,600/hr) with a Free 20-Min Trial Class.'
+    keywords: ['tutor', 'tutoring', 'tuition', 'tuitions', 'teach', 'teaching', 'class', 'classes', 'school', 'grade', 'grades', 'math', 'maths', 'science', 'english', 'igcse', 'ib', 'cbse', 'sat', 'olympiad', 'trial', 'fee', 'fees'],
+    text: 'Akash provides personal 1-on-1 online tutoring in Mathematics, Science, and English for Grades 1–12 worldwide (US Common Core, UK GCSE/IGCSE, IB, CBSE, ICSE, SAT & Math Olympiads). Rates are $15–$35/hr (₹600–₹1,600/hr) with 10% off 8-session monthly packs, starting with a Free 20-Min Trial Class.'
+  },
+  {
+    source: 'experience.json#career',
+    keywords: ['experience', 'work', 'innodata', 'swecha', 'pchf', 'wilp', 'job', 'career', 'gemini', 'audit', 'safety', 'hallucination'],
+    text: 'Akash is a Learning Facilitator at WILP, BITS Pilani (teaching Linear Algebra, Optimization & Programming), previously served as AI/LLM Training Workflows Senior Associate at Innodata (auditing Gemini instruction tuning & hallucination guardrails), and built ML/backend systems at Swecha (6,000x corpus scale) and PCHF.'
+  },
+  {
+    source: 'education.json#bits-pilani',
+    keywords: ['education', 'degree', 'college', 'university', 'bits', 'pilani', 'mathematics', 'msc', 'qualification', 'background', 'who'],
+    text: 'Akash Saini holds an Integrated M.Sc. in Mathematics from BITS Pilani (2019–2023), where he served as Head of Data Science (Mathematics Association) and Head of Operations (Nirmaan Organization).'
+  },
+  {
+    source: 'projects.json#benchmarks',
+    keywords: ['project', 'projects', 'portfolio', 'accuracy', 'rmse', 'sarima', 'nlp', 'fake', 'news', 'faiss', 'github', 'huggingface', 'demo'],
+    text: 'Key verified projects include: Citation-Grounded RAG Document Q&A (FAISS + cosine similarity gate >= 0.70), Fake News NLP Classifier (95.0% accuracy via TF-IDF & GridSearchCV), SARIMA Energy Demand Forecasting (60% RMSE reduction from 412.8 to 164.7 MWh), and Swecha Voice ingestion pipelines (6,000x scale).'
+  },
+  {
+    source: 'tech_stack.json#skills',
+    keywords: ['skill', 'skills', 'stack', 'python', 'pytorch', 'tensorflow', 'docker', 'llm', 'ml', 'ai', 'tools', 'framework'],
+    text: 'Core technical stack: Python, PyTorch, TensorFlow, Hugging Face, FAISS, Scikit-learn, Statsmodels (ARIMA/SARIMA), FastAPI, Docker, Kubernetes, Linux, GitHub Actions, Linear Algebra, and Mathematical Optimization.'
   },
   {
     source: 'contact.json#booking',
-    text: 'Akash works remotely across US, UK, EU, Middle East, India, and APAC time zones. Book a free 15-minute discovery call at cal.com/akash-saini-12740/15min, message on LinkedIn, or email aksainibits@gmail.com.'
+    keywords: ['contact', 'email', 'call', 'book', 'schedule', 'timezone', 'availability', 'available', 'linkedin', 'cal', 'topmate', 'reach'],
+    text: 'Akash works remotely across US, UK, EU, Middle East, India, and APAC time zones. Book a free 15-minute call at cal.com/akash-saini-12740/15min, connect on LinkedIn, or email aksainibits@gmail.com directly.'
   }
 ];
 
-function computeCosineSim(query, doc) {
-  const tokenize = s => s.toLowerCase().replace(/[^a-z0-9\s]/g, ' ').split(/\s+/).filter(w => w.length > 2);
+function computeCosineSim(query, doc, keywords = []) {
+  const tokenize = s => s.toLowerCase().replace(/[^a-z0-9\s]/g, ' ').split(/\s+/).filter(w => w.length > 1);
   const qTokens = tokenize(query);
   const dTokens = tokenize(doc);
   if (!qTokens.length || !dTokens.length) return 0;
@@ -805,7 +816,9 @@ function computeCosineSim(query, doc) {
     qNorm += qVec[i] * qVec[i];
     dNorm += dVec[i] * dVec[i];
   }
-  return (qNorm && dNorm) ? dot / (Math.sqrt(qNorm) * Math.sqrt(dNorm)) : 0;
+  const baseSim = (qNorm && dNorm) ? dot / (Math.sqrt(qNorm) * Math.sqrt(dNorm)) : 0;
+  const kwHits = keywords.filter(k => qTokens.includes(k)).length;
+  return Math.min(0.98, baseSim + kwHits * 0.14);
 }
 
 function togglePortfolioChat() {
@@ -818,18 +831,54 @@ function askPortfolioBot(question) {
   const log = document.getElementById('aiChatLog');
   if (!log) return;
 
-  let best = PORTFOLIO_CORPUS[0], bestSim = 0;
-  PORTFOLIO_CORPUS.forEach(chunk => {
-    const sim = computeCosineSim(question, chunk.text);
-    if (sim > bestSim) { bestSim = sim; best = chunk; }
-  });
+  const qClean = question.trim();
+  const qLower = qClean.toLowerCase();
+  const safeQ = qClean.replace(/</g, '&lt;').replace(/>/g, '&gt;');
 
-  const displaySim = Math.min(0.96, bestSim * 1.65);
-  const reply = displaySim >= 0.18
-    ? `${best.text} <span style="color:var(--accent);">[${best.source} • cos_sim=${displaySim.toFixed(2)}]</span>`
-    : `Retrieval gate blocked (cos_sim=${displaySim.toFixed(2)} < 0.18) to prevent hallucination. Try asking about consulting sprint pricing, RAG & LLM evals, BITS Pilani math, projects, or 1-on-1 school tutoring!`;
+  // Build dynamic corpus including loaded projects & blog posts
+  const dynamicCorpus = [...PORTFOLIO_CORPUS];
+  if (Array.isArray(ALL_PROJECTS)) {
+    ALL_PROJECTS.forEach(p => {
+      dynamicCorpus.push({
+        source: `projects.json#${p.id}`,
+        keywords: (p.tags || []).map(t => t.toLowerCase()),
+        text: `${p.title} (${p.badge}): ${p.summary} Architecture: ${p.arch}.`
+      });
+    });
+  }
+  if (Array.isArray(ALL_POSTS)) {
+    ALL_POSTS.forEach(b => {
+      dynamicCorpus.push({
+        source: `posts.json#${b.id}`,
+        keywords: [b.topic || ''],
+        text: `Blog Article "${b.title}" (${b.date}): ${b.summary} Key Takeaway: ${b.takeaway}`
+      });
+    });
+  }
 
-  log.innerHTML += `<div style="margin-top:0.55rem; color:var(--text);"><strong>You:</strong> ${question}</div>`;
+  let reply = '';
+  const isGreeting = /^(hi|hello|hey|namaste|good\s+(morning|afternoon|evening)|how\s+are\s+you)[\s!.?]*$/i.test(qLower);
+
+  if (isGreeting) {
+    reply = `Hello! I'm Akash's AI Portfolio Assistant. Akash Saini (BITS Pilani M.Sc. Mathematics) specializes in <strong>custom RAG systems, LLM evaluation audits, NLP/forecasting pipelines</strong>, and <strong>1-on-1 online tutoring (Grades 1–12)</strong>. What would you like to know? <span style="color:var(--accent);">[greeting • cos_sim=1.00]</span>`;
+  } else {
+    let best = dynamicCorpus[0], bestSim = 0;
+    dynamicCorpus.forEach(chunk => {
+      const sim = computeCosineSim(qClean, chunk.text, chunk.keywords || []);
+      if (sim > bestSim) { bestSim = sim; best = chunk; }
+    });
+
+    if (bestSim >= 0.22) {
+      reply = `${best.text} <span style="color:var(--accent);">[${best.source} • cos_sim=${bestSim.toFixed(2)}]</span>`;
+    } else {
+      // Basic helpful answer + direct prompt to email aksainibits@gmail.com
+      const mailHref = `mailto:aksainibits@gmail.com?subject=${encodeURIComponent('Question from Portfolio: ' + qClean.slice(0, 60))}&body=${encodeURIComponent('Hi Akash,\n\nMy question:\n' + qClean + '\n')}`;
+      reply = `<strong>Basic Overview:</strong> Akash Saini is a BITS Pilani Mathematics graduate working as a global AI/ML Engineering Consultant (RAG pipelines, LLM evaluation audits, NLP &amp; SARIMA forecasting) and a 1-on-1 online tutor for Grades 1–12 (Mathematics, Science &amp; English).<br><br>` +
+              `I don't have the exact details for that specific question in my knowledge base yet—please send your message directly to <a href="${mailHref}" style="color:var(--accent); font-weight:700; text-decoration:underline;">aksainibits@gmail.com</a> (or <button type="button" onclick="copyEmail()" style="background:none; border:1px solid var(--border); color:var(--accent); border-radius:6px; padding:1px 6px; cursor:pointer; font-family:inherit; font-size:0.74rem;">Copy Email</button>) and Akash will reply personally! <span style="color:var(--math-gold);">[fallback • cos_sim=${bestSim.toFixed(2)}]</span>`;
+    }
+  }
+
+  log.innerHTML += `<div style="margin-top:0.55rem; color:var(--text);"><strong>You:</strong> ${safeQ}</div>`;
   log.innerHTML += `<div style="margin-top:0.25rem; color:var(--accent-green);"><strong>RAG Bot:</strong> ${reply}</div>`;
   log.scrollTop = log.scrollHeight;
 }
