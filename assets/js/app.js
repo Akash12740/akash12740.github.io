@@ -1,4 +1,14 @@
-﻿// Theme Toggle
+function setActive(btn) {
+  if (!btn || !btn.parentElement) return;
+  btn.parentElement.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+}
+
+function toggleMobileNav() {
+  const nav = document.querySelector('.nav-links');
+  if (nav) nav.classList.toggle('mobile-open');
+}
+// Theme Toggle
 function initTheme() {
   const saved = localStorage.getItem('theme') || 'dark';
   document.documentElement.setAttribute('data-theme', saved);
@@ -540,10 +550,10 @@ document.addEventListener('DOMContentLoaded', () => {
 function runCmd(key) {
   const body = document.getElementById('terminal-body');
   const map = {
-    stack: { c: "cat tech_stack.json", o: `"frameworks": ["PyTorch", "TensorFlow", "HuggingFace", "FAISS"],<br>"infra": ["Docker", "Kubernetes", "GitHub Actions", "Linux"]` },
-    llm: { c: "python3 eval_trace.py", o: `[PASS] Gemini instruction tuning & safety audit<br>[PASS] Atomic step verification & hallucination gates` },
+    stack: { c: "./stack.sh", o: `"frameworks": ["PyTorch", "TensorFlow", "HuggingFace", "FAISS"],<br>"infra": ["Docker", "Kubernetes", "GitHub Actions", "Linux"]` },
+    llm: { c: "./llm_eval.sh", o: `[PASS] Gemini instruction tuning & safety audit<br>[PASS] Atomic step verification & hallucination gates` },
     impact: { c: "./metrics.sh", o: `• Swecha Voice: 6,000x training DB scale<br>• Fake News NLP: 95.0% accuracy | SARIMA: 60% RMSE drop` },
-    contact: { c: "echo $LINKS", o: `Topmate: topmate.io/akash12740 | Gumroad: akashsaini12740.gumroad.com` }
+    contact: { c: "./book_call.sh", o: `Topmate: topmate.io/akash12740 | Gumroad: akashsaini12740.gumroad.com` }
   };
   const item = map[key];
   body.innerHTML = `<div><span style="color:#10b981;">➜</span> ${item.c}</div><div class="cmd-output">${item.o}</div>`;

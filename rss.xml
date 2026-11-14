@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Akash Saini - AI, ML & Applied Math Engineering Notes</title>
+    <link>https://akash12740.github.io/blog.html</link>
+    <description>Production AI systems, LLM evaluation, RAG architectures, and applied mathematics by Akash Saini (BITS Pilani).</description>
+    <language>en-us</language>
+    <lastBuildDate>Sat, 14 Nov 2026 06:03:28 GMT</lastBuildDate>
+    <atom:link href="https://akash12740.github.io/rss.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title><![CDATA[Mitigating LLM Hallucinations: Instruction Fine-Tuning, RAG & Citation Grounding]]></title>
+      <link>https://akash12740.github.io/blog.html#post-007</link>
+      <guid>https://akash12740.github.io/blog.html#post-007</guid>
+      <pubDate>Fri, 13 Nov 2026 02:30:00 GMT</pubDate>
+      <description><![CDATA[Drawing from curating Gemini instruction fine-tuning workflows at Innodata and building FAISS RAG pipelines, here is a two-pronged defense against model fabrication.]]></description>
+    </item>
+    <item>
+      <title><![CDATA[From Symbolic Rules to Agentic Workflows: Designing Reliable AI Systems]]></title>
+      <link>https://akash12740.github.io/blog.html#post-006</link>
+      <guid>https://akash12740.github.io/blog.html#post-006</guid>
+      <pubDate>Thu, 12 Nov 2026 02:30:00 GMT</pubDate>
+      <description><![CDATA[Modern AI has evolved from static prediction endpoints into multi-step reasoning agents. Enterprise deployments succeed when probabilistic models are wrapped in deterministic verification gates.]]></description>
+    </item>
+    <item>
+      <title><![CDATA[The Mathematics of Generalization: Regularization, Bias-Variance & Hyperparameter Tuning]]></title>
+      <link>https://akash12740.github.io/blog.html#post-005</link>
+      <guid>https://akash12740.github.io/blog.html#post-005</guid>
+      <pubDate>Wed, 11 Nov 2026 02:30:00 GMT</pubDate>
+      <description><![CDATA[How L1/L2 regularization, stratified k-fold cross-validation, and margin maximization pushed our Fake News NLP pipeline to 95.0% out-of-sample accuracy.]]></description>
+    </item>
+    <item>
+      <title><![CDATA[Why 80% of Data Science Impact Happens Before Model.fit()]]></title>
+      <link>https://akash12740.github.io/blog.html#post-004</link>
+      <guid>https://akash12740.github.io/blog.html#post-004</guid>
+      <pubDate>Tue, 10 Nov 2026 02:30:00 GMT</pubDate>
+      <description><![CDATA[Lessons from scaling unstructured speech and text pipelines by 6,000x at Swecha: schema enforcement, deduplication, and metric alignment beat complex architectures.]]></description>
+    </item>
+    <item>
+      <title><![CDATA[Why SARIMA Outperformed ARIMA by 60% RMSE on 15-Year Energy Demand]]></title>
+      <link>https://akash12740.github.io/blog.html#post-003</link>
+      <guid>https://akash12740.github.io/blog.html#post-003</guid>
+      <pubDate>Mon, 09 Nov 2026 02:30:00 GMT</pubDate>
+      <description><![CDATA[Using Augmented Dickey-Fuller stationarity testing and seasonal differencing (D=1, s=12) to cut forecasting RMSE from 412.8 MWh down to 164.7 MWh.]]></description>
+    </item>
+  </channel>
+</rss>

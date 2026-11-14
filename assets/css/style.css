@@ -1,4 +1,4 @@
-﻿:root {
+:root {
   --bg: #050811;
   --surface: rgba(15, 23, 42, 0.78);
   --surface-solid: #0f172a;
@@ -421,4 +421,23 @@ footer {
 @media (max-width: 900px) {
   header { grid-template-columns: 1fr; }
   .nav-links { display: none; }
+}
+
+/* Responsive Mobile Navigation */
+.mobile-menu-btn { display: none; background: var(--code-bg); border: 1px solid var(--border); color: var(--text); font-family: 'Fira Code', monospace; font-size: 0.95rem; padding: 0.35rem 0.65rem; border-radius: 8px; cursor: pointer; }
+@media (max-width: 900px) {
+  .mobile-menu-btn { display: inline-flex; align-items: center; }
+  .nav-links.mobile-open {
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background: var(--surface-solid);
+    border-bottom: 1px solid var(--border);
+    padding: 1rem 5%;
+    gap: 0.85rem;
+    z-index: 200;
+  }
 }

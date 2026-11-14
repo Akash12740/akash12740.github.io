@@ -1,4 +1,4 @@
-﻿import json
+import json
 import os
 import urllib.request
 from datetime import datetime, timezone
@@ -75,6 +75,13 @@ def fallback_post(topic_code: str, topic_label: str, angle: str, idx: int) -> di
         "takeaway": f"Combining formal mathematical constraints with automated verification transforms {topic_label} prototypes into dependable systems."
     }
 
+def parse_post_date(date_str: str) -> str:
+    try:
+        dt = datetime.strptime(date_str, "%Y-%m-%d").replace(hour=8, tzinfo=timezone.utc)
+        return format_datetime(dt)
+    except Exception:
+        return format_datetime(datetime.now(timezone.utc))
+
 def update_feeds(posts: list, today_str: str):
     sitemap_xml = f"""<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
@@ -88,7 +95,7 @@ def update_feeds(posts: list, today_str: str):
 
     items_xml = []
     for p in posts[:15]:
-        pub_date = format_datetime(datetime.now(timezone.utc))
+        pub_date = parse_post_date(p.get("date", today_str))
         items_xml.append(f"""    <item>
       <title><![CDATA[{p['title']}]]></title>
       <link>https://akash12740.github.io/blog.html#{p['id']}</link>
@@ -98,12 +105,14 @@ def update_feeds(posts: list, today_str: str):
     </item>""")
 
     rss_xml = f"""<?xml version="1.0" encoding="UTF-8"?>
-<rss version="2.0">
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Akash Saini — AI, Mathematics & Data Science Notes</title>
+    <title>Akash Saini — AI, ML & Applied Math Engineering Notes</title>
     <link>https://akash12740.github.io/blog.html</link>
-    <description>Technical notes on Artificial Intelligence, Machine Learning, Data Science, and Mathematics by Akash Saini (BITS Pilani).</description>
+    <description>Production AI systems, LLM evaluation, RAG architectures, and applied mathematics by Akash Saini (BITS Pilani).</description>
     <language>en-us</language>
+    <lastBuildDate>{format_datetime(datetime.now(timezone.utc))}</lastBuildDate>
+    <atom:link href="https://akash12740.github.io/rss.xml" rel="self" type="application/rss+xml" />
 {chr(10).join(items_xml)}
   </channel>
 </rss>
