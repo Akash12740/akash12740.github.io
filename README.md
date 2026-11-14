@@ -2,9 +2,6 @@ Website Link - https://akash12740.github.io
 
 <div align="center">
 
-<a href="https://akash12740.github.io">
-  <img src="https://readme-typing-svg.demolab.com?font=Fira+Code&weight=700&size=28&duration=3200&pause=1000&color=00F2FE¢er=true&vCenter=true&width=820&lines=Akash+Saini+%7C+AI+%26+Machine+Learning+Engineer;BITS+Pilani+Integrated+M.Sc.+Mathematics+Graduate;LLM+Fine-Tuning+%E2%80%A2+RAG+Pipelines+%E2%80%A2+Reasoning+Evaluation;Live+Interactive+AI+Demos+%26+Applied+Math+Playgrounds" alt="Typing SVG" />
-</a>
 
 <p align="center">
   <strong>Production-Grade, Modular & JSON-Driven AI/ML Engineering Portfolio, Interactive Math Lab & Automated Technical Blog</strong>
