@@ -3,15 +3,14 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>1-on-1 Online Maths, Science & English Tutor (Grades 1–12) | Akash Saini (BITS Pilani)</title>
-  <meta name="description" content="Personal 1-on-1 online tutoring in Mathematics, Science, and English for school students worldwide (Grades 1–12: US Common Core, UK GCSE/IGCSE, IB, CBSE, ICSE & Olympiad prep) by BITS Pilani Mathematics graduate Akash Saini." />
+  <title>1-on-1 Online Maths, Science & English Tuition (Grades 1–12) | Akash Saini (BITS Pilani)</title>
+  <meta name="description" content="Personal 1-on-1 online tuition in Mathematics, Science, and English for school students worldwide (Grades 1–12: US Common Core, UK GCSE/IGCSE, IB, CBSE, ICSE & Olympiad prep) by BITS Pilani Mathematics graduate Akash Saini." />
   <link rel="canonical" href="https://akash12740.github.io/tutoring.html" />
   <link rel="icon" type="image/svg+xml" href="assets/img/logo.svg" />
   <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;600;700&family=Inter:wght@400;600;800&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="assets/css/style.css?v=6" />
+  <link rel="stylesheet" href="assets/css/style.css?v=7" />
 </head>
 <body>
-<canvas id="neural-canvas"></canvas>
 <div id="toast"></div>
 
 <nav>
@@ -37,7 +36,7 @@
         Hi parents and students! I'm <strong>Akash Saini</strong>, an <strong>Integrated M.Sc. Mathematics graduate from BITS Pilani</strong>. I teach 1-on-1 online classes for school students across the <strong>US, UK, Europe, Middle East, India & APAC</strong>—turning confusing chapters into crystal-clear visual intuition.
       </p>
       <div class="cta-group">
-        <a href="#book-trial" class="btn btn-primary">🎓 Book Free 20-Min Demo Class</a>
+        <button type="button" onclick="openTuitionDemoPopup()" class="btn btn-primary">🎓 Book Free 20-Min Demo Class</button>
         <a href="https://cal.com/akash-saini-12740/15min" target="_blank" rel="noopener" class="btn btn-purple">📅 Pick Slot on Cal.com ↗</a>
         <a href="#fee-planner" class="btn btn-glass">💰 Fee Calculator ↓</a>
       </div>
@@ -139,7 +138,7 @@
           <div id="tutRateDisplay" style="font-size:1.45rem; font-weight:800; color:var(--accent-green); margin:0.3rem 0;">$18 – $24 / hour</div>
           <div id="tutPackDisplay" style="font-size:0.84rem; color:var(--accent); margin-bottom:0.45rem;">Monthly 8-Session Pack: $135 – $180 (Save 10%)</div>
           <div style="font-size:0.8rem; color:var(--muted); margin-bottom:0.8rem;">First 20-minute trial class is 100% free. Includes custom worksheets & parent feedback.</div>
-          <a href="#book-trial" class="btn btn-primary btn-sm">Request Free Trial Below ↓</a>
+          <button type="button" class="btn btn-primary btn-sm" onclick="applyTutorToContact()">Pre-Fill Free Trial Request ↓</button>
         </div>
       </div>
     </div>
@@ -170,7 +169,6 @@
       <div class="card">
         <h3>Send Trial Class Details</h3>
         <form id="contactForm" onsubmit="handleContactSubmit(event)" style="margin-top:0.75rem;">
-          <input type="hidden" id="web3Key" value="b85a0e4a-e4c4-4c83-84cf-5deb470c88c1" />
           <input type="text" id="senderName" class="pg-input" placeholder="Parent / Student Name & Country" required />
           <input type="email" id="senderEmail" class="pg-input" placeholder="Parent Email or WhatsApp Number" required />
           <textarea id="senderMsg" class="pg-textarea" rows="4" placeholder="Student Grade, School Board (US, UK, IB, CBSE, ICSE), Subjects & Preferred Days..." required></textarea>
@@ -193,6 +191,6 @@
   <div>Akash Saini • Integrated M.Sc. Mathematics, BITS Pilani • Worldwide 1-on-1 Online Tutor</div>
 </footer>
 
-<script src="assets/js/app.js?v=6"></script>
+<script src="assets/js/app.js?v=7"></script>
 </body>
 </html>
