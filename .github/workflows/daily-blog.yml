@@ -1,9 +1,9 @@
-name: Daily Technical Blog Sync
+﻿name: Daily Technical Blog Sync
 
 on:
   schedule:
-    - cron: '0 3 * * *'
-    - cron: '30 8 * * *'
+    - cron: '23 3 * * *'
+    - cron: '47 8 * * *'
   workflow_dispatch:
 
 permissions:
