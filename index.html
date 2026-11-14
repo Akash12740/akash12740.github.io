@@ -138,31 +138,27 @@
 
   <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
-  <link rel="stylesheet" href="assets/css/style.css" />
+  <link rel="stylesheet" href="assets/css/style.css?v=5" />
   <link rel="manifest" href="manifest.json" />
 </head>
 <body>
   <div id="scroll-progress"></div>
   <div id="toast"></div>
 
-  <nav aria-label="Primary Navigation">
-    <a href="#" class="logo"><span><</span>Akash.AI<span>/></span></a>
-    <button class="mobile-menu-btn" onclick="toggleMobileNav()" aria-label="Toggle Menu">☰</button><div class="nav-links">
-      <a href="#services">// hire_me</a>
-      <a href="tutoring.html">🎓 Tutoring</a>
-      <a href="#live-demo">// live_demos</a>
-      <a href="#featured-blogs">// blogs</a>
-      <a href="#reasoning-lab">// math_lab</a>
-      <a href="#math-games">// math_games</a>
-      <a href="#projects">// projects</a>
-      <a href="blog.html" style="color:var(--accent);">All Articles ↗</a>
-    </div>
-    <div style="display:flex; gap:0.5rem;">
-      <button class="theme-btn" onclick="toggleExecBrief()" style="border-color:var(--accent); color:var(--accent);">⚡ Client Brief</button>
-      <a href="#contact" style="color:var(--accent); font-weight:600;">💬 Contact & Connect</a>
-      <button id="themeToggle" class="theme-btn" onclick="toggleTheme()">☀️ Light</button>
-    </div>
-  </nav>
+  <nav>
+  <a href="index.html" class="logo"><<span>Akash.MathAI</span>/></a>
+  <button class="mobile-menu-btn" onclick="toggleMobileNav()" aria-label="Toggle Menu">☰</button>
+  <div class="nav-links">
+    <a href="tutoring.html">🎓 Tutoring</a>
+    <a href="#services">🛠️ Services</a>
+    <a href="#live-demo">🎮 Demos</a>
+    <a href="#reasoning-lab">🧮 Math Lab</a>
+    <a href="#projects">🚀 Projects</a>
+    <a href="blog.html">📖 Blog</a>
+    <a href="#contact" class="nav-cta">💬 Connect</a>
+    <button type="button" id="themeToggle" class="theme-btn" onclick="toggleTheme()">☀️ Light</button>
+  </div>
+</nav>
 
   <main class="container">
     <!-- 60-Second Global Client & Hiring Manager Executive Brief -->
@@ -819,7 +815,7 @@
   </div>
   <div>Built with mathematical rigor by Akash Saini • BITS Pilani</div>
 </footer>
-  <script src="assets/js/app.js"></script>
+  <script src="assets/js/app.js?v=5"></script>
 <!-- Floating Client-Side RAG Portfolio Assistant -->
 <div id="aiChatLauncher" style="position:fixed; bottom:24px; left:24px; z-index:1400;">
   <button type="button" onclick="togglePortfolioChat()" class="btn btn-primary" style="border-radius:999px; box-shadow:0 10px 28px rgba(0,242,254,0.3);">
