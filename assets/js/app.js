@@ -909,7 +909,7 @@ function initPlayfulMathCanvas() {
   function animate() {
     ctx.clearRect(0, 0, w, h);
     const isLight = document.documentElement.getAttribute('data-theme') === 'light';
-    ctx.fillStyle = isLight ? 'rgba(29, 78, 216, 0.08)' : 'rgba(56, 189, 248, 0.08)';
+    ctx.fillStyle = isLight ? 'rgba(29, 78, 216, 0.20)' : 'rgba(56, 189, 248, 0.22)';
 
     floaters.forEach(f => {
       f.x += f.vx;
@@ -930,7 +930,7 @@ function initPlayfulMathCanvas() {
       const hovered = Math.hypot(mouseX - s.x, mouseY - s.y) <= s.r + 12;
       ctx.strokeStyle = hovered
         ? '#f59e0b'
-        : (isLight ? 'rgba(29, 78, 216, 0.16)' : 'rgba(56, 189, 248, 0.16)');
+        : (isLight ? 'rgba(29, 78, 216, 0.32)' : 'rgba(251, 191, 36, 0.35)');
       ctx.lineWidth = hovered ? 2.5 : 1.5;
 
       if (s.type === 'circle') {

@@ -532,3 +532,61 @@ section::before {
   z-index: 1800;
   display: none;
 }
+/* === NAVBAR SINGLE-LINE ICON PILLS & STRONGER MATHEMATICS THEME === */
+nav { padding: 0.75rem 3.5%; }
+.nav-links { gap: 0.45rem; flex-wrap: nowrap; }
+.nav-links a {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  white-space: nowrap;
+  padding: 0.35rem 0.65rem;
+  border-radius: 10px;
+  font-size: 0.8rem;
+  border: 1px solid transparent;
+}
+.nav-links a:hover {
+  background: rgba(56, 189, 248, 0.12);
+  border-color: var(--border);
+}
+.theme-btn { white-space: nowrap; }
+
+/* Stronger Graph-Paper Grid & Mathematical Blueprint Feel */
+:root {
+  --grid-minor: rgba(56, 189, 248, 0.09);
+  --grid-major: rgba(251, 191, 36, 0.16);
+}
+[data-theme="light"] {
+  --grid-minor: rgba(29, 78, 216, 0.08);
+  --grid-major: rgba(217, 119, 6, 0.15);
+}
+body {
+  background-image:
+    linear-gradient(to right, var(--grid-major) 1px, transparent 1px),
+    linear-gradient(to bottom, var(--grid-major) 1px, transparent 1px),
+    linear-gradient(to right, var(--grid-minor) 1px, transparent 1px),
+    linear-gradient(to bottom, var(--grid-minor) 1px, transparent 1px) !important;
+  background-size: 120px 120px, 120px 120px, 24px 24px, 24px 24px !important;
+}
+.card {
+  border-width: 1.5px;
+  box-shadow: 0 8px 28px rgba(0, 0, 0, 0.16);
+}
+@media (max-width: 1180px) {
+  .mobile-menu-btn { display: inline-flex; align-items: center; }
+  .nav-links { display: none; }
+  .nav-links.mobile-open {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background: var(--surface-solid);
+    border-bottom: 1px solid var(--border);
+    padding: 1rem 5%;
+    gap: 0.65rem;
+    z-index: 200;
+  }
+}
