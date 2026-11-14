@@ -57,7 +57,7 @@ function sendLeadAsync(name, email, subject, message) {
   }).catch(() => {});
 }
 
-// Blog Loader & Tabs
+// Blog Loader & Filter Tabs
 let ALL_POSTS = [];
 async function loadPosts() {
   const homeContainer = document.getElementById('featured-blogs-grid');
@@ -228,25 +228,7 @@ async function loadTestimonials() {
   } catch (e) { console.error(e); }
 }
 
-// Interactive Labs & Visualizers
-function runFakeNewsDemo() {
-  const input = document.getElementById('newsInput');
-  const out = document.getElementById('newsOutput');
-  if (!input || !out) return;
-  const text = input.value.trim();
-  if (!text) return;
-  const sensational = ['shocking', 'miracle', 'secret', 'exposed', 'guaranteed', '100%', 'conspiracy', 'breaking', 'unbelievable', 'banned', 'hoax', 'scam'];
-  const credible = ['study', 'dataset', 'university', 'published', 'report', 'according', 'researchers', 'evidence', 'analysis', 'ministry', 'journal', 'percent'];
-  const words = text.toLowerCase().replace(/[^a-z0-9%\s]/g, '').split(/\s+/).filter(Boolean);
-  const sensHits = words.filter(w => sensational.includes(w));
-  const credHits = words.filter(w => credible.includes(w));
-  const exclamations = (text.match(/!/g) || []).length;
-  const capsWords = text.split(/\s+/).filter(w => w.length > 3 && w === w.toUpperCase() && /[A-Z]/.test(w));
-  const fakeProb = Math.max(0.04, Math.min(0.98, 0.25 + sensHits.length * 0.22 + exclamations * 0.1 + capsWords.length * 0.12 - credHits.length * 0.15));
-  const isFake = fakeProb >= 0.5;
-  out.innerHTML = `<div style="color:${isFake ? '#ef4444' : '#10b981'}; font-weight:700;">[${isFake ? '⚠️ HIGH MISINFORMATION RISK' : '✓ VERIFIED / NEUTRAL STYLE'}] • Score: ${(fakeProb * 100).toFixed(1)}%</div><div style="margin-top:0.4rem; color:var(--muted);">Sensational: [${sensHits.join(', ') || 'none'}] | Credible: [${credHits.join(', ') || 'none'}]</div>`;
-}
-
+// Interactive Visualizers & Labs
 function updateMatrixLab() {
   const a = +(document.getElementById('matA')?.value || 2);
   const b = +(document.getElementById('matB')?.value || 1);
@@ -358,16 +340,6 @@ function playMontyHall(trials, doSwitch) {
   }
 }
 
-function evaluateTrace(choice) {
-  const box = document.getElementById('reasoningVerdict');
-  if (!box) return;
-  box.classList.add('show');
-  box.style.borderLeftColor = choice === 'A' ? 'var(--accent-green)' : 'var(--accent-red)';
-  box.innerHTML = choice === 'A'
-    ? '<strong>✓ Spot On! Trace A has a topological fallacy.</strong> GL_n(ℝ) splits into det > 0 and det < 0 (2 components each), giving 2³ = 8 connected components.'
-    : '<strong>✕ Look closer at Trace A!</strong> Trace B correctly multiplies the 2 determinant components per factor (2 × 2 × 2 = 8).';
-}
-
 // Tutoring Calculators & Timezone Tabs
 let TUT_CURRENCY = 'USD';
 const TUTOR_RATES = {
@@ -421,7 +393,7 @@ function applyTutorToContact() {
   msgBox.focus();
 }
 
-// Instant Tuition Demo Popup (ONLY triggered by explicit button click, never hijacks navbar links)
+// Instant Tuition Demo Popup (Triggered only by button click, never blocks navbar links)
 function openTuitionDemoPopup() {
   if (document.getElementById('tuitionDemoBackdrop')) return;
   const backdrop = document.createElement('div');
@@ -434,7 +406,7 @@ function openTuitionDemoPopup() {
       <span class="section-tag">1:1_LIVE_TUITION • BITS_PILANI_ALUMNUS</span>
       <h3 style="font-size: 1.3rem; margin: 0.35rem 0 0.5rem;">Book Your Free 1:1 Demo Class 🎓</h3>
       <p style="color: var(--muted); font-size: 0.87rem; margin-bottom: 1rem;">
-        Personalized 1-on-1 coaching in <strong>Mathematics, Science & English</strong> (Grades 1–12 • US, UK, IB, CBSE, ICSE).
+        Personalized 1-on-1 coaching in <strong>Mathematics, Science &amp; English</strong> (Grades 1–12 • US, UK, IB, CBSE, ICSE).
       </p>
       <form id="tuitionDemoForm">
         <input type="text" id="demoStudentName" class="pg-input" placeholder="Student / Parent Name" required />
