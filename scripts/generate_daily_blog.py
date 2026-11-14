@@ -16,7 +16,8 @@ TOPICS = [
     ("ai", "Artificial Intelligence", "Deterministic Guardrails & Multi-Step Reasoning Trace Verification"),
 ]
 
-def call_gemini(api_key: str, topic_code: str, topic_label: str, angle: str, existing_titles: list) -> dict | None:
+
+def call_gemini(api_key: str, topic_code: str, topic_label: str, angle: str, existing_titles: list):
     url = f"https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key={api_key}"
     prompt = (
         f"You are Akash Saini, an Integrated M.Sc. Mathematics graduate from BITS Pilani and AI/ML Engineer. "
@@ -30,7 +31,7 @@ def call_gemini(api_key: str, topic_code: str, topic_label: str, angle: str, exi
     )
     payload = {
         "contents": [{"parts": [{"text": prompt}]}],
-        "generationConfig": {"responseMimeType": "application/json", "temperature": 0.7}
+        "generationConfig": {"responseMimeType": "application/json", "temperature": 0.7},
     }
     req = urllib.request.Request(
         url,
@@ -50,6 +51,7 @@ def call_gemini(api_key: str, topic_code: str, topic_label: str, angle: str, exi
         print(f"Gemini API call failed ({exc}); using curated fallback.")
         return None
 
+
 def fallback_post(topic_code: str, topic_label: str, angle: str, idx: int) -> dict:
     return {
         "topic": topic_code,
@@ -61,26 +63,20 @@ def fallback_post(topic_code: str, topic_label: str, angle: str, idx: int) -> di
         "sections": [
             {
                 "heading": "Why Mathematical Rigor Matters in Production",
-                "body": f"Deploying {angle.lower()} requires bounding variance and eliminating silent distribution shifts before predictions reach downstream users."
+                "body": f"Deploying {angle.lower()} requires bounding variance and eliminating silent distribution shifts before predictions reach downstream users.",
             },
             {
                 "heading": "Deterministic Verification & Evaluation",
-                "body": "Every probabilistic model output should pass through automated invariant checks, confidence thresholds, and stratified holdout validation."
+                "body": "Every probabilistic model output should pass through automated invariant checks, confidence thresholds, and stratified holdout validation.",
             },
             {
                 "heading": "Operationalizing for Low Latency",
-                "body": "Separating offline feature/index computation from lightweight online inference ensures sub-100ms p95 latency at scale."
-            }
+                "body": "Separating offline feature/index computation from lightweight online inference ensures sub-100ms p95 latency at scale.",
+            },
         ],
-        "takeaway": f"Combining formal mathematical constraints with automated verification transforms {topic_label} prototypes into dependable systems."
+        "takeaway": f"Combining formal mathematical constraints with automated verification transforms {topic_label} prototypes into dependable systems.",
     }
 
-def parse_post_date(date_str: str) -> str:
-    try:
-        dt = datetime.strptime(date_str, "%Y-%m-%d").replace(hour=8, tzinfo=timezone.utc)
-        return format_datetime(dt)
-    except Exception:
-        return format_datetime(datetime.now(timezone.utc))
 
 def update_feeds(posts: list, today_str: str):
     sitemap_xml = f"""<?xml version="1.0" encoding="UTF-8"?>
@@ -95,31 +91,31 @@ def update_feeds(posts: list, today_str: str):
         f.write(sitemap_xml)
 
     items_xml = []
+    pub_date = format_datetime(datetime.now(timezone.utc))
     for p in posts[:15]:
-        pub_date = parse_post_date(p.get("date", today_str))
-        items_xml.append(f"""    <item>
+        items_xml.append(
+            f"""    <item>
       <title><![CDATA[{p['title']}]]></title>
       <link>https://akash12740.github.io/blog.html#{p['id']}</link>
       <guid>https://akash12740.github.io/blog.html#{p['id']}</guid>
       <pubDate>{pub_date}</pubDate>
       <description><![CDATA[{p['summary']}]]></description>
-    </item>""")
+    </item>"""
+        )
 
     rss_xml = f"""<?xml version="1.0" encoding="UTF-8"?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+<rss version="2.0">
   <channel>
-    <title>Akash Saini — AI, ML & Applied Math Engineering Notes</title>
+    <title>Akash Saini — AI, LLMs &amp; Applied Mathematics Blog</title>
     <link>https://akash12740.github.io/blog.html</link>
-    <description>Production AI systems, LLM evaluation, RAG architectures, and applied mathematics by Akash Saini (BITS Pilani).</description>
-    <language>en-us</language>
-    <lastBuildDate>{format_datetime(datetime.now(timezone.utc))}</lastBuildDate>
-    <atom:link href="https://akash12740.github.io/rss.xml" rel="self" type="application/rss+xml" />
+    <description>Technical articles on RAG architectures, LLM evaluation, NLP, and time-series forecasting.</description>
 {chr(10).join(items_xml)}
   </channel>
 </rss>
 """
     with open(RSS_FILE, "w", encoding="utf-8") as f:
         f.write(rss_xml)
+
 
 def main():
     with open(POSTS_FILE, "r", encoding="utf-8-sig") as f:
@@ -149,7 +145,7 @@ def main():
         "summary": article["summary"],
         "architecture_flow": article.get("architecture_flow", "Input -> Pipeline -> Output"),
         "sections": article.get("sections", []),
-        "takeaway": article.get("takeaway", "")
+        "takeaway": article.get("takeaway", ""),
     }
 
     posts.insert(0, new_entry)
@@ -158,6 +154,7 @@ def main():
 
     update_feeds(posts, today_str)
     print(f"Published: {new_entry['title']}")
+
 
 if __name__ == "__main__":
     main()
