@@ -3,20 +3,20 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Interactive AI & Math Labs | Akash Saini (BITS Pilani)</title>
+  <title>Interactive AI &amp; Math Labs | Akash Saini (BITS Pilani)</title>
   <link rel="icon" type="image/svg+xml" href="assets/img/logo.svg" />
   <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;600;700&family=Inter:wght@400;600;800&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="assets/css/style.css?v=7" />
+  <link rel="stylesheet" href="assets/css/style.css?v=8" />
 </head>
 <body>
 <div id="toast"></div>
 <nav>
-  <a href="index.html" class="logo"><<span>Akash.MathAI</span>/></a>
+  <a href="index.html" class="logo">&lt;<span>Akash.MathAI</span>/&gt;</a>
   <button type="button" class="mobile-menu-btn" onclick="toggleMobileNav()">☰</button>
   <div class="nav-links">
     <a href="index.html">🏠 Home</a>
     <a href="tutoring.html">🎓 Tuition</a>
-    <a href="labs.html" style="color:var(--accent); font-weight:700;">🧮 Math & AI Labs</a>
+    <a href="labs.html" style="color:var(--accent); font-weight:700;">🧮 Math &amp; AI Labs</a>
     <a href="blog.html">📖 Blog</a>
     <a href="capabilities.html">📄 Capabilities</a>
     <a href="index.html#contact" class="nav-cta">💬 Connect</a>
@@ -27,14 +27,14 @@
   <header style="grid-template-columns:1fr;">
     <div>
       <div class="status-pill"><span class="pulse-dot"></span><span>INTERACTIVE_SANDBOXES • ZERO_LATENCY_IN_BROWSER</span></div>
-      <h1>AI, RAG & <span class="gradient-text">Applied Mathematics</span> Labs</h1>
+      <h1>AI, RAG &amp; <span class="gradient-text">Applied Mathematics</span> Labs</h1>
       <p class="hero-desc">Hands-on visualizers built by Akash Saini (BITS Pilani Mathematics) — explore live document retrieval, vector cosine similarity gates, 2×2 matrix transformations, and optimization games.</p>
     </div>
   </header>
 
   <section id="live-rag">
     <span class="section-tag">01. LIVE_HUGGING_FACE_SPACE</span>
-    <h2>RAG Document Q&A Engine</h2>
+    <h2>RAG Document Q&amp;A Engine</h2>
     <div class="card">
       <p style="color:var(--muted); font-size:0.9rem;">Test semantic chunking, cosine similarity thresholds, and citation-grounded answers directly in your browser:</p>
       <div class="hf-frame-wrap">
@@ -48,7 +48,7 @@
     <h2>Interactive Mathematical Visualizers</h2>
     <div class="grid-2">
       <div class="card">
-        <h3>2×2 Matrix & Determinant Visualizer</h3>
+        <h3>2×2 Matrix &amp; Determinant Visualizer</h3>
         <div style="display:grid; grid-template-columns:repeat(4,1fr); gap:0.5rem; margin:0.75rem 0;">
           <input type="number" step="0.5" id="matA" class="pg-input" value="2" oninput="updateMatrixLab()" />
           <input type="number" step="0.5" id="matB" class="pg-input" value="1" oninput="updateMatrixLab()" />
@@ -71,7 +71,7 @@
 
   <section id="math-games">
     <span class="section-tag">03. PLAYABLE_OPTIMIZATION_&_PROBABILITY</span>
-    <h2>Interactive Math & AI Mini-Games</h2>
+    <h2>Interactive Math &amp; AI Mini-Games</h2>
     <div class="grid-3">
       <div class="card">
         <h3>Gradient Descent Valley Finder</h3>
@@ -86,7 +86,7 @@
       </div>
 
       <div class="card">
-        <h3>Determinant & Trace Blitz</h3>
+        <h3>Determinant &amp; Trace Blitz</h3>
         <div id="blitzPrompt" class="trace-box"></div>
         <input type="number" id="blitzInput" class="pg-input" placeholder="Enter integer answer..." />
         <button type="button" class="btn btn-primary btn-sm" onclick="checkBlitz()">Submit Answer</button>
@@ -106,6 +106,6 @@
   </section>
 </div>
 <footer>Akash Saini • BITS Pilani Mathematics • <a href="index.html" style="color:var(--accent);">Back to Home</a></footer>
-<script src="assets/js/app.js?v=7"></script>
+<script src="assets/js/app.js?v=8"></script>
 </body>
 </html>
