@@ -158,7 +158,7 @@
     </div>
     <div style="display:flex; gap:0.5rem;">
       <button class="theme-btn" onclick="toggleExecBrief()" style="border-color:var(--accent); color:var(--accent);">⚡ Client Brief</button>
-      <a href="#contact" style="color:var(--accent); font-weight:600;">Contact & Connect</a>
+      <a href="#contact" style="color:var(--accent); font-weight:600;">💬 Contact & Connect</a>
       <button id="themeToggle" class="theme-btn" onclick="toggleTheme()">☀️ Light</button>
     </div>
   </nav>
@@ -187,8 +187,8 @@
         <h1>Hi, I'm <span class="gradient-text">Akash Saini</span></h1>
         <div class="typing-wrapper"><span id="typed-text"></span></div>
         <p class="hero-desc">
-          Integrated M.Sc. Mathematics graduate from <strong>BITS Pilani</strong> helping global startups and AI teams ship <strong>zero-hallucination RAG pipelines</strong>, <strong>LLM reasoning & safety audits</strong>, <strong>high-accuracy NLP systems</strong>, and <strong>statistical forecasting models</strong>.
-        </p>
+      I studied Mathematics at <strong>BITS Pilani</strong> and build smart, trustworthy AI tools that anyone can rely on. From <strong>document-answering assistants that never make things up</strong> to <strong>interactive math games and forecasts</strong>, I turn complex data into simple, helpful products.
+    </p>
         <div class="cta-group">
           <a href="https://cal.com/akash-saini-12740/15min" target="_blank" rel="noopener" class="btn btn-primary">Book Free 15-Min Project Call ↗</a>
           <a href="#services" class="btn btn-purple">View Freelance Sprints 🚀</a>
@@ -239,9 +239,19 @@
     </div>
 
     <!-- Productized Freelance Service Sprints -->
-    <section id="services">
+    <!-- Interactive Math Fun Fact & Everyday Puzzle Widget -->
+<div class="card" style="margin-bottom:1rem; border-color:var(--math-gold); display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:1rem;">
+  <div style="max-width:760px;">
+    <span class="section-tag" style="margin-bottom:0.2rem;">✨ INTERACTIVE MATH FUN FACT (TIP: HOVER OVER BACKGROUND SHAPES!)</span>
+    <h3 id="funFactTitle" style="margin-bottom:0.25rem;">🍕 The Pizza Volume Trick</h3>
+    <p id="funFactText" style="color:var(--muted); margin:0;">A pizza with radius z and thickness a has volume Pi × z × z × a — literally "Pi · z · z · a"!</p>
+  </div>
+  <button type="button" class="btn btn-purple btn-sm" onclick="nextMathFunFact()">Next Fun Fact 🎲</button>
+</div>
+
+<section id="services">
       <span class="section-tag">01. GLOBAL_FREELANCE_SPRINTS_&_ADVISORY</span>
-      <h2>Hire Me: Fixed-Scope AI & ML Consulting Sprints</h2>
+      <h2>How We Can Work Together (Simple, Clear Projects)</h2>
       <p style="color:var(--muted); max-width:780px; margin:-0.75rem 0 1.5rem; font-size:0.95rem;">
         Partner directly with an AI/ML engineer and mathematician—no agency middlemen. Clear milestones, reproducible GitHub deliverables, and full IP handoff.
       </p>
@@ -351,7 +361,7 @@
     <!-- Live Interactive AI Demos -->
     <section id="live-demo">
       <span class="section-tag">02. LIVE_CLIENT_DEMOS</span>
-      <h2>Interactive AI & NLP Playgrounds</h2>
+      <h2>Try My AI Tools Yourself (No Coding Needed!)</h2>
       <div class="card" style="margin-bottom:1.5rem;">
         <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:0.75rem;">
           <p style="color:var(--muted); font-size:0.93rem;"><strong>Demo 1: RAG Document Q&A Engine</strong> — Upload a <code>.txt</code> / <code>.md</code> document or paste custom text to run semantic chunking and citation-grounded retrieval.</p>
@@ -420,7 +430,7 @@
     <!-- AI Reasoning Evaluation & Applied Math Visualizers -->
     <section id="reasoning-lab">
       <span class="section-tag">04. AI_REASONING_EVALUATION_&_MATH_LAB</span>
-      <h2>LLM Reasoning Audit & Mathematical Visualizers</h2>
+      <h2>Visual Math Lab: See How AI Thinks</h2>
       <div class="grid-2" style="margin-bottom:1.5rem;">
         <div class="card">
           <span class="section-tag">INTERACTIVE LLM AUDIT</span>
@@ -476,7 +486,7 @@
     <!-- Playable Math & AI Mini-Games -->
     <section id="math-games">
       <span class="section-tag">05. INTERACTIVE_MATH_&_AI_GAMES</span>
-      <h2>Playable Math & Optimization Games</h2>
+      <h2>Fun Math & Logic Mini-Games</h2>
       <div class="grid-3">
         <div class="card">
           <span class="section-tag">GAME 01 • OPTIMIZATION</span>
@@ -547,7 +557,7 @@
     <!-- Dynamic Projects -->
     <section id="projects">
       <span class="section-tag">07. DEPLOYED_CASE_STUDIES</span>
-      <h2>AI & ML Case Studies</h2>
+      <h2>Real Projects I Have Built</h2>
       <div class="filter-bar">
         <button class="filter-btn active" onclick="filterItems('project-card', 'all', this)">All Projects</button>
         <button class="filter-btn" onclick="filterItems('project-card', 'llm', this)">LLM & Vector DB</button>
@@ -770,5 +780,6 @@
     <div id="cmdList" style="display:flex; flex-direction:column; gap:0.4rem; max-height:260px; overflow-y:auto;"></div>
   </div>
 </div>
+<div id="shapeTooltip"></div>
 </body>
 </html>

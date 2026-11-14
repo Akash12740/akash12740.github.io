@@ -447,3 +447,88 @@ footer {
   .hf-frame-wrap iframe { height: 380px; }
   .profile-showcase { flex-direction: column; text-align: center; }
 }
+/* === FRIENDLY & WELCOMING MATHEMATICS THEME (18px+ READABILITY, SOFT GRID, GEOMETRIC MOTIFS) === */
+:root {
+  --bg: #0b132b;
+  --surface: rgba(28, 37, 65, 0.86);
+  --surface-solid: #1c2541;
+  --code-bg: #111936;
+  --text: #f8fafc;
+  --muted: #cbd5e1;
+  --accent: #38bdf8;
+  --accent-2: #2563eb;
+  --accent-purple: #f59e0b;
+  --accent-green: #10b981;
+  --border: rgba(56, 189, 248, 0.24);
+  --grid-minor: rgba(56, 189, 248, 0.05);
+  --grid-major: rgba(245, 158, 11, 0.08);
+  --math-gold: #fbbf24;
+}
+[data-theme="light"] {
+  --bg: #faf8f2;
+  --surface: rgba(255, 255, 255, 0.94);
+  --surface-solid: #ffffff;
+  --code-bg: #f1efe7;
+  --text: #1e293b;
+  --muted: #475569;
+  --accent: #1d4ed8;
+  --accent-2: #2563eb;
+  --accent-purple: #d97706;
+  --accent-green: #059669;
+  --border: rgba(29, 78, 216, 0.18);
+  --grid-minor: rgba(29, 78, 216, 0.045);
+  --grid-major: rgba(217, 119, 6, 0.08);
+  --math-gold: #b45309;
+}
+html { font-size: 18px; }
+body {
+  font-size: 1rem;
+  line-height: 1.72;
+  background-color: var(--bg);
+  background-image:
+    linear-gradient(to right, var(--grid-major) 1px, transparent 1px),
+    linear-gradient(to bottom, var(--grid-major) 1px, transparent 1px),
+    linear-gradient(to right, var(--grid-minor) 1px, transparent 1px),
+    linear-gradient(to bottom, var(--grid-minor) 1px, transparent 1px);
+  background-size: 140px 140px, 140px 140px, 28px 28px, 28px 28px;
+}
+.card, .profile-showcase, .terminal, .modal-box {
+  border-radius: 20px;
+}
+.btn, .filter-btn, .pg-input, .pg-textarea, .theme-btn {
+  border-radius: 14px;
+}
+/* Ruler-tick geometric section divider */
+section {
+  position: relative;
+  border-top: 2px dashed var(--border);
+}
+section::before {
+  content: "0   |   1   |   2   |   φ (1.618)   |   π (3.14)   |   ∞";
+  position: absolute;
+  top: -0.78rem;
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--bg);
+  padding: 0 0.85rem;
+  font-family: 'Fira Code', monospace;
+  font-size: 0.72rem;
+  color: var(--math-gold);
+  letter-spacing: 1px;
+  white-space: nowrap;
+}
+/* Interactive Shape Tooltip Pill */
+#shapeTooltip {
+  position: fixed;
+  pointer-events: none;
+  background: var(--surface-solid);
+  border: 2px solid var(--math-gold);
+  color: var(--text);
+  font-family: 'Fira Code', monospace;
+  font-size: 0.78rem;
+  padding: 0.45rem 0.75rem;
+  border-radius: 12px;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.25);
+  z-index: 1800;
+  display: none;
+}

@@ -847,3 +847,130 @@ document.addEventListener('keydown', (e) => {
 document.addEventListener('DOMContentLoaded', () => {
   if (typeof updateChunkVisualizer === 'function') updateChunkVisualizer();
 });
+// Interactive Floating Math Symbols (+, −, ×, ÷, π, ∞, ∑, √, △, ○) & Hoverable Geometry
+function initPlayfulMathCanvas() {
+  const canvas = document.getElementById('neural-canvas');
+  if (!canvas) return;
+  const ctx = canvas.getContext('2d');
+  let w = canvas.width = window.innerWidth;
+  let h = canvas.height = window.innerHeight;
+
+  const symbols = ['+', '−', '×', '÷', 'π', '∞', '∑', '√', '△', '○'];
+  const shapes = [
+    { type: 'triangle', name: 'Equilateral Triangle (△) — 3 equal sides, angles add up to 180°!', x: w * 0.14, y: h * 0.24, r: 26, vx: 0.18, vy: 0.12 },
+    { type: 'circle',   name: 'Circle (○) — Every point is the exact same distance from the center (π ≈ 3.14)!', x: w * 0.84, y: h * 0.22, r: 24, vx: -0.15, vy: 0.16 },
+    { type: 'square',   name: 'Square (□) — 4 equal sides and 4 crisp 90° right angles!', x: w * 0.18, y: h * 0.74, r: 24, vx: 0.14, vy: -0.14 },
+    { type: 'hexagon',  name: 'Hexagon (⬡) — Nature’s favorite shape (honeycombs!) with 6 equal sides!', x: w * 0.82, y: h * 0.72, r: 26, vx: -0.16, vy: -0.12 }
+  ];
+
+  const floaters = Array.from({ length: 24 }, () => ({
+    x: Math.random() * w,
+    y: Math.random() * h,
+    vx: (Math.random() - 0.5) * 0.25,
+    vy: -0.12 - Math.random() * 0.2,
+    sym: symbols[Math.floor(Math.random() * symbols.length)],
+    size: 16 + Math.floor(Math.random() * 8)
+  }));
+
+  let mouseX = -999, mouseY = -999;
+  const tip = document.getElementById('shapeTooltip');
+
+  window.addEventListener('mousemove', (e) => {
+    mouseX = e.clientX;
+    mouseY = e.clientY;
+    if (!tip) return;
+    const hit = shapes.find(s => Math.hypot(mouseX - s.x, mouseY - s.y) <= s.r + 12);
+    if (hit) {
+      tip.style.display = 'block';
+      tip.style.left = Math.min(window.innerWidth - 290, mouseX + 14) + 'px';
+      tip.style.top = (mouseY + 14) + 'px';
+      tip.textContent = '✨ ' + hit.name;
+    } else {
+      tip.style.display = 'none';
+    }
+  });
+
+  window.addEventListener('resize', () => {
+    w = canvas.width = window.innerWidth;
+    h = canvas.height = window.innerHeight;
+  });
+
+  function drawPolygon(sides, x, y, r) {
+    ctx.beginPath();
+    for (let i = 0; i < sides; i++) {
+      const ang = (i * 2 * Math.PI) / sides - Math.PI / 2;
+      const px = x + r * Math.cos(ang);
+      const py = y + r * Math.sin(ang);
+      if (i === 0) ctx.moveTo(px, py); else ctx.lineTo(px, py);
+    }
+    ctx.closePath();
+  }
+
+  function animate() {
+    ctx.clearRect(0, 0, w, h);
+    const isLight = document.documentElement.getAttribute('data-theme') === 'light';
+    ctx.fillStyle = isLight ? 'rgba(29, 78, 216, 0.08)' : 'rgba(56, 189, 248, 0.08)';
+
+    floaters.forEach(f => {
+      f.x += f.vx;
+      f.y += f.vy;
+      if (f.y < -20) { f.y = h + 20; f.x = Math.random() * w; }
+      if (f.x < -20) f.x = w + 20;
+      if (f.x > w + 20) f.x = -20;
+      ctx.font = `600 ${f.size}px "Fira Code", monospace`;
+      ctx.fillText(f.sym, f.x, f.y);
+    });
+
+    shapes.forEach(s => {
+      s.x += s.vx;
+      s.y += s.vy;
+      if (s.x < 40 || s.x > w - 40) s.vx *= -1;
+      if (s.y < 80 || s.y > h - 40) s.vy *= -1;
+
+      const hovered = Math.hypot(mouseX - s.x, mouseY - s.y) <= s.r + 12;
+      ctx.strokeStyle = hovered
+        ? '#f59e0b'
+        : (isLight ? 'rgba(29, 78, 216, 0.16)' : 'rgba(56, 189, 248, 0.16)');
+      ctx.lineWidth = hovered ? 2.5 : 1.5;
+
+      if (s.type === 'circle') {
+        ctx.beginPath();
+        ctx.arc(s.x, s.y, s.r, 0, Math.PI * 2);
+        ctx.stroke();
+      } else if (s.type === 'triangle') {
+        drawPolygon(3, s.x, s.y, s.r);
+        ctx.stroke();
+      } else if (s.type === 'square') {
+        drawPolygon(4, s.x, s.y, s.r);
+        ctx.stroke();
+      } else {
+        drawPolygon(6, s.x, s.y, s.r);
+        ctx.stroke();
+      }
+    });
+
+    requestAnimationFrame(animate);
+  }
+  animate();
+}
+
+// Everyday Math Fun Fact & Kid-Friendly Puzzle Widget
+const MATH_FUN_FACTS = [
+  { title: '🍕 The Pizza Volume Trick', text: 'A pizza with radius z and thickness a has volume Pi × z × z × a — literally "Pi · z · z · a"!' },
+  { title: '🐝 Why Bees Love Hexagons', text: 'Out of all shapes that fit together without gaps, a 6-sided hexagon uses the least wax to hold the most honey!' },
+  { title: '🌻 Sunflowers & Fibonacci Numbers', text: 'Count the spirals on a sunflower or pinecone: you will almost always get Fibonacci numbers like 21, 34, or 55!' },
+  { title: '🎂 The Birthday Surprise', text: 'In a room of just 23 people, there is over a 50% chance that two people share the exact same birthday!' },
+  { title: '🤖 How AI Reads Words Using Geometry', text: 'Computers turn words into arrows (vectors). Words with similar meanings—like "puppy" and "dog"—point in almost the same direction!' }
+];
+let funFactIdx = 0;
+
+function nextMathFunFact() {
+  const titleEl = document.getElementById('funFactTitle');
+  const textEl = document.getElementById('funFactText');
+  if (!titleEl || !textEl) return;
+  funFactIdx = (funFactIdx + 1) % MATH_FUN_FACTS.length;
+  titleEl.textContent = MATH_FUN_FACTS[funFactIdx].title;
+  textEl.textContent = MATH_FUN_FACTS[funFactIdx].text;
+}
+
+document.addEventListener('DOMContentLoaded', initPlayfulMathCanvas);
