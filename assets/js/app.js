@@ -559,3 +559,14 @@ function runCmd(key) {
   body.innerHTML = `<div><span style="color:#10b981;">➜</span> ${item.c}</div><div class="cmd-output">${item.o}</div>`;
 }
 
+
+let resizeTimer;
+window.addEventListener('resize', () => {
+  clearTimeout(resizeTimer);
+  resizeTimer = setTimeout(() => {
+    if (typeof updateCosineViz === 'function') updateCosineViz();
+    if (typeof updateTsViz === 'function') updateTsViz();
+    if (typeof updateMatrixLab === 'function') updateMatrixLab();
+    if (typeof drawGD === 'function') drawGD();
+  }, 150);
+});

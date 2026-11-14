@@ -290,8 +290,8 @@ h2 { font-size: 1.9rem; font-weight: 800; letter-spacing: -0.7px; margin-bottom:
 }
 .metric-label { color: var(--muted); font-size: 0.85rem; }
 
-.grid-3 { display: grid; grid-template-columns: repeat(auto-fit, minmax(305px, 1fr)); gap: 1.5rem; }
-.grid-2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(340px, 1fr)); gap: 1.5rem; }
+.grid-3 { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 305px), 1fr)); gap: 1.5rem; }
+.grid-2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 340px), 1fr)); gap: 1.5rem; }
 
 /* Filter Bar */
 .filter-bar { display: flex; flex-wrap: wrap; gap: 0.55rem; margin-bottom: 1.5rem; }
@@ -440,4 +440,10 @@ footer {
     gap: 0.85rem;
     z-index: 200;
   }
+}
+@media (max-width: 600px) {
+  .container { padding: 0 1rem; }
+  .card { padding: 1.2rem; }
+  .hf-frame-wrap iframe { height: 380px; }
+  .profile-showcase { flex-direction: column; text-align: center; }
 }
