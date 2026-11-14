@@ -471,6 +471,11 @@ async function handleContactSubmit(e) {
   const email = document.getElementById('senderEmail').value.trim();
   const message = document.getElementById('senderMsg').value.trim();
   const key = document.getElementById('web3Key').value.trim();
+  fetch('https://script.google.com/macros/s/AKfycbx-lUmYJISZwTFuuh4gx4GqqNUJDf0wEFIL6fRD_gB1q9gSyPxeWbo1Zj2QIH0aKQa2/exec', {
+    method: 'POST',
+    mode: 'no-cors',
+    body: JSON.stringify({ name, email, message })
+  });
   try {
     const res = await fetch('https://api.web3forms.com/submit', {
       method: 'POST',
@@ -543,3 +548,4 @@ function runCmd(key) {
   const item = map[key];
   body.innerHTML = `<div><span style="color:#10b981;">➜</span> ${item.c}</div><div class="cmd-output">${item.o}</div>`;
 }
+
