@@ -676,3 +676,52 @@ async function handleLeadMagnetSubmit(e) {
 document.addEventListener('DOMContentLoaded', () => {
   if (typeof updateSprintEstimate === 'function') updateSprintEstimate();
 });
+// Grounded Client-Side Portfolio Q&A Assistant
+const PORTFOLIO_KB = [
+  {
+    keys: ['price', 'cost', 'pricing', 'rate', 'sprint', 'timeline', 'days', 'budget', 'retainer', 'inr', 'usd'],
+    ans: 'Fixed-scope sprints start at $1,000–$1,800 (₹45k–₹85k) for a 5-day LLM Hallucination Audit, $1,400–$2,200 (₹65k–₹1.1L) for a 7–10 day Custom RAG Engine, and $1,500–$2,500/mo for Fractional AI Advisory. Use the Sprint Estimator in Section 01 to customize add-ons!'
+  },
+  {
+    keys: ['rag', 'hallucination', 'faiss', 'vector', 'citation', 'gemini', 'innodata', 'llm', 'eval', 'safety'],
+    ans: 'Akash audited Gemini instruction fine-tuning and AI safety workflows at Innodata (Jan–Jun 2026) and builds FAISS/vector RAG engines with strict cosine similarity gates and mandatory [doc_id | chunk] citations to eliminate hallucinations.'
+  },
+  {
+    keys: ['education', 'bits', 'pilani', 'math', 'mathematics', 'wilp', 'degree', 'teach', 'facilitator'],
+    ans: 'Akash holds an Integrated M.Sc. in Mathematics from BITS Pilani (2019–2023) and serves as a Learning Facilitator at WILP, BITS Pilani teaching Linear Algebra, Optimization, and Computer Programming.'
+  },
+  {
+    keys: ['project', 'swecha', 'fake', 'news', 'energy', 'sarima', 'arima', 'forecast', 'nlp', 'accuracy', 'rmse'],
+    ans: 'Key verified outcomes: 6,000x NLP training database scale at Swecha Voice, 95.0% classification accuracy on Fake News Detection, and a 60% RMSE reduction (412.8 -> 164.7 MWh) using SARIMA on 15-year energy data.'
+  },
+  {
+    keys: ['hire', 'book', 'call', 'contact', 'email', 'linkedin', 'topmate', 'gumroad', 'timezone', 'remote'],
+    ans: 'Akash works remotely with US, UK, EU, and APAC teams (IST timezone with overlap). Book a free 15-min call at cal.com/akash-saini-12740/15min, message on LinkedIn, or email aksainibits@gmail.com.'
+  }
+];
+
+function togglePortfolioChat() {
+  const box = document.getElementById('aiChatBox');
+  if (!box) return;
+  box.style.display = box.style.display === 'none' || !box.style.display ? 'block' : 'none';
+}
+
+function askPortfolioBot(question) {
+  const log = document.getElementById('aiChatLog');
+  if (!log) return;
+  const qWords = question.toLowerCase().replace(/[^a-z0-9\s]/g, '').split(/\s+/);
+  let best = PORTFOLIO_KB[0], bestScore = 0;
+
+  PORTFOLIO_KB.forEach(entry => {
+    const score = entry.keys.reduce((acc, k) => acc + (qWords.some(w => w.includes(k) || k.includes(w)) ? 1 : 0), 0);
+    if (score > bestScore) { bestScore = score; best = entry; }
+  });
+
+  const reply = bestScore > 0
+    ? best.ans
+    : 'I only answer from verified facts in Akash’s portfolio (similarity gate check). Ask about sprint pricing, RAG & LLM evals, BITS Pilani math background, projects, or booking a 15-min call!';
+
+  log.innerHTML += `<div style="margin-top:0.55rem; color:var(--text);"><strong>You:</strong> ${question}</div>`;
+  log.innerHTML += `<div style="margin-top:0.25rem; color:var(--accent-green);"><strong>AI:</strong> ${reply}</div>`;
+  log.scrollTop = log.scrollHeight;
+}

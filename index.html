@@ -675,5 +675,33 @@
   <div>Built with mathematical rigor by Akash Saini • BITS Pilani</div>
 </footer>
   <script src="assets/js/app.js"></script>
+<!-- Floating Client-Side RAG Portfolio Assistant -->
+<div id="aiChatLauncher" style="position:fixed; bottom:24px; left:24px; z-index:1400;">
+  <button type="button" onclick="togglePortfolioChat()" class="btn btn-primary" style="border-radius:999px; box-shadow:0 10px 28px rgba(0,242,254,0.3);">
+    💬 Ask AI About Akash
+  </button>
+</div>
+
+<div id="aiChatBox" class="card" style="display:none; position:fixed; bottom:82px; left:24px; width:min(360px, calc(100vw - 48px)); z-index:1400; padding:1.1rem; border-color:var(--accent); box-shadow:0 16px 40px rgba(0,0,0,0.55);">
+  <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:0.6rem; padding-bottom:0.5rem; border-bottom:1px solid var(--border);">
+    <div>
+      <span class="section-tag" style="margin:0; font-size:0.72rem;">GROUNDED_PORTFOLIO_BOT</span>
+      <strong style="font-size:0.92rem;">Ask About Skills, Sprints & Pricing</strong>
+    </div>
+    <button type="button" onclick="togglePortfolioChat()" style="background:none; border:none; color:var(--muted); font-size:1.1rem; cursor:pointer;">✕</button>
+  </div>
+  <div id="aiChatLog" class="trace-box" style="height:190px; overflow-y:auto; margin:0 0 0.65rem; font-size:0.79rem;">
+    <div style="color:var(--accent);">Hi! Ask me about Akash's RAG pipelines, Innodata Gemini evaluation work, BITS Pilani background, or consulting sprint pricing.</div>
+  </div>
+  <div style="display:flex; flex-wrap:wrap; gap:0.35rem; margin-bottom:0.6rem;">
+    <button type="button" class="term-chip" onclick="askPortfolioBot('What are your consulting sprint prices and timelines?')">Sprint Pricing?</button>
+    <button type="button" class="term-chip" onclick="askPortfolioBot('Tell me about your LLM evaluation and RAG experience')">RAG & LLM Evals?</button>
+    <button type="button" class="term-chip" onclick="askPortfolioBot('How can I book a call or hire Akash?')">Hire / Book Call?</button>
+  </div>
+  <form onsubmit="event.preventDefault(); const inp=document.getElementById('aiChatInput'); if(inp.value.trim()){ askPortfolioBot(inp.value.trim()); inp.value=''; }" style="display:flex; gap:0.4rem;">
+    <input type="text" id="aiChatInput" class="pg-input" style="margin:0; padding:0.5rem 0.7rem; font-size:0.8rem;" placeholder="Ask a question..." />
+    <button type="submit" class="btn btn-primary btn-sm">Ask</button>
+  </form>
+</div>
 </body>
 </html>

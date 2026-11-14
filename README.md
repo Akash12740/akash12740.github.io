@@ -95,8 +95,10 @@ flowchart LR
     APP --> HTML
     CSS --> HTML
     HF -.->|Embedded Iframe| HTML
+```
 
-    akash12740.github.io/
+```text
+akash12740.github.io/
 ├── .github/
 │   └── workflows/
 │       └── daily-blog.yml        # Automated daily cron workflow (08:00 UTC)
