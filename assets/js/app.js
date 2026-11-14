@@ -132,6 +132,7 @@ function renderBlogArchive(topic, query) {
       <div style="display:flex; gap:0.6rem; flex-wrap:wrap; margin-top:1.1rem; padding-top:0.9rem; border-top:1px solid var(--border);">
         <button class="btn btn-glass btn-sm" onclick="copyBibtex('${p.id}')">📋 Copy BibTeX Citation</button>
         <button class="btn btn-primary btn-sm" onclick="sharePostLinkedIn('${p.id}')">Share on LinkedIn ↗</button>
+        <button class="btn btn-glass btn-sm" onclick="copyLinkedInPost('${p.id}')">✍️ Copy LinkedIn Post</button>
       </div>
     </article>
   `).join('') || '<p style="color:var(--muted);">No articles match that filter.</p>';
@@ -725,3 +726,30 @@ function askPortfolioBot(question) {
   log.innerHTML += `<div style="margin-top:0.25rem; color:var(--accent-green);"><strong>AI:</strong> ${reply}</div>`;
   log.scrollTop = log.scrollHeight;
 }
+// 1-Click LinkedIn Post Generator from Blog Posts
+function copyLinkedInPost(id) {
+  const p = ALL_POSTS.find(x => x.id === id);
+  if (!p) return;
+  const postText = `${p.title}\n\n${p.summary}\n\nArchitecture:\n${p.architecture_flow}\n\nKey Takeaway: ${p.takeaway}\n\nRead the full breakdown + BibTeX citation:\nhttps://akash12740.github.io/blog.html#${p.id}\n\n#AI #MachineLearning #LLMs #RAG #AppliedMath #DataScience`;
+  navigator.clipboard.writeText(postText);
+  showToast('✓ Ready-to-post LinkedIn draft copied to clipboard!');
+}
+
+// Lightweight Conversion Telemetry (tracks Cal.com, Gumroad, Topmate & Resume clicks)
+document.addEventListener('click', (e) => {
+  const anchor = e.target.closest('a');
+  if (!anchor) return;
+  const href = anchor.getAttribute('href') || '';
+  if (/cal\.com|gumroad\.com|topmate\.io|resume_AkashSaini\.pdf|linkedin\.com/.test(href)) {
+    fetch('https://script.google.com/macros/s/AKfycbx-lUmYJISZwTFuuh4gx4GqqNUJDf0wEFIL6fRD_gB1q9gSyPxeWbo1Zj2QIH0aKQa2/exec', {
+      method: 'POST',
+      mode: 'no-cors',
+      keepalive: true,
+      body: JSON.stringify({
+        name: 'Conversion Click',
+        email: href,
+        message: `Clicked [${anchor.textContent.trim()}] on ${window.location.pathname}`
+      })
+    });
+  }
+});
