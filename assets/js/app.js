@@ -1056,3 +1056,71 @@ const CHEAT_SHEET_PDF = "BITS_Pilani_Math_LLM_Cheat_Sheet.pdf";
 async function handleLeadCapture(e, source) { e.preventDefault(); const name = document.getElementById(source === 'popup' ? 'leadNamePopup' : 'leadNameInline')?.value.trim() || 'Reader'; const email = document.getElementById(source === 'popup' ? 'leadEmailPopup' : 'leadEmailInline')?.value.trim(); if (!email) return; localStorage.setItem('cheatSheetUnlocked', 'true'); fetch('https://script.google.com/macros/s/AKfycbx-lUmYJISZwTFuuh4gx4GqqNUJDf0wEFIL6fRD_gB1q9gSyPxeWbo1Zj2QIH0aKQa2/exec', { method: 'POST', mode: 'no-cors', body: JSON.stringify({ name, email, message: '[LEAD MAGNET] Downloaded ' + CHEAT_SHEET_PDF }) }); fetch('https://api.web3forms.com/submit', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ access_key: 'b85a0e4a-e4c4-4c83-84cf-5deb470c88c1', name, email, subject: 'New Cheat Sheet Lead: ' + name, message: name + ' (' + email + ') unlocked ' + CHEAT_SHEET_PDF }) }).catch(() => {}); const u = document.getElementById(source === 'popup' ? 'leadUnlockPopup' : 'leadUnlockInline'); if (u) u.style.display = 'block'; showToast('✓ Cheat Sheet unlocked! Opening PDF...'); window.open(CHEAT_SHEET_PDF, '_blank'); }
 function openLeadPopup() { if (document.getElementById('leadPopupBox')) return; const p = document.createElement('div'); p.id = 'leadPopupBox'; p.style.cssText = 'position:fixed; bottom:24px; left:24px; max-width:345px; background:var(--surface-solid); border:1.5px solid var(--accent); border-radius:14px; padding:1.15rem; box-shadow:0 12px 35px rgba(0,0,0,0.5); z-index:1800;'; p.innerHTML = '<div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:0.4rem;"><span class="section-tag" style="margin:0;">FREE_PDF_CHEAT_SHEET</span><button onclick="sessionStorage.setItem(''leadPopupDismissed'',''1''); document.getElementById(''leadPopupBox'').remove();" style="background:none; border:none; color:var(--muted); cursor:pointer; font-size:1.05rem;">✕</button></div><div style="font-weight:700; font-size:0.98rem; margin-bottom:0.35rem;">BITS Pilani Math & LLM Cheat Sheet</div><p style="color:var(--muted); font-size:0.82rem; margin-bottom:0.65rem;">Enter your email to download my visual Linear Algebra, RAG & LLM Audit PDF.</p><form onsubmit="handleLeadCapture(event, ''popup'')"><input type="text" id="leadNamePopup" class="pg-input" style="padding:0.55rem; margin-bottom:0.45rem;" placeholder="Your Name" required /><input type="email" id="leadEmailPopup" class="pg-input" style="padding:0.55rem; margin-bottom:0.55rem;" placeholder="Your Email" required /><button type="submit" class="btn btn-primary btn-sm" style="width:100%; justify-content:center;">Download Free PDF ↗</button></form><div id="leadUnlockPopup" style="display:none; margin-top:0.5rem; font-size:0.82rem; color:var(--accent-green);">✓ <a href="' + CHEAT_SHEET_PDF + '" target="_blank" download style="color:var(--accent); font-weight:700;">Open PDF Now ↗</a></div>'; document.body.appendChild(p); }
 document.addEventListener('DOMContentLoaded', () => { const b = document.createElement('button'); b.className = 'btn btn-primary btn-sm'; b.textContent = '🎁 Free Math & LLM PDF'; b.style.cssText = 'position:fixed; bottom:24px; left:24px; z-index:1700;'; b.onclick = openLeadPopup; document.body.appendChild(b); if (localStorage.getItem('cheatSheetUnlocked') === 'true') { const u = document.getElementById('leadUnlockInline'); if (u) u.style.display = 'block'; return; } setTimeout(() => { if (!sessionStorage.getItem('leadPopupDismissed')) openLeadPopup(); }, 5000); });
+
+// Instant "Book a Free Demo Class" Popup on Tuition Tab Click
+function openTuitionDemoPopup() {
+  if (document.getElementById('tuitionDemoBackdrop')) return;
+  const backdrop = document.createElement('div');
+  backdrop.id = 'tuitionDemoBackdrop';
+  backdrop.className = 'modal-backdrop open';
+  backdrop.onclick = (e) => { if (e.target === backdrop) backdrop.remove(); };
+
+  backdrop.innerHTML = `
+    <div class="modal-box" style="max-width: 460px; padding: 1.75rem;">
+      <button class="modal-close" onclick="document.getElementById('tuitionDemoBackdrop').remove()">✕</button>
+      <span class="section-tag">1:1_LIVE_TUTORING • BITS_PILANI_ALUMNUS</span>
+      <h3 style="font-size: 1.35rem; margin: 0.35rem 0 0.5rem;">Book Your Free 1:1 Demo Class 🎓</h3>
+      <p style="color: var(--muted); font-size: 0.88rem; margin-bottom: 1rem;">
+        Personalized 1-on-1 coaching in <strong>Mathematics, Science, Programming & AI Foundations</strong> tailored to your syllabus and pace.
+      </p>
+      <form onsubmit="submitTuitionDemo(event)">
+        <input type="text" id="demoStudentName" class="pg-input" placeholder="Student / Parent Name" required />
+        <input type="email" id="demoStudentEmail" class="pg-input" placeholder="Email Address" required />
+        <input type="text" id="demoSubjectGrade" class="pg-input" placeholder="Grade / Subject (e.g., Class 10 Math, Linear Algebra)" required />
+        <button type="submit" class="btn btn-primary" style="width: 100%; justify-content: center; margin-bottom: 0.6rem;">Request Free Demo Class 🚀</button>
+      </form>
+      <a href="https://cal.com/akash-saini-12740/15min" target="_blank" rel="noopener" class="btn btn-glass btn-sm" style="width: 100%; justify-content: center;">
+        Or Pick a Time Directly on Cal.com ↗
+      </a>
+    </div>
+  `;
+  document.body.appendChild(backdrop);
+}
+
+async function submitTuitionDemo(e) {
+  e.preventDefault();
+  const name = document.getElementById('demoStudentName').value.trim();
+  const email = document.getElementById('demoStudentEmail').value.trim();
+  const subject = document.getElementById('demoSubjectGrade').value.trim();
+
+  fetch('https://script.google.com/macros/s/AKfycbx-lUmYJISZwTFuuh4gx4GqqNUJDf0wEFIL6fRD_gB1q9gSyPxeWbo1Zj2QIH0aKQa2/exec', {
+    method: 'POST', mode: 'no-cors',
+    body: JSON.stringify({ name, email, message: '[FREE DEMO CLASS] Subject/Grade: ' + subject })
+  });
+  fetch('https://api.web3forms.com/submit', {
+    method: 'POST', headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      access_key: 'b85a0e4a-e4c4-4c83-84cf-5deb470c88c1',
+      name, email,
+      subject: 'New Free Demo Class Request: ' + name,
+      message: `Student/Parent: ${name} (${email})\nGrade/Subject: ${subject}`
+    })
+  }).catch(() => {});
+
+  const box = document.getElementById('tuitionDemoBackdrop');
+  if (box) box.remove();
+  showToast('✓ Demo class request sent! Akash will confirm shortly.');
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+  document.querySelectorAll('a, button').forEach(el => {
+    const label = (el.textContent || '').toLowerCase();
+    const href = (el.getAttribute('href') || '').toLowerCase();
+    if (label.includes('tuition') || label.includes('tutoring') || href.includes('tutoring') || href.includes('tuition')) {
+      el.addEventListener('click', (e) => {
+        e.preventDefault();
+        openTuitionDemoPopup();
+      });
+    }
+  });
+});
