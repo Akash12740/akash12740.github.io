@@ -157,6 +157,7 @@
     </div>
     <div style="display:flex; gap:0.5rem;">
       <button class="theme-btn" onclick="toggleExecBrief()" style="border-color:var(--accent); color:var(--accent);">⚡ Client Brief</button>
+      <a href="#contact" style="color:var(--accent); font-weight:600;">Contact & Connect</a>
       <button id="themeToggle" class="theme-btn" onclick="toggleTheme()">☀️ Light</button>
     </div>
   </nav>
@@ -579,37 +580,73 @@
       </div>
     </section>
 
-    <!-- Global Freelance Contact & Discovery Call -->
-    <section id="contact">
-      <span class="section-tag">11. START_A_PROJECT_GLOBALLY</span>
-      <h2>Book a Discovery Call or Send a Brief</h2>
-      <div class="grid-2">
-        <div class="card">
-          <h3 style="margin-bottom:0.5rem;">What We Cover in a 15-Min Call</h3>
-          <ul class="item-list" style="margin-bottom:1.1rem;">
-            <li>Your data architecture, latency targets, and hallucination/accuracy goals</li>
-            <li>Recommended sprint scope, timeline, and fixed-milestone estimate</li>
-            <li>Async collaboration workflow across US, UK, EU, or APAC time zones</li>
-          </ul>
-          <div class="cta-group" style="flex-direction:column; align-items:stretch;">
-            <a href="https://cal.com/akash-saini-12740/15min" target="_blank" rel="noopener" class="btn btn-primary" style="justify-content:center;">📅 Schedule 15-Min Discovery Call (Cal.com) ↗</a>
-            <button onclick="copyEmail()" class="btn btn-glass" style="justify-content:center;">📋 Copy Email: aksainibits@gmail.com</button>
-            <a href="https://topmate.io/akash12740/" target="_blank" rel="noopener" class="btn btn-purple" style="justify-content:center;">Topmate 1:1 Advisory ↗</a>
-            <a href="https://www.linkedin.com/in/akash-saini-83a42a1b1/" target="_blank" rel="noopener" class="btn btn-glass" style="justify-content:center;">Connect on LinkedIn ↗</a>
-          </div>
-        </div>
-        <div class="card">
-          <h3 style="margin-bottom:0.75rem;">Send a Project Brief</h3>
-          <form id="contactForm" onsubmit="handleContactSubmit(event)">
-            <input type="hidden" id="web3Key" value="b85a0e4a-e4c4-4c83-84cf-5deb470c88c1" />
-            <input type="text" id="senderName" class="pg-input" placeholder="Your Name & Company / Country" required />
-            <input type="email" id="senderEmail" class="pg-input" placeholder="Work Email Address" required />
-            <textarea id="senderMsg" class="pg-textarea" rows="4" placeholder="Describe your RAG, LLM evaluation, NLP, or forecasting project & target timeline..." required></textarea>
-            <button type="submit" class="btn btn-primary" style="width:100%; justify-content:center;">Send Project Inquiry 🚀</button>
-          </form>
-        </div>
+    <!-- Global Freelance Contact & Connect Hub -->
+<section id="contact">
+  <span class="section-tag">11. CONTACT_&_CONNECT_GLOBALLY</span>
+  <h2>Contact & Connect Everywhere</h2>
+  <p style="color:var(--muted); max-width:760px; margin:-0.75rem 0 1.5rem; font-size:0.95rem;">
+    Book a discovery call, message me on LinkedIn, explore my open-source models, or send a project brief directly below.
+  </p>
+
+  <!-- Direct Connect Channels Grid -->
+  <div class="grid-3" style="margin-bottom:1.5rem;">
+    <div class="card">
+      <span class="section-tag">CALLS & 1:1 SESSIONS</span>
+      <h3 style="margin-bottom:0.65rem;">Book Live Time</h3>
+      <div class="cta-group" style="flex-direction:column; align-items:stretch;">
+        <a href="https://cal.com/akash-saini-12740/15min" target="_blank" rel="noopener" class="btn btn-primary btn-sm" style="justify-content:center;">📅 Cal.com — 15-Min Discovery Call ↗</a>
+        <a href="https://topmate.io/akash12740/" target="_blank" rel="noopener" class="btn btn-purple btn-sm" style="justify-content:center;">🎯 Topmate — 1:1 Mentorship & Mocks ↗</a>
       </div>
-    </section>
+    </div>
+
+    <div class="card">
+      <span class="section-tag">SOCIAL & OPEN SOURCE</span>
+      <h3 style="margin-bottom:0.65rem;">Code, Models & Network</h3>
+      <div class="cta-group" style="flex-direction:column; align-items:stretch;">
+        <a href="https://www.linkedin.com/in/akash-saini-83a42a1b1/" target="_blank" rel="noopener" class="btn btn-glass btn-sm" style="justify-content:center;">💼 LinkedIn — Connect & DM ↗</a>
+        <a href="https://github.com/Akash12740" target="_blank" rel="noopener" class="btn btn-glass btn-sm" style="justify-content:center;">🐙 GitHub — @Akash12740 ↗</a>
+        <a href="https://huggingface.co/Akash12740" target="_blank" rel="noopener" class="btn btn-glass btn-sm" style="justify-content:center;">🤗 Hugging Face — Live Spaces ↗</a>
+      </div>
+    </div>
+
+    <div class="card">
+      <span class="section-tag">WRITING, KITS & EMAIL</span>
+      <h3 style="margin-bottom:0.65rem;">Direct & Publications</h3>
+      <div class="cta-group" style="flex-direction:column; align-items:stretch;">
+        <button type="button" onclick="copyEmail()" class="btn btn-glass btn-sm" style="justify-content:center;">✉️ Copy: aksainibits@gmail.com</button>
+        <a href="https://substack.com/@akashsaini12740" target="_blank" rel="noopener" class="btn btn-glass btn-sm" style="justify-content:center;">📰 Substack — AI & Math Newsletter ↗</a>
+        <a href="https://akashsaini12740.gumroad.com" target="_blank" rel="noopener" class="btn btn-glass btn-sm" style="justify-content:center;">📦 Gumroad — RAG & Math Kits ↗</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="grid-2">
+    <div class="card">
+      <h3 style="margin-bottom:0.5rem;">What We Cover in a 15-Min Call</h3>
+      <ul class="item-list" style="margin-bottom:1.1rem;">
+        <li>Your data architecture, latency targets, and hallucination/accuracy goals</li>
+        <li>Recommended sprint scope, timeline, and fixed-milestone estimate</li>
+        <li>Async collaboration workflow across US, UK, EU, or APAC time zones</li>
+      </ul>
+      <div class="trace-box" style="margin:0;">
+        <div style="color:var(--accent); font-weight:700; margin-bottom:0.35rem;">Direct Contact Details</div>
+        <div>Email: <a href="mailto:aksainibits@gmail.com" style="color:var(--text);">aksainibits@gmail.com</a></div>
+        <div>Timezone: IST (UTC+5:30) • Overlap with US ET / UK / EU</div>
+        <div>Portfolio: <a href="https://akash12740.github.io" style="color:var(--text);">akash12740.github.io</a></div>
+      </div>
+    </div>
+    <div class="card">
+      <h3 style="margin-bottom:0.75rem;">Send a Project Brief</h3>
+      <form id="contactForm" onsubmit="handleContactSubmit(event)">
+        <input type="hidden" id="web3Key" value="b85a0e4a-e4c4-4c83-84cf-5deb470c88c1" />
+        <input type="text" id="senderName" class="pg-input" placeholder="Your Name & Company / Country" required />
+        <input type="email" id="senderEmail" class="pg-input" placeholder="Work Email Address" required />
+        <textarea id="senderMsg" class="pg-textarea" rows="4" placeholder="Describe your RAG, LLM evaluation, NLP, or forecasting project & target timeline..." required></textarea>
+        <button type="submit" class="btn btn-primary" style="width:100%; justify-content:center;">Send Project Inquiry 🚀</button>
+      </form>
+    </div>
+  </div>
+</section>
   </main>
 
   <!-- Shared Reader Modal -->
@@ -624,7 +661,19 @@
     </div>
   </div>
 
-  <footer><div class="container">GLOBAL AI/ML CONSULTING • © 2026 AKASH SAINI • BITS PILANI • AKASH12740.GITHUB.IO</div></footer>
+  <footer>
+  <div style="display:flex; justify-content:center; flex-wrap:wrap; gap:1rem; margin-bottom:0.75rem;">
+    <a href="https://www.linkedin.com/in/akash-saini-83a42a1b1/" target="_blank" rel="noopener" style="color:var(--accent); text-decoration:none;">LinkedIn</a>
+    <a href="https://github.com/Akash12740" target="_blank" rel="noopener" style="color:var(--accent); text-decoration:none;">GitHub</a>
+    <a href="https://huggingface.co/Akash12740" target="_blank" rel="noopener" style="color:var(--accent); text-decoration:none;">Hugging Face</a>
+    <a href="https://cal.com/akash-saini-12740/15min" target="_blank" rel="noopener" style="color:var(--accent); text-decoration:none;">Cal.com</a>
+    <a href="https://topmate.io/akash12740/" target="_blank" rel="noopener" style="color:var(--accent); text-decoration:none;">Topmate</a>
+    <a href="https://substack.com/@akashsaini12740" target="_blank" rel="noopener" style="color:var(--accent); text-decoration:none;">Substack</a>
+    <a href="https://akashsaini12740.gumroad.com" target="_blank" rel="noopener" style="color:var(--accent); text-decoration:none;">Gumroad</a>
+    <a href="mailto:aksainibits@gmail.com" style="color:var(--accent); text-decoration:none;">aksainibits@gmail.com</a>
+  </div>
+  <div>Built with mathematical rigor by Akash Saini • BITS Pilani</div>
+</footer>
   <script src="assets/js/app.js"></script>
 </body>
 </html>
