@@ -753,3 +753,97 @@ document.addEventListener('click', (e) => {
     });
   }
 });
+// Demo 3: RAG Chunking & Token Cost Visualizer
+function updateChunkVisualizer() {
+  const txtEl = document.getElementById('chunkInput');
+  const sizeEl = document.getElementById('chunkSizeSlider');
+  const ovEl = document.getElementById('chunkOverlapSlider');
+  const outEl = document.getElementById('chunkOutput');
+  if (!txtEl || !sizeEl || !ovEl || !outEl) return;
+
+  const size = parseInt(sizeEl.value, 10);
+  const overlap = Math.min(parseInt(ovEl.value, 10), size - 1);
+  document.getElementById('chunkSizeVal').textContent = size;
+  document.getElementById('chunkOverlapVal').textContent = overlap;
+
+  const words = txtEl.value.trim().split(/\s+/).filter(Boolean);
+  const step = Math.max(1, size - overlap);
+  const chunks = [];
+  for (let i = 0; i < words.length; i += step) {
+    chunks.push(words.slice(i, i + size).join(' '));
+    if (i + size >= words.length) break;
+  }
+  const estTokens = Math.round(words.length * 1.33);
+  outEl.innerHTML = `<div style="color:var(--accent); margin-bottom:0.4rem;">Chunks: <strong>${chunks.length}</strong> | Est. Tokens: <strong>${estTokens}</strong> | Embed Cost: <strong>$${(estTokens * 0.00000002).toFixed(6)}</strong></div>` +
+    chunks.map((c, idx) => `<div style="margin-bottom:0.35rem; padding-left:0.5rem; border-left:2px solid var(--accent-purple);"><span style="color:var(--accent-green);">[chunk_${idx}]</span> ${c}</div>`).join('');
+}
+
+// Demo 4: LLM Prompt Injection & PII Safety Guardrail Tester
+function runSafetyGuardrail() {
+  const inp = document.getElementById('guardInput');
+  const out = document.getElementById('guardOutput');
+  if (!inp || !out) return;
+  const q = inp.value.trim();
+  if (!q) return;
+
+  const rules = [
+    { name: 'Instruction Override / Jailbreak', re: /ignore\s+(all\s+)?previous|bypass|jailbreak|dan\s+mode|act\s+as\s+unrestricted/i },
+    { name: 'System Prompt / Secret Exfiltration', re: /system\s+prompt|api\s*key|password|secret\s+token|hidden\s+instructions/i },
+    { name: 'PII / Sensitive Identifier Leak', re: /\b\d{3}-\d{2}-\d{4}\b|\b[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}\b/i }
+  ];
+  const triggered = rules.filter(r => r.re.test(q)).map(r => r.name);
+  if (triggered.length) {
+    out.innerHTML = `<div style="color:#ef4444; font-weight:700;">[BLOCKED • UNSAFE INPUT] Triggered: ${triggered.join(', ')}</div><div style="color:var(--muted); margin-top:0.3rem;">Action: Request halted before LLM inference; audit event logged.</div>`;
+  } else {
+    out.innerHTML = `<div style="color:#10b981; font-weight:700;">[PASSED • SAFE FOR RAG INFERENCE] 0 policy violations detected.</div><div style="color:var(--muted); margin-top:0.3rem;">Action: Routed to FAISS retriever with cosine similarity gate (>= 0.70).</div>`;
+  }
+}
+
+// Ctrl+K / Cmd+K Quick Command Palette
+const PALETTE_COMMANDS = [
+  { label: '📅 Book 15-Min Discovery Call (Cal.com)', action: () => window.open('https://cal.com/akash-saini-12740/15min', '_blank') },
+  { label: '💰 Jump to Interactive Sprint Scope & Pricing Estimator', action: () => document.getElementById('sprint-estimator')?.scrollIntoView({ behavior: 'smooth' }) },
+  { label: '🤗 Jump to Live RAG & Safety Playgrounds', action: () => document.getElementById('live-demo')?.scrollIntoView({ behavior: 'smooth' }) },
+  { label: '🧮 Jump to AI Reasoning & Math Lab', action: () => document.getElementById('reasoning-lab')?.scrollIntoView({ behavior: 'smooth' }) },
+  { label: '📚 Open Full Technical Blog Archive', action: () => window.location.href = 'blog.html' },
+  { label: '📄 Open 1-Page Consulting Capabilities Deck', action: () => window.location.href = 'capabilities.html' },
+  { label: '📦 Browse Gumroad RAG & Math Starter Kits', action: () => window.open('https://akashsaini12740.gumroad.com', '_blank') },
+  { label: '✉️ Copy Direct Email (aksainibits@gmail.com)', action: () => copyEmail() },
+  { label: '🌓 Toggle Dark / Light Theme', action: () => toggleTheme() }
+];
+
+function toggleCommandPalette() {
+  const modal = document.getElementById('cmdPaletteBackdrop');
+  if (!modal) return;
+  const isOpen = modal.classList.contains('open');
+  if (isOpen) {
+    modal.classList.remove('open');
+  } else {
+    modal.classList.add('open');
+    const inp = document.getElementById('cmdSearchInput');
+    if (inp) { inp.value = ''; inp.focus(); }
+    filterCommands('');
+  }
+}
+
+function filterCommands(q) {
+  const list = document.getElementById('cmdList');
+  if (!list) return;
+  const term = (q || '').toLowerCase();
+  const matches = PALETTE_COMMANDS.filter(c => c.label.toLowerCase().includes(term));
+  list.innerHTML = matches.map((c, idx) => `<button type="button" class="btn btn-glass btn-sm" style="justify-content:flex-start; width:100%;" onclick="toggleCommandPalette(); PALETTE_COMMANDS[${PALETTE_COMMANDS.indexOf(c)}].action();">${c.label}</button>`).join('');
+}
+
+document.addEventListener('keydown', (e) => {
+  if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'k') {
+    e.preventDefault();
+    toggleCommandPalette();
+  } else if (e.key === 'Escape') {
+    const modal = document.getElementById('cmdPaletteBackdrop');
+    if (modal?.classList.contains('open')) modal.classList.remove('open');
+  }
+});
+
+document.addEventListener('DOMContentLoaded', () => {
+  if (typeof updateChunkVisualizer === 'function') updateChunkVisualizer();
+});
