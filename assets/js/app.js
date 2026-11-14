@@ -1035,3 +1035,20 @@ if (typeof PORTFOLIO_KB !== 'undefined') {
 document.addEventListener('DOMContentLoaded', () => {
   if (typeof updateTutorEstimate === 'function') updateTutorEstimate();
 });
+// Worldwide Tutoring Timezone Slot Matcher
+function showTutorTimezone(region, btn) {
+  if (btn && btn.parentElement) {
+    btn.parentElement.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+  }
+  const box = document.getElementById('tzDisplay');
+  if (!box) return;
+  const slots = {
+    us: '<strong>🇺🇸 US & Canada After-School Slots:</strong><br/>• Weekdays (Mon–Fri): <strong>4:30 PM – 9:30 PM EST</strong> (1:30 PM – 6:30 PM PST)<br/>• Weekends (Sat–Sun): <strong>8:00 AM – 1:00 PM EST</strong> & <strong>6:00 PM – 9:30 PM EST</strong>',
+    uk: '<strong>🇬🇧 UK & Europe After-School Slots:</strong><br/>• Weekdays (Mon–Fri): <strong>3:30 PM – 8:30 PM GMT</strong> (4:30 PM – 9:30 PM CET)<br/>• Weekends (Sat–Sun): <strong>9:00 AM – 6:00 PM GMT</strong>',
+    me: '<strong>🇦🇪 UAE, Saudi Arabia & Middle East Slots:</strong><br/>• Weekdays (Sun–Thu / Mon–Fri): <strong>3:30 PM – 9:00 PM GST (Dubai)</strong><br/>• Weekends: <strong>10:00 AM – 7:00 PM GST</strong>',
+    in: '<strong>🇮🇳 India After-School Slots (IST):</strong><br/>• Weekdays (Mon–Fri): <strong>4:00 PM – 9:30 PM IST</strong><br/>• Weekends (Sat–Sun): <strong>10:00 AM – 7:00 PM IST</strong>',
+    apac: '<strong>🇸🇬 Singapore, Hong Kong & Australia Slots:</strong><br/>• Weekdays (Mon–Fri): <strong>3:30 PM – 8:30 PM SGT</strong> (5:30 PM – 10:30 PM AEST)<br/>• Weekends: <strong>10:00 AM – 6:00 PM SGT</strong>'
+  };
+  box.innerHTML = slots[region] || slots.us;
+}
