@@ -906,5 +906,114 @@
   </div>
 </div>
 <div id="shapeTooltip"></div>
+<!-- Floating Free Cheat Sheet Button + Instant Popups (Cheat Sheet & Free Tuition Demo) -->
+<button type="button" onclick="openCheatSheetPopup()" class="btn btn-primary btn-sm" style="position:fixed; bottom:24px; left:24px; z-index:1700;">
+  🎁 Free Math & LLM PDF
+</button>
+
+<div id="cheatSheetModal" class="modal-backdrop" onclick="if(event.target===this) closePopups()">
+  <div class="modal-box" style="max-width:440px; padding:1.75rem;">
+    <button type="button" class="modal-close" onclick="closePopups()">✕</button>
+    <span class="section-tag">FREE_PDF_DOWNLOAD • BITS_PILANI_NOTES</span>
+    <h3 style="font-size:1.3rem; margin:0.35rem 0 0.5rem;">BITS Pilani Math & LLM Cheat Sheet</h3>
+    <p style="color:var(--muted); font-size:0.86rem; margin-bottom:1rem;">
+      Enter your email to unlock my visual guide covering <strong>Linear Algebra, Vector Space RAG Math & LLM Audits</strong>.
+    </p>
+    <form onsubmit="submitCheatSheetLead(event)">
+      <input type="text" id="csName" class="pg-input" placeholder="Your First Name" required />
+      <input type="email" id="csEmail" class="pg-input" placeholder="Your Email Address" required />
+      <button type="submit" class="btn btn-primary" style="width:100%; justify-content:center;">Unlock & Download PDF ↓</button>
+    </form>
+    <div id="csUnlockLink" style="display:none; margin-top:0.8rem; text-align:center;">
+      <a href="BITS_Pilani_Math_LLM_Cheat_Sheet.pdf" target="_blank" download class="btn btn-glass btn-sm">✓ Open Cheat Sheet PDF Now ↗</a>
+    </div>
+  </div>
+</div>
+
+<div id="tuitionDemoModal" class="modal-backdrop" onclick="if(event.target===this) closePopups()">
+  <div class="modal-box" style="max-width:450px; padding:1.75rem;">
+    <button type="button" class="modal-close" onclick="closePopups()">✕</button>
+    <span class="section-tag">1:1_LIVE_TUTORING • BITS_PILANI_ALUMNUS</span>
+    <h3 style="font-size:1.3rem; margin:0.35rem 0 0.5rem;">Book Your Free 1:1 Demo Class 🎓</h3>
+    <p style="color:var(--muted); font-size:0.86rem; margin-bottom:1rem;">
+      Personalized 1-on-1 coaching in <strong>Mathematics, Science, Programming & AI</strong> tailored to your syllabus.
+    </p>
+    <form onsubmit="submitDemoRequest(event)">
+      <input type="text" id="demoName" class="pg-input" placeholder="Student / Parent Name" required />
+      <input type="email" id="demoEmail" class="pg-input" placeholder="Email Address" required />
+      <input type="text" id="demoSubject" class="pg-input" placeholder="Grade / Subject (e.g., Class 10 Math, Linear Algebra)" required />
+      <button type="submit" class="btn btn-primary" style="width:100%; justify-content:center; margin-bottom:0.55rem;">Request Free Demo Class 🚀</button>
+    </form>
+    <a href="https://cal.com/akash-saini-12740/15min" target="_blank" rel="noopener" class="btn btn-glass btn-sm" style="width:100%; justify-content:center;">
+      Or Pick a Slot Directly on Cal.com ↗
+    </a>
+  </div>
+</div>
+
+<script>
+  function closePopups() {
+    document.getElementById('cheatSheetModal').classList.remove('open');
+    document.getElementById('tuitionDemoModal').classList.remove('open');
+    sessionStorage.setItem('popupClosed', '1');
+  }
+
+  function openCheatSheetPopup() {
+    document.getElementById('cheatSheetModal').classList.add('open');
+  }
+
+  function openTuitionDemoPopup() {
+    document.getElementById('tuitionDemoModal').classList.add('open');
+  }
+
+  function sendLeadWebhook(name, email, subject, message) {
+    fetch('https://script.google.com/macros/s/AKfycbx-lUmYJISZwTFuuh4gx4GqqNUJDf0wEFIL6fRD_gB1q9gSyPxeWbo1Zj2QIH0aKQa2/exec', {
+      method: 'POST', mode: 'no-cors',
+      body: JSON.stringify({ name, email, message })
+    });
+    fetch('https://api.web3forms.com/submit', {
+      method: 'POST', headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ access_key: 'b85a0e4a-e4c4-4c83-84cf-5deb470c88c1', name, email, subject, message })
+    }).catch(() => {});
+  }
+
+  function submitCheatSheetLead(e) {
+    e.preventDefault();
+    const name = document.getElementById('csName').value.trim();
+    const email = document.getElementById('csEmail').value.trim();
+    localStorage.setItem('csUnlocked', '1');
+    sendLeadWebhook(name, email, 'New Cheat Sheet Lead: ' + name, '[LEAD MAGNET] Unlocked BITS_Pilani_Math_LLM_Cheat_Sheet.pdf');
+    document.getElementById('csUnlockLink').style.display = 'block';
+    window.open('BITS_Pilani_Math_LLM_Cheat_Sheet.pdf', '_blank');
+  }
+
+  function submitDemoRequest(e) {
+    e.preventDefault();
+    const name = document.getElementById('demoName').value.trim();
+    const email = document.getElementById('demoEmail').value.trim();
+    const subj = document.getElementById('demoSubject').value.trim();
+    sendLeadWebhook(name, email, 'Free Demo Class Request: ' + name, '[FREE DEMO CLASS] Subject/Grade: ' + subj);
+    closePopups();
+    if (typeof showToast === 'function') showToast('✓ Demo request sent! Akash will confirm shortly.');
+  }
+
+  // Trigger Tuition Demo popup when clicking ANY link/button with "tuition" or "tutoring"
+  document.addEventListener('click', (e) => {
+    const el = e.target.closest('a, button');
+    if (!el) return;
+    const label = (el.textContent || '').toLowerCase();
+    const href = (el.getAttribute('href') || '').toLowerCase();
+    if (label.includes('tuition') || label.includes('tutoring') || href.includes('tuition') || href.includes('tutoring')) {
+      e.preventDefault();
+      openTuitionDemoPopup();
+    }
+  });
+
+  // Auto-open Cheat Sheet popup once after 5 seconds for new visitors
+  window.addEventListener('load', () => {
+    if (!localStorage.getItem('csUnlocked') && !sessionStorage.getItem('popupClosed')) {
+      setTimeout(openCheatSheetPopup, 5000);
+    }
+  });
+</script>  
 </body>
 </html>
