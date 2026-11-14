@@ -1,79 +1,190 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="dark">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net https://www.googletagmanager.com https://static.cloudflareinsights.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https:; frame-src https://akash12740-rag-document-qa-demo.static.hf.space; connect-src 'self' https://api.web3forms.com https://script.google.com https://script.googleusercontent.com https://www.google-analytics.com https://cloudflareinsights.com; base-uri 'self'; form-action 'self' https://api.web3forms.com;" />
-  <meta name="referrer" content="strict-origin-when-cross-origin" />
-  <meta http-equiv="Permissions-Policy" content="camera=(), microphone=(), geolocation=(), payment=()" />
-  <title>Akash Saini — Global Freelance AI/ML Consulting & Capabilities Deck</title>
+  <title>Summary — Services, Tuitions & Contact | Akash Saini (BITS Pilani)</title>
+  <meta name="description" content="Complete overview of Akash Saini's AI/ML consulting services, 1-on-1 worldwide school tutoring (Maths, Science, English), verified benchmarks, and direct contact details." />
+  <link rel="canonical" href="https://akash12740.github.io/capabilities.html" />
   <link rel="icon" type="image/svg+xml" href="assets/img/logo.svg" />
-  <meta name="description" content="1-Page Freelance AI/ML Consulting Capabilities Deck by Akash Saini (BITS Pilani M.Sc. Mathematics). Productized sprints in RAG systems, LLM audits, NLP, and SARIMA forecasting." />
-  <link rel="canonical" href="https://akash12740.github.io/capabilities.html" />
-  <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;600&family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
-  <style>
-    body { font-family: 'Inter', sans-serif; background: #050811; color: #f8fafc; padding: 2rem; line-height: 1.6; }
-    .sheet { max-width: 840px; margin: 0 auto; background: #0f172a; border: 1px solid rgba(56,189,248,0.28); border-radius: 16px; padding: 2.25rem; }
-    .top { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; border-bottom: 1px solid rgba(56,189,248,0.22); padding-bottom: 1.25rem; margin-bottom: 1.5rem; }
-    h1 { font-size: 1.85rem; }
-    .tag { font-family: 'Fira Code', monospace; color: #00f2fe; font-size: 0.8rem; }
-    .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.25rem; margin: 1.25rem 0; }
-    .box { background: #020617; border: 1px solid rgba(56,189,248,0.2); border-radius: 12px; padding: 1.15rem; }
-    .box h3 { color: #00f2fe; font-size: 1rem; margin-bottom: 0.4rem; }
-    .box p { color: #cbd5e1; font-size: 0.88rem; }
-    .btn { background: linear-gradient(135deg, #00f2fe, #4facfe); color: #050811; border: none; padding: 0.6rem 1.1rem; border-radius: 8px; font-weight: 700; cursor: pointer; text-decoration: none; font-size: 0.85rem; }
-    @media print { body { background: #fff; color: #000; padding: 0; } .sheet { background: #fff; border: none; color: #000; } .box { background: #f8fafc; border: 1px solid #cbd5e1; } .box p { color: #1e293b; } .no-print { display: none; } }
-    @media (max-width: 700px) { .grid { grid-template-columns: 1fr; } }
-  </style>
-  <meta property="og:type" content="website" />
-  <meta property="og:title" content="AI/ML Consulting Capabilities Deck | Akash Saini (BITS Pilani)" />
-  <meta property="og:description" content="1-page fixed-scope consulting sprint deck for Custom RAG, LLM Evaluation Audits, NLP Pipelines, and SARIMA Forecasting." />
-  <meta property="og:url" content="https://akash12740.github.io/capabilities.html" />
-  <meta property="og:image" content="https://akash12740.github.io/IMG_Akash_Saini.jpg" />
-  <link rel="canonical" href="https://akash12740.github.io/capabilities.html" />
+  <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;600;700&family=Inter:wght@400;600;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="assets/css/style.css?v=6" />
 </head>
 <body>
-  <div class="sheet">
-    <div class="top">
+  <div id="scroll-progress"></div>
+  <canvas id="neural-canvas"></canvas>
+  <div id="toast"></div>
+
+  <nav>
+    <a href="index.html" class="logo">&lt;<span>Akash.MathAI</span>/&gt;</a>
+    <button class="mobile-menu-btn" onclick="toggleMobileNav()" aria-label="Toggle Menu">☰</button>
+    <div class="nav-links">
+      <a href="index.html">🏠 Home</a>
+      <a href="tutoring.html">🎓 Tutoring</a>
+      <a href="labs.html">🧪 AI &amp; Math Labs</a>
+      <a href="blog.html">📖 Blog</a>
+      <a href="capabilities.html" class="active-page">📄 Summary</a>
+      <a href="#my-contact" class="nav-cta">💬 Connect</a>
+      <button type="button" id="themeToggle" class="theme-btn" onclick="toggleTheme()">☀️ Light</button>
+    </div>
+  </nav>
+
+  <main class="container" style="padding-top:2.4rem; padding-bottom:4rem; max-width:1020px;">
+    <!-- Header & Quick Actions -->
+    <div style="display:flex; justify-content:space-between; align-items:flex-start; flex-wrap:wrap; gap:1rem; margin-bottom:1.5rem;">
       <div>
-        <span class="tag">// GLOBAL_FREELANCE_AI_&_ML_CAPABILITIES_DECK</span>
-        <h1>Akash Saini</h1>
-        <p style="color:#94a3b8; font-size:0.9rem;">Integrated M.Sc. Mathematics, BITS Pilani • Remote Worldwide (US / EU / UK / APAC)</p>
+        <span class="section-tag">ONE_PAGE_OVERVIEW • SERVICES • TUITIONS • CONTACT</span>
+        <h1 style="margin-bottom:0.35rem;">Akash Saini — Summary</h1>
+        <p style="color:var(--muted); font-size:0.98rem; max-width:680px;">
+          Integrated M.Sc. Mathematics (<strong>BITS Pilani</strong>) • Global AI/ML Engineering Consultant &amp; 1-on-1 Online Educator for Grades 1–12 worldwide.
+        </p>
       </div>
-      <div class="no-print" style="display:flex; gap:0.5rem;">
-        <button class="btn" onclick="window.print()">Save / Print PDF ↓</button>
-        <a href="index.html" class="btn" style="background:#1e293b; color:#fff;">← Back</a>
-      </div>
-    </div>
-
-    <div class="grid">
-      <div class="box">
-        <h3>Sprint 1: Custom RAG & Grounded Q&A (7–10 Days)</h3>
-        <p>End-to-end semantic chunking, FAISS vector indexing, similarity threshold gates, and citation-enforced LLM assistants that eliminate hallucinations.</p>
-      </div>
-      <div class="box">
-        <h3>Sprint 2: LLM Evaluation & Reasoning Audits (5 Days)</h3>
-        <p>Designing atomic step-by-step evaluation rubrics, safety compliance checks, and edge-case failure diagnostics for foundation models.</p>
-      </div>
-      <div class="box">
-        <h3>Sprint 3: NLP & High-Scale Data Pipelines (7–14 Days)</h3>
-        <p>Automated Python ingestion, deduplication, and text classification systems (proven 6,000x corpus scaling & 95% NLP accuracy).</p>
-      </div>
-      <div class="box">
-        <h3>Sprint 4: Statistical & Time-Series Forecasting</h3>
-        <p>ARIMA/SARIMA seasonal modeling (proven 60% RMSE reduction), anomaly detection, and quantitative risk optimization.</p>
+      <div style="display:flex; gap:0.5rem; flex-wrap:wrap;">
+        <button type="button" class="btn btn-glass btn-sm" onclick="window.print()">🖨️ Save / Print PDF</button>
+        <a href="resume_AkashSaini.pdf" target="_blank" rel="noopener" class="btn btn-glass btn-sm">Resume.pdf ↓</a>
+        <a href="https://cal.com/akash-saini-12740/15min" target="_blank" rel="noopener" class="btn btn-primary btn-sm">Book 15-Min Call ↗</a>
       </div>
     </div>
 
-    <div class="box" style="margin-top:1rem;">
-      <h3>Engagement Model & Global Booking</h3>
-      <p style="margin-bottom:0.45rem;"><strong>Engagement Terms:</strong> Fixed-scope sprints or monthly retainer • Async Slack/GitHub updates + overlapping calls • International invoicing & full IP transfer.</p>
-      <p>
-        <strong>Book 15-Min Discovery Call:</strong> <a href="https://cal.com/akash-saini-12740/15min" style="color:#00f2fe;">cal.com/akash-saini-12740/15min</a>  | 
-        <strong>Portfolio:</strong> <a href="https://akash12740.github.io" style="color:#00f2fe;">akash12740.github.io</a>  | 
-        <strong>Email:</strong> aksainibits@gmail.com
-      </p>
+    <!-- Verified Track Record & Credentials -->
+    <div class="metrics-grid" style="margin-bottom:2rem;">
+      <div class="card metric-card"><div class="metric-num">BITS Pilani</div><div class="metric-label">Integrated M.Sc. Mathematics</div></div>
+      <div class="card metric-card"><div class="metric-num">6,000x</div><div class="metric-label">NLP Corpus Throughput Scale</div></div>
+      <div class="card metric-card"><div class="metric-num">95.0%</div><div class="metric-label">NLP Classification Accuracy</div></div>
+      <div class="card metric-card"><div class="metric-num">-60%</div><div class="metric-label">SARIMA Forecasting Error Cut</div></div>
     </div>
-  </div>
+
+    <!-- 1. My Services -->
+    <section id="my-services" style="padding-top:2.2rem;">
+      <span class="section-tag">01. MY_SERVICES • AI_&_DATA_ENGINEERING</span>
+      <h2>My Services (Fixed-Scope Sprints &amp; Advisory)</h2>
+      <div class="grid-3">
+        <div class="card" style="display:flex; flex-direction:column; justify-content:space-between;">
+          <div>
+            <span class="section-tag">7–10 DAYS • $1,400–$2,200</span>
+            <h3 style="margin:0.3rem 0 0.5rem;">Custom RAG &amp; Grounded Q&amp;A</h3>
+            <p style="color:var(--muted); font-size:0.89rem;">Semantic chunking, FAISS vector indexing, cosine similarity gates (&ge; 0.70), and mandatory source citations so your AI never fabricates answers.</p>
+          </div>
+          <div style="margin-top:1rem;"><a href="index.html#sprint-estimator" class="btn btn-primary btn-sm">Estimate Scope →</a></div>
+        </div>
+
+        <div class="card" style="display:flex; flex-direction:column; justify-content:space-between;">
+          <div>
+            <span class="section-tag">5–7 DAYS • $1,000–$1,800</span>
+            <h3 style="margin:0.3rem 0 0.5rem;">LLM Evaluation &amp; Safety Audits</h3>
+            <p style="color:var(--muted); font-size:0.89rem;">Adversarial prompt testing, jailbreak/PII guardrails, and atomic reasoning verification rubrics modeled on enterprise Gemini fine-tuning workflows.</p>
+          </div>
+          <div style="margin-top:1rem;"><a href="labs.html#rag-guardrails" class="btn btn-purple btn-sm">Try Live Guardrail →</a></div>
+        </div>
+
+        <div class="card" style="display:flex; flex-direction:column; justify-content:space-between;">
+          <div>
+            <span class="section-tag">7–14 DAYS • $1,200–$2,400</span>
+            <h3 style="margin:0.3rem 0 0.5rem;">NLP Pipelines &amp; Forecasting</h3>
+            <p style="color:var(--muted); font-size:0.89rem;">High-throughput Python text ingestion, regularized text classifiers, and ARIMA/SARIMA demand forecasting with Docker/FastAPI handoff.</p>
+          </div>
+          <div style="margin-top:1rem;"><a href="index.html#projects" class="btn btn-glass btn-sm">View Case Studies →</a></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 2. My Tuitions -->
+    <section id="my-tuitions">
+      <span class="section-tag">02. MY_TUITIONS • GRADES_1–12_WORLDWIDE</span>
+      <h2>My Tuitions (1-on-1 Online Classes)</h2>
+      <div class="card" style="border-color:var(--accent-green);">
+        <div class="grid-2" style="align-items:center;">
+          <div>
+            <h3 style="margin-bottom:0.45rem;">Mathematics, Science &amp; English (All Boards)</h3>
+            <p style="color:var(--muted); font-size:0.92rem; margin-bottom:0.75rem;">
+              Personal, concept-first 1-on-1 online tutoring for school students across the <strong>US, UK, Europe, Middle East, India &amp; APAC</strong> (Common Core, IGCSE/GCSE, IB, CBSE, ICSE, SAT &amp; Math Olympiads).
+            </p>
+            <ul class="item-list" style="margin-bottom:0.9rem;">
+              <li><strong>Rates:</strong> $15 – $35 / hour (₹600 – ₹1,600 / hour) • 10% off 8-session monthly packs</li>
+              <li><strong>Format:</strong> Interactive digital whiteboard, custom practice sheets &amp; weekly parent notes</li>
+              <li><strong>First Class:</strong> Free 20-minute diagnostic trial session</li>
+            </ul>
+            <div style="display:flex; gap:0.5rem; flex-wrap:wrap;">
+              <button type="button" onclick="openTuitionDemoPopup()" class="btn btn-primary btn-sm">🎓 Book Free 20-Min Trial</button>
+              <a href="tutoring.html" class="btn btn-glass btn-sm">View Country Timezones &amp; Fees →</a>
+            </div>
+          </div>
+
+          <div class="trace-box" style="margin:0;">
+            <div style="color:var(--accent-green); font-weight:700; margin-bottom:0.4rem;">Subjects &amp; Grade Coverage</div>
+            <div>• <strong>Mathematics (Grades 1–12):</strong> Arithmetic, Algebra, Geometry, Trigonometry, Probability, Calculus &amp; Olympiads</div>
+            <div style="margin-top:0.35rem;">• <strong>Science (Grades 1–12):</strong> General Science, Physics, Chemistry &amp; visual problem solving</div>
+            <div style="margin-top:0.35rem;">• <strong>English (Grades 1–12):</strong> Grammar, Reading Comprehension, Essay Writing &amp; Spoken Confidence</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 3. Credentials & Interactive Proof -->
+    <section id="credentials">
+      <span class="section-tag">03. EXPERIENCE_&_INTERACTIVE_PROOF</span>
+      <h2>Background &amp; Live Work</h2>
+      <div class="grid-2">
+        <div class="card">
+          <h3>Academic &amp; Industry Track Record</h3>
+          <ul class="item-list">
+            <li><strong>Learning Facilitator — WILP, BITS Pilani (2025–Present):</strong> Teaching Linear Algebra, Optimization &amp; Programming.</li>
+            <li><strong>AI/LLM Senior Associate — Innodata (2026):</strong> Gemini instruction fine-tuning &amp; AI safety audits.</li>
+            <li><strong>ML &amp; Software Intern — Swecha &amp; PCHF:</strong> 6,000x NLP corpus scaling &amp; production APIs.</li>
+            <li><strong>Integrated M.Sc. Mathematics — BITS Pilani (2019–2023):</strong> Head of Data Science (Math Assoc.).</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3>Explore Interactive Demos &amp; Writing</h3>
+          <p style="color:var(--muted); font-size:0.9rem; margin-bottom:0.85rem;">Test live vector retrieval, prompt guardrails, and math visualizers—or read engineering deep dives.</p>
+          <div style="display:flex; flex-direction:column; gap:0.5rem;">
+            <a href="labs.html" class="btn btn-primary btn-sm" style="justify-content:center;">🧪 Open Live AI &amp; Math Labs →</a>
+            <a href="blog.html" class="btn btn-glass btn-sm" style="justify-content:center;">📖 Read Technical Blog Archive →</a>
+            <a href="BITS_Pilani_Math_LLM_Cheat_Sheet.pdf" target="_blank" class="btn btn-glass btn-sm" style="justify-content:center;">🎁 Download Math &amp; LLM Cheat Sheet PDF ↓</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 4. My Contact -->
+    <section id="my-contact">
+      <span class="section-tag">04. MY_CONTACT • DIRECT_CHANNELS</span>
+      <h2>My Contact &amp; Booking Links</h2>
+      <div class="grid-3">
+        <div class="card">
+          <span class="section-tag">DIRECT EMAIL</span>
+          <h3>Write Anytime</h3>
+          <p style="color:var(--muted); font-size:0.88rem; margin:0.4rem 0 0.85rem;">For AI projects, tutoring inquiries, or collaborations:</p>
+          <button type="button" onclick="copyEmail()" class="btn btn-primary btn-sm" style="width:100%; justify-content:center;">✉️ Copy: aksainibits@gmail.com</button>
+        </div>
+
+        <div class="card">
+          <span class="section-tag">INSTANT SCHEDULING</span>
+          <h3>Book a Live Call</h3>
+          <div style="display:flex; flex-direction:column; gap:0.5rem; margin-top:0.65rem;">
+            <a href="https://cal.com/akash-saini-12740/15min" target="_blank" rel="noopener" class="btn btn-primary btn-sm" style="justify-content:center;">📅 Cal.com (15-Min Call / Trial) ↗</a>
+            <a href="https://topmate.io/akash12740/" target="_blank" rel="noopener" class="btn btn-purple btn-sm" style="justify-content:center;">🎯 Topmate (1:1 Mentorship) ↗</a>
+          </div>
+        </div>
+
+        <div class="card">
+          <span class="section-tag">PROFILES &amp; CODE</span>
+          <h3>Connect Online</h3>
+          <div style="display:flex; flex-direction:column; gap:0.5rem; margin-top:0.65rem;">
+            <a href="https://www.linkedin.com/in/akash-saini-83a42a1b1/" target="_blank" rel="noopener" class="btn btn-glass btn-sm" style="justify-content:center;">💼 LinkedIn Profile ↗</a>
+            <a href="https://github.com/Akash12740" target="_blank" rel="noopener" class="btn btn-glass btn-sm" style="justify-content:center;">🐙 GitHub (@Akash12740) ↗</a>
+            <a href="https://huggingface.co/Akash12740" target="_blank" rel="noopener" class="btn btn-glass btn-sm" style="justify-content:center;">🤗 Hugging Face Spaces ↗</a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div>Akash Saini • BITS Pilani Mathematics • <a href="index.html" style="color:var(--accent);">Home</a> • <a href="tutoring.html" style="color:var(--accent);">Tutoring</a> • <a href="labs.html" style="color:var(--accent);">Labs</a> • <a href="blog.html" style="color:var(--accent);">Blog</a></div>
+  </footer>
+
+  <div id="shapeTooltip"></div>
+  <script src="assets/js/app.js?v=6"></script>
 </body>
 </html>
