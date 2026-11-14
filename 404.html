@@ -1,20 +1,30 @@
-﻿<!DOCTYPE html>
-<html lang="en">
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>404 | Vector Not Found — Akash Saini</title>
+  <title>404 — Cosine Similarity Below Threshold | Akash Saini</title>
+  <link rel="icon" type="image/svg+xml" href="assets/img/logo.svg" />
+  <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;600;700&family=Inter:wght@400;600;800&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="assets/css/style.css" />
 </head>
-<body style="display:flex; align-items:center; justify-content:center; min-height:100vh; text-align:center; padding:1.5rem;">
-  <div class="card" style="max-width:520px;">
-    <span class="section-tag">// ERROR_404 • FAISS_INDEX_MISS</span>
-    <h1 style="font-size:3rem; margin:0.5rem 0;">404</h1>
-    <p style="color:var(--muted); margin-bottom:1.5rem;">Cosine similarity below threshold: the requested route does not exist in this index.</p>
+<body style="min-height:100vh; display:flex; align-items:center; justify-content:center; padding:1.5rem;">
+  <div class="card" style="max-width:620px; width:100%; text-align:center;">
+    <span class="section-tag">HTTP 404 • RETRIEVAL_GATE_REJECTED</span>
+    <h1 style="font-size:clamp(2.4rem, 6vw, 3.6rem); margin:0.4rem 0;"><span class="gradient-text">sim(q, d) < 0.70</span></h1>
+    <p style="color:var(--muted); margin-bottom:1.25rem;">
+      No matching document chunk was found in the FAISS index for this URL. To prevent hallucinating a broken page, the retrieval gate blocked this route.
+    </p>
+    <div class="trace-box" style="text-align:left; margin-bottom:1.4rem;">
+      <div><span style="color:#ef4444;">[GATE_BLOCK]</span> Requested path not found in <code>sitemap.xml</code></div>
+      <div><span style="color:#10b981;">[SUGGESTION]</span> Route back to verified index endpoints below</div>
+    </div>
     <div class="cta-group" style="justify-content:center;">
-      <a href="index.html" class="btn btn-primary">Return to Portfolio</a>
-      <a href="blog.html" class="btn btn-glass">Read Technical Blog</a>
+      <a href="index.html" class="btn btn-primary">← Back to Portfolio</a>
+      <a href="blog.html" class="btn btn-glass">Explore Technical Blog</a>
+      <a href="https://cal.com/akash-saini-12740/15min" target="_blank" rel="noopener" class="btn btn-purple">Book 15-Min Call ↗</a>
     </div>
   </div>
+  <script src="assets/js/app.js"></script>
 </body>
 </html>
