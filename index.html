@@ -690,7 +690,7 @@
 </footer>
   <script src="assets/js/app.js?v=5"></script>
 <!-- Floating Client-Side RAG Portfolio Assistant -->
-<div id="aiChatLauncher" style="position:fixed; bottom:24px; left:24px; z-index:1400;">
+<div id="aiChatLauncher" style="position:fixed; bottom: 105px; left: 24px; z-index:1400;">
   <button type="button" onclick="togglePortfolioChat()" class="btn btn-primary" style="border-radius:999px; box-shadow:0 10px 28px rgba(0,242,254,0.3);">
     💬 Ask AI About Akash
   </button>
@@ -730,7 +730,7 @@
 </div>
 <div id="shapeTooltip"></div>
 <!-- Floating Free Cheat Sheet Button + Instant Popups (Cheat Sheet & Free Tuition Demo) -->
-<button type="button" onclick="openCheatSheetPopup()" class="btn btn-primary btn-sm" style="position:fixed; bottom:24px; left:24px; z-index:1700;">
+<button type="button" onclick="openCheatSheetPopup(false)" class="btn btn-primary btn-sm" style="position:fixed; bottom: 105px; left: 24px; z-index:1700;">
   🎁 Free Math & LLM PDF
 </button>
 
@@ -774,18 +774,36 @@
 </div>
 
 <script>
+  let autoHideTimer = null;
+
   function closePopups() {
-    document.getElementById('cheatSheetModal').classList.remove('open');
-    document.getElementById('tuitionDemoModal').classList.remove('open');
+    clearTimeout(autoHideTimer);
+    document.getElementById('cheatSheetModal')?.classList.remove('open');
+    document.getElementById('tuitionDemoModal')?.classList.remove('open');
     sessionStorage.setItem('popupClosed', '1');
   }
 
-  function openCheatSheetPopup() {
-    document.getElementById('cheatSheetModal').classList.add('open');
+  function openCheatSheetPopup(isAuto = false) {
+    clearTimeout(autoHideTimer);
+    const modal = document.getElementById('cheatSheetModal');
+    if (!modal) return;
+    modal.classList.add('open');
+
+    if (isAuto) {
+      autoHideTimer = setTimeout(closePopups, 5000);
+      const box = modal.querySelector('.modal-box');
+      if (box) {
+        const stopTimer = () => clearTimeout(autoHideTimer);
+        box.addEventListener('pointerdown', stopTimer, { once: true });
+        box.addEventListener('keydown', stopTimer, { once: true });
+      }
+    }
   }
 
   function openTuitionDemoPopup() {
-    document.getElementById('tuitionDemoModal').classList.add('open');
+    clearTimeout(autoHideTimer);
+    document.getElementById('cheatSheetModal')?.classList.remove('open');
+    document.getElementById('tuitionDemoModal')?.classList.add('open');
   }
 
   function sendLeadWebhook(name, email, subject, message) {
@@ -801,6 +819,7 @@
 
   function submitCheatSheetLead(e) {
     e.preventDefault();
+    clearTimeout(autoHideTimer);
     const name = document.getElementById('csName').value.trim();
     const email = document.getElementById('csEmail').value.trim();
     localStorage.setItem('csUnlocked', '1');
@@ -819,7 +838,6 @@
     if (typeof showToast === 'function') showToast('✓ Demo request sent! Akash will confirm shortly.');
   }
 
-  // Trigger Tuition Demo popup when clicking ANY link/button with "tuition" or "tutoring"
   document.addEventListener('click', (e) => {
     const el = e.target.closest('a, button');
     if (!el) return;
@@ -831,10 +849,9 @@
     }
   });
 
-  // Auto-open Cheat Sheet popup once after 5 seconds for new visitors
   window.addEventListener('load', () => {
     if (!localStorage.getItem('csUnlocked') && !sessionStorage.getItem('popupClosed')) {
-      setTimeout(openCheatSheetPopup, 5000);
+      setTimeout(() => openCheatSheetPopup(true), 15000);
     }
   });
 </script>  
