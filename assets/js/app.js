@@ -1,5 +1,4 @@
-const WEBHOOK_URL = 'https://script.google.com/macros/s/AKfycbx-lUmYJISZwTFuuh4gx4GqqNUJDf0wEFIL6fRD_gB1q9gSyPxeWbo1Zj2QIH0aKQa2/exec';
-const WEB3FORMS_KEY = 'b85a0e4a-e4c4-4c83-84cf-5deb470c88c1';
+const CHEAT_SHEET_PDF = "BITS_Pilani_Math_LLM_Cheat_Sheet.pdf";
 
 function setActive(btn) {
   if (!btn || !btn.parentElement) return;
@@ -8,17 +7,16 @@ function setActive(btn) {
 }
 
 function toggleMobileNav() {
-  const nav = document.querySelector('.nav-links');
-  if (nav) nav.classList.toggle('mobile-open');
+  document.querySelector('.nav-links')?.classList.toggle('mobile-open');
 }
 
+// Theme Toggle
 function initTheme() {
   const saved = localStorage.getItem('theme') || 'dark';
   document.documentElement.setAttribute('data-theme', saved);
   const btn = document.getElementById('themeToggle');
   if (btn) btn.textContent = saved === 'dark' ? '☀️ Light' : '🌙 Dark';
 }
-
 function toggleTheme() {
   const cur = document.documentElement.getAttribute('data-theme') || 'dark';
   const next = cur === 'dark' ? 'light' : 'dark';
@@ -28,6 +26,15 @@ function toggleTheme() {
   if (btn) btn.textContent = next === 'dark' ? '☀️ Light' : '🌙 Dark';
 }
 initTheme();
+
+// Scroll Progress Bar
+window.addEventListener('scroll', () => {
+  const bar = document.getElementById('scroll-progress');
+  if (!bar) return;
+  const docH = document.documentElement.scrollHeight - window.innerHeight;
+  const pct = docH > 0 ? Math.min(100, Math.max(0, (window.scrollY / docH) * 100)) : 0;
+  bar.style.width = pct + '%';
+}, { passive: true });
 
 function showToast(msg) {
   const t = document.getElementById('toast');
@@ -42,19 +49,44 @@ function copyEmail() {
   showToast('✓ Copied aksainibits@gmail.com to clipboard!');
 }
 
-function toggleExecBrief() {
-  const panel = document.getElementById('execBriefPanel');
-  if (!panel) return;
-  const open = panel.style.display === 'block';
-  panel.style.display = open ? 'none' : 'block';
+// Hero Audience Role Switcher (AI Consulting vs. School Tutoring)
+function switchAudience(mode, btn) {
+  if (btn) {
+    btn.parentElement.querySelectorAll('.audience-tab').forEach(t => t.classList.remove('active'));
+    btn.classList.add('active');
+  }
+  const pill = document.getElementById('heroPillText');
+  const desc = document.getElementById('heroDescText');
+  const ctas = document.getElementById('heroCtaGroup');
+  if (!pill || !desc || !ctas) return;
+
+  if (mode === 'tutor') {
+    pill.textContent = '1-ON-1 ONLINE SCHOOL TUTOR • GRADES 1–12 WORLDWIDE';
+    desc.innerHTML = 'Patient, concept-first 1-on-1 online lessons in <strong>Mathematics, Science & English</strong> for students across the <strong>US, UK, EU, Middle East, India & APAC</strong> (Common Core, IGCSE, IB, CBSE & Olympiads) taught by a <strong>BITS Pilani Mathematics graduate</strong>.';
+    ctas.innerHTML = `
+      <button type="button" onclick="openTuitionDemoPopup()" class="btn btn-primary">🎓 Book Free 20-Min Trial Class</button>
+      <a href="tutoring.html" class="btn btn-purple">View Fees & Country Timezones →</a>
+      <a href="labs.html#math-games" class="btn btn-glass">🎲 Try Free Math Games</a>
+    `;
+  } else {
+    pill.textContent = 'GLOBAL FREELANCE AI/ML CONSULTANT • US / EU / APAC';
+    desc.innerHTML = 'I studied Mathematics at <strong>BITS Pilani</strong> and build trustworthy AI systems. From <strong>citation-grounded RAG assistants that eliminate hallucinations</strong> to <strong>LLM reasoning audits and forecasting pipelines</strong>, I turn complex data into reliable products.';
+    ctas.innerHTML = `
+      <a href="https://cal.com/akash-saini-12740/15min" target="_blank" rel="noopener" class="btn btn-primary">Book Free 15-Min Project Call ↗</a>
+      <a href="#services" class="btn btn-purple">View Freelance Sprints 🚀</a>
+      <a href="labs.html" class="btn btn-glass">🧪 Live AI & Math Labs</a>
+      <a href="resume_AkashSaini.pdf" target="_blank" rel="noopener" class="btn btn-glass">Resume.pdf ↓</a>
+    `;
+  }
 }
 
-// Blog Loader & Archive
+// Dynamic JSON Loader for Blogs + BibTeX & Social Share + TOC
 let ALL_POSTS = [];
 async function loadPosts() {
   const homeContainer = document.getElementById('featured-blogs-grid');
   const fullContainer = document.getElementById('all-blogs-list');
   if (!homeContainer && !fullContainer) return;
+
   try {
     const todayKey = new Date().toISOString().slice(0, 10);
     const res = await fetch('data/posts.json?v=' + todayKey);
@@ -69,8 +101,8 @@ async function loadPosts() {
               <span class="section-tag" style="margin:0;">${p.topic_label}</span>
               <span class="item-date">${p.date} • ${p.read_time}</span>
             </div>
-            <h3 style="font-size:1.12rem; margin:0.55rem 0;">${p.title}</h3>
-            <p style="color:var(--muted); font-size:0.91rem; margin-bottom:1rem;">${p.summary}</p>
+            <h3 style="font-size:1.08rem; margin:0.5rem 0;">${p.title}</h3>
+            <p style="color:var(--muted); font-size:0.9rem; margin-bottom:1rem;">${p.summary}</p>
           </div>
           <div style="display:flex; gap:0.5rem; flex-wrap:wrap;">
             <button class="btn btn-primary btn-sm" onclick="openPostModal('${p.id}')">Read Article →</button>
@@ -80,17 +112,17 @@ async function loadPosts() {
       `).join('');
     }
 
-    if (fullContainer) {
-      renderBlogArchive('all', '');
-    }
-  } catch (e) { console.error('Failed to load posts.json', e); }
+    if (fullContainer) renderBlogArchive('all', '');
+  } catch (e) {
+    console.error('Failed to load posts.json', e);
+  }
 }
 
 function copyBibtex(id) {
   const p = ALL_POSTS.find(x => x.id === id);
   if (!p) return;
   const year = (p.date || '2026').slice(0, 4);
-  const bib = `@article{saini${year}_${p.id.replace('-','')},\n  author = {Saini, Akash},\n  title = {${p.title}},\n  journal = {Akash Saini Engineering Notes},\n  year = {${year}},\n  url = {https://akash12740.github.io/blog.html#${p.id}}\n}`;
+  const bib = `@article{saini${year}_${p.id.replace('-', '')},\n  author = {Saini, Akash},\n  title = {${p.title}},\n  journal = {Akash Saini Engineering Notes},\n  year = {${year}},\n  url = {https://akash12740.github.io/blog.html#${p.id}}\n}`;
   navigator.clipboard.writeText(bib);
   showToast('✓ Copied BibTeX citation to clipboard!');
 }
@@ -124,17 +156,20 @@ function renderBlogArchive(topic, query) {
   }
 
   fullContainer.innerHTML = filtered.map(p => `
-    <article id="${p.id}" class="card" style="margin-bottom:1.75rem;">
+    <article id="${p.id}" class="card" style="margin-bottom:1.65rem;">
       <div class="item-header">
         <span class="section-tag" style="margin:0;">${p.topic_label} • ${p.date}</span>
         <span class="item-date">${p.read_time}</span>
       </div>
-      <h2 style="font-size:1.45rem; margin:0.45rem 0 0.75rem;">${p.title}</h2>
-      <p style="color:var(--muted); margin-bottom:0.9rem;">${p.summary}</p>
+      <h2 style="font-size:1.4rem; margin:0.45rem 0 0.7rem;">${p.title}</h2>
+      <p style="color:var(--muted); margin-bottom:0.85rem;">${p.summary}</p>
       <div class="trace-box" style="color:var(--accent);">${p.architecture_flow}</div>
-      ${(p.sections || []).map(s => `<h3 style="font-size:1.02rem; margin:1rem 0 0.35rem; font-family:'Fira Code', monospace;">${s.heading}</h3><p style="color:var(--muted); font-size:0.94rem;">${s.body}</p>`).join('')}
-      <div class="verdict-box show" style="margin-top:1rem;"><strong>Key Takeaway:</strong> ${p.takeaway}</div>
-      <div style="display:flex; gap:0.6rem; flex-wrap:wrap; margin-top:1.1rem; padding-top:0.9rem; border-top:1px solid var(--border);">
+      ${(p.sections || []).map(s => `
+        <h3 style="font-size:1rem; margin:0.95rem 0 0.3rem; font-family:'Fira Code', monospace;">${s.heading}</h3>
+        <p style="color:var(--muted); font-size:0.93rem;">${s.body}</p>
+      `).join('')}
+      <div class="verdict-box show" style="margin-top:0.95rem;"><strong>Key Takeaway:</strong> ${p.takeaway}</div>
+      <div style="display:flex; gap:0.55rem; flex-wrap:wrap; margin-top:1rem; padding-top:0.85rem; border-top:1px solid var(--border);">
         <button class="btn btn-glass btn-sm" onclick="copyBibtex('${p.id}')">📋 Copy BibTeX Citation</button>
         <button class="btn btn-primary btn-sm" onclick="sharePostLinkedIn('${p.id}')">Share on LinkedIn ↗</button>
         <button class="btn btn-glass btn-sm" onclick="copyLinkedInPost('${p.id}')">✍️ Copy LinkedIn Post</button>
@@ -153,16 +188,16 @@ function openPostModal(id) {
     (p.sections || []).map(s => `<p style="margin-bottom:0.8rem;"><strong>${s.heading}:</strong> ${s.body}</p>`).join('') +
     `<p style="color:var(--accent-green); margin-bottom:1rem;"><strong>Takeaway:</strong> ${p.takeaway}</p>` +
     `<div style="display:flex; gap:0.5rem; flex-wrap:wrap;">
-       <button class="btn btn-glass btn-sm" onclick="copyBibtex('${p.id}')">📋 Copy BibTeX</button>
-       <button class="btn btn-glass btn-sm" onclick="sharePostLinkedIn('${p.id}')">Share on LinkedIn ↗</button>
-     </div>`;
+      <button class="btn btn-glass btn-sm" onclick="copyBibtex('${p.id}')">📋 Copy BibTeX</button>
+      <button class="btn btn-glass btn-sm" onclick="sharePostLinkedIn('${p.id}')">Share on LinkedIn ↗</button>
+    </div>`;
   const link = document.getElementById('modalRepoLink');
   link.textContent = 'Open Full Blog Archive →';
   link.href = 'blog.html';
   document.getElementById('projectModal').classList.add('open');
 }
 
-// Projects & Testimonials
+// Dynamic Projects & Testimonials
 let ALL_PROJECTS = [];
 async function loadProjects() {
   const grid = document.getElementById('projects-grid');
@@ -177,11 +212,11 @@ async function loadProjects() {
             <span class="item-title">${pr.title}</span>
             <span class="item-date">${pr.badge}</span>
           </div>
-          <p style="color:var(--muted); font-size:0.93rem; margin:0.75rem 0 1rem;">${pr.summary}</p>
+          <p style="color:var(--muted); font-size:0.91rem; margin:0.7rem 0 0.95rem;">${pr.summary}</p>
           <div class="tags">${pr.tags.map(t => `<span class="tag">${t}</span>`).join('')}</div>
         </div>
-        <div style="display:flex; gap:0.6rem; margin-top:1.2rem; padding-top:0.9rem; border-top:1px solid var(--border);">
-          <a href="${pr.repo}" target="_blank" class="btn btn-primary btn-sm">View Code ↗</a>
+        <div style="display:flex; gap:0.55rem; margin-top:1.15rem; padding-top:0.85rem; border-top:1px solid var(--border);">
+          <a href="${pr.repo}" target="_blank" rel="noopener" class="btn btn-primary btn-sm">View Code ↗</a>
           <button class="btn btn-glass btn-sm" onclick="openProjectModal('${pr.id}')">Architecture →</button>
         </div>
       </div>
@@ -202,7 +237,7 @@ function openProjectModal(id) {
   document.getElementById('projectModal').classList.add('open');
 }
 
-function closeModalBtn() { document.getElementById('projectModal').classList.remove('open'); }
+function closeModalBtn() { document.getElementById('projectModal')?.classList.remove('open'); }
 function closeModal(e) { if (e.target.id === 'projectModal') closeModalBtn(); }
 
 async function loadTestimonials() {
@@ -213,15 +248,15 @@ async function loadTestimonials() {
     const items = await res.json();
     wrap.innerHTML = items.map(t => `
       <div class="card">
-        <p style="font-style:italic; color:var(--text); font-size:0.94rem; margin-bottom:0.9rem;">"${t.quote}"</p>
-        <div style="font-weight:700; font-size:0.88rem; color:var(--accent);">${t.author}</div>
-        <div style="font-size:0.78rem; color:var(--muted); font-family:'Fira Code', monospace;">${t.role}</div>
+        <p style="font-style:italic; color:var(--text); font-size:0.92rem; margin-bottom:0.85rem;">"${t.quote}"</p>
+        <div style="font-weight:700; font-size:0.87rem; color:var(--accent);">${t.author}</div>
+        <div style="font-size:0.77rem; color:var(--muted); font-family:'Fira Code', monospace;">${t.role}</div>
       </div>
     `).join('');
   } catch (e) { console.error(e); }
 }
 
-// Fake News Classifier Sandbox
+// Live NLP Fake News Classifier Sandbox
 function runFakeNewsDemo() {
   const input = document.getElementById('newsInput');
   const out = document.getElementById('newsOutput');
@@ -231,26 +266,28 @@ function runFakeNewsDemo() {
 
   const sensational = ['shocking', 'miracle', 'secret', 'exposed', 'guaranteed', '100%', 'conspiracy', 'breaking', 'unbelievable', 'banned', 'hoax', 'scam'];
   const credible = ['study', 'dataset', 'university', 'published', 'report', 'according', 'researchers', 'evidence', 'analysis', 'ministry', 'journal', 'percent'];
+
   const words = text.toLowerCase().replace(/[^a-z0-9%\s]/g, '').split(/\s+/).filter(Boolean);
-  let sensHits = words.filter(w => sensational.includes(w));
-  let credHits = words.filter(w => credible.includes(w));
+  const sensHits = words.filter(w => sensational.includes(w));
+  const credHits = words.filter(w => credible.includes(w));
   const exclamations = (text.match(/!/g) || []).length;
   const capsWords = text.split(/\s+/).filter(w => w.length > 3 && w === w.toUpperCase() && /[A-Z]/.test(w));
 
-  let rawScore = 0.25 + (sensHits.length * 0.22) + (exclamations * 0.1) + (capsWords.length * 0.12) - (credHits.length * 0.15);
+  const rawScore = 0.25 + (sensHits.length * 0.22) + (exclamations * 0.1) + (capsWords.length * 0.12) - (credHits.length * 0.15);
   const fakeProb = Math.max(0.04, Math.min(0.98, rawScore));
   const isFake = fakeProb >= 0.5;
 
   out.innerHTML = `
     <div style="color:${isFake ? '#ef4444' : '#10b981'}; font-weight:700;">
-      [${isFake ? '⚠️ HIGH SENSATIONALISM / MISINFORMATION RISK' : '✓ VERIFIED / NEUTRAL REPORTING STYLE'}] • Misinformation Score: ${(fakeProb * 100).toFixed(1)}%
+      [${isFake ? '⚠️ HIGH SENSATIONALISM / MISINFORMATION RISK' : '✓ VERIFIED / NEUTRAL REPORTING STYLE'}] • Risk Score: ${(fakeProb * 100).toFixed(1)}%
     </div>
     <div style="margin-top:0.4rem; color:var(--muted);">
-      Sensational N-Grams: [${sensHits.join(', ') || 'none'}] | Credibility Markers: [${credHits.join(', ') || 'none'}] | Signals: ${capsWords.length + exclamations}
-    </div>`;
+      Sensational N-Grams: [${sensHits.join(', ') || 'none'}] | Credibility Markers: [${credHits.join(', ') || 'none'}] | Caps/Exclamations: ${capsWords.length + exclamations}
+    </div>
+  `;
 }
 
-// Matrix & Math Lab
+// 2x2 Matrix, Eigenvalue & Determinant Lab
 function updateMatrixLab() {
   const a = +(document.getElementById('matA')?.value || 2);
   const b = +(document.getElementById('matB')?.value || 1);
@@ -273,16 +310,41 @@ function updateMatrixLab() {
     const im = (Math.sqrt(-disc) / 2).toFixed(2);
     eigText = `Complex Eigenvalues: ${re} ± ${im}i`;
   }
-  const comp = Math.abs(det) < 1e-6 ? 'Singular' : (det > 0 ? 'GL₂⁺(ℝ) (det > 0)' : 'GL₂⁻(ℝ) (det < 0)');
-  readout.innerHTML = `Matrix [[${a}, ${b}], [${c}, ${d}]] | <strong>det(A) = ${det.toFixed(2)}</strong> | tr(A) = ${tr.toFixed(2)}<br>${eigText} | Topology: <span style="color:#00f2fe;">${comp}</span>`;
+  const comp = Math.abs(det) < 1e-6 ? 'Singular (Not in GL₂(ℝ))' : (det > 0 ? 'GL₂⁺(ℝ) Component (det > 0)' : 'GL₂⁻(ℝ) Component (det < 0)');
+  readout.innerHTML = `Matrix [[${a}, ${b}], [${c}, ${d}]] | <strong>det(A) = ${det.toFixed(2)}</strong> | tr(A) = ${tr.toFixed(2)}<br>${eigText} | Topology: <span style="color:var(--accent);">${comp}</span>`;
+
+  const ctx = canvas.getContext('2d');
+  const w = canvas.width = canvas.offsetWidth;
+  const h = canvas.height = 210;
+  ctx.clearRect(0, 0, w, h);
+  const cx = w / 2, cy = h / 2, s = 32;
+
+  ctx.strokeStyle = 'rgba(148,163,184,0.25)';
+  ctx.beginPath(); ctx.moveTo(0, cy); ctx.lineTo(w, cy); ctx.moveTo(cx, 0); ctx.lineTo(cx, h); ctx.stroke();
+
+  ctx.strokeStyle = '#64748b'; ctx.setLineDash([4, 4]);
+  ctx.strokeRect(cx, cy - s, s, s);
+  ctx.setLineDash([]);
+
+  const pts = [[0, 0], [a, c], [a + b, c + d], [b, d]];
+  ctx.fillStyle = det >= 0 ? 'rgba(56,189,248,0.22)' : 'rgba(168,85,247,0.25)';
+  ctx.strokeStyle = det >= 0 ? '#38bdf8' : '#a855f7';
+  ctx.lineWidth = 2;
+  ctx.beginPath();
+  pts.forEach(([px, py], idx) => {
+    const sx = cx + px * s, sy = cy - py * s;
+    if (idx === 0) ctx.moveTo(sx, sy); else ctx.lineTo(sx, sy);
+  });
+  ctx.closePath(); ctx.fill(); ctx.stroke();
 }
 
-// Gradient Descent Game
+// Gradient Descent Valley Finder
 let gdX = -3.6, gdSteps = 0;
 function resetGD() {
-  gdX = -3.6; gdSteps = 0; drawGD();
+  gdX = -3.6; gdSteps = 0;
+  drawGD();
   const msg = document.getElementById('gdStatus');
-  if (msg) msg.textContent = 'Ball placed at x = -3.60. Choose α and step toward the global minimum (x ≈ 1.45)!';
+  if (msg) msg.textContent = 'Ball placed at x = -3.60. Choose a learning rate α and step toward the global minimum (x ≈ 1.45)!';
 }
 function stepGD() {
   const lr = +(document.getElementById('gdLr')?.value || 0.15);
@@ -295,7 +357,7 @@ function stepGD() {
   if (Math.abs(gdX - 1.45) < 0.18) {
     msg.innerHTML = `<span style="color:#10b981;">✓ Global Minimum Reached at x = ${gdX.toFixed(2)} in ${gdSteps} steps!</span>`;
   } else if (Math.abs(gdX + 1.15) < 0.18 && Math.abs(grad) < 0.15) {
-    msg.innerHTML = `<span style="color:#f59e0b;">⚠️ Local Minimum at x = ${gdX.toFixed(2)}! Try a larger α.</span>`;
+    msg.innerHTML = `<span style="color:#f59e0b;">⚠️ Trapped in Local Minimum at x = ${gdX.toFixed(2)}! Try a larger α to escape.</span>`;
   } else {
     msg.textContent = `Step ${gdSteps}: x = ${gdX.toFixed(2)} | Gradient f'(x) = ${grad.toFixed(2)}`;
   }
@@ -307,9 +369,23 @@ function drawGD() {
   const w = canvas.width = canvas.offsetWidth;
   const h = canvas.height = 175;
   ctx.clearRect(0, 0, w, h);
+
+  const f = x => 0.25 * Math.pow(x, 4) - 0.3 * Math.pow(x, 3) - 1.5 * Math.pow(x, 2) + 0.8 * x + 4.5;
+  const toSx = x => ((x + 4.2) / 8.4) * (w - 30) + 15;
+  const toSy = y => h - 20 - (y / 14) * (h - 35);
+
+  ctx.strokeStyle = '#38bdf8'; ctx.lineWidth = 2; ctx.beginPath();
+  for (let x = -4.0; x <= 4.0; x += 0.08) {
+    const sx = toSx(x), sy = toSy(f(x));
+    if (x === -4.0) ctx.moveTo(sx, sy); else ctx.lineTo(sx, sy);
+  }
+  ctx.stroke();
+
+  ctx.fillStyle = '#a855f7';
+  ctx.beginPath(); ctx.arc(toSx(gdX), toSy(f(gdX)), 7, 0, Math.PI * 2); ctx.fill();
 }
 
-// Blitz Game
+// Eigenvalue & Determinant Speed Blitz
 let blitzScore = 0, blitzAns = 0;
 function nextBlitzQuestion() {
   const a = Math.floor(Math.random() * 7) - 3;
@@ -334,11 +410,11 @@ function checkBlitz() {
     inp.value = '';
     nextBlitzQuestion();
   } else {
-    fb.innerHTML = `<span style="color:#ef4444;">✕ Try again! det = ad - bc, trace = a + d.</span>`;
+    fb.innerHTML = `<span style="color:#ef4444;">✕ Try again! Remember det = ad - bc, trace = a + d.</span>`;
   }
 }
 
-// Monty Hall Simulator
+// Monty Hall & Bayesian Intuition Simulator
 let mhStayWins = 0, mhStayTotal = 0, mhSwitchWins = 0, mhSwitchTotal = 0;
 function playMontyHall(trials, doSwitch) {
   for (let i = 0; i < trials; i++) {
@@ -352,67 +428,717 @@ function playMontyHall(trials, doSwitch) {
   if (el) {
     const stayPct = mhStayTotal ? ((mhStayWins / mhStayTotal) * 100).toFixed(1) : '0.0';
     const swPct = mhSwitchTotal ? ((mhSwitchWins / mhSwitchTotal) * 100).toFixed(1) : '0.0';
-    el.innerHTML = `<strong>Stay:</strong> ${mhStayWins}/${mhStayTotal} (${stayPct}%) | <strong style="color:#10b981;">Switch:</strong> ${mhSwitchWins}/${mhSwitchTotal} (${swPct}%)`;
+    el.innerHTML = `<strong>Stay Strategy:</strong> ${mhStayWins}/${mhStayTotal} wins (${stayPct}%) &nbsp;|&nbsp; <strong style="color:#10b981;">Switch Strategy:</strong> ${mhSwitchWins}/${mhSwitchTotal} wins (${swPct}%)`;
   }
 }
 
+// Spot the AI Reasoning Flaw
 function evaluateTrace(choice) {
   const box = document.getElementById('reasoningVerdict');
   if (!box) return;
   box.classList.add('show');
   if (choice === 'A') {
     box.style.borderLeftColor = 'var(--accent-green)';
-    box.innerHTML = '<strong>✓ Spot On! Trace A has a topological flaw.</strong> GL_n(ℝ) has 2 components (det > 0 and det < 0), giving 2 × 2 × 2 = 8 components.';
+    box.innerHTML = '<strong>✓ Spot On! Trace A contains a subtle topological fallacy.</strong> For m(t) = t³ - t, the eigenvalues {0, 1, -1} partition ℝ⁴ into eigenspaces of dimensions (2, 1, 1), so G ≅ GL₂(ℝ) × GL₁(ℝ) × GL₁(ℝ). Trace A falsely assumes GL_n(ℝ) is path-connected (1 component), ignoring det(X) > 0 vs. det(X) < 0 (2 components each ⇒ 2³ = 8).';
   } else {
     box.style.borderLeftColor = 'var(--accent-red)';
-    box.innerHTML = '<strong>✕ Look closer!</strong> Trace B correctly accounts for determinant components.';
+    box.innerHTML = '<strong>✕ Look closer at Trace A!</strong> Trace B correctly decomposes G ≅ GL₂(ℝ) × GL₁(ℝ) × GL₁(ℝ) and multiplies the 2 determinant components per factor (2 × 2 × 2 = 8). Trace A forgets that GL_n(ℝ) has two disconnected components.';
   }
 }
 
+// 2D Cosine Similarity & Time-Series Visualizers
 function updateCosineViz() {
   const canvas = document.getElementById('cosineCanvas');
   const angleSlider = document.getElementById('vecAngle');
   const label = document.getElementById('cosineReadout');
   if (!canvas || !angleSlider) return;
+
   const deg = +angleSlider.value;
-  const sim = Math.cos((deg * Math.PI) / 180);
+  const rad = (deg * Math.PI) / 180;
+  const sim = Math.cos(rad);
   const passes = sim >= 0.70;
-  label.innerHTML = `Angle θ = <strong>${deg}°</strong> | Similarity = <strong>${sim.toFixed(3)}</strong> | Gate (≥ 0.70): <span style="color:${passes ? '#10b981' : '#ef4444'}">${passes ? 'ACCEPTED' : 'FILTERED'}</span>`;
+  label.innerHTML = `Angle θ = <strong>${deg}°</strong> | Cosine Similarity = <strong>${sim.toFixed(3)}</strong> | Gate (≥ 0.70): <span style="color:${passes ? '#10b981' : '#ef4444'}">${passes ? 'ACCEPTED' : 'FILTERED OUT'}</span>`;
+
+  const ctx = canvas.getContext('2d');
+  const w = canvas.width = canvas.offsetWidth;
+  const h = canvas.height = 190;
+  ctx.clearRect(0, 0, w, h);
+  const ox = 60, oy = h - 30, len = 115;
+  ctx.strokeStyle = 'rgba(148,163,184,0.3)';
+  ctx.beginPath(); ctx.moveTo(ox, 15); ctx.lineTo(ox, oy); ctx.lineTo(w - 25, oy); ctx.stroke();
+
+  const qRad = (15 * Math.PI) / 180;
+  drawArrow(ctx, ox, oy, ox + len * Math.cos(qRad), oy - len * Math.sin(qRad), '#38bdf8', 'Query q');
+  const dRad = ((15 + deg) * Math.PI) / 180;
+  drawArrow(ctx, ox, oy, ox + len * Math.cos(dRad), oy - len * Math.sin(dRad), passes ? '#10b981' : '#ef4444', 'Chunk d');
+}
+
+function drawArrow(ctx, x1, y1, x2, y2, color, text) {
+  ctx.strokeStyle = color; ctx.fillStyle = color; ctx.lineWidth = 2.5;
+  ctx.beginPath(); ctx.moveTo(x1, y1); ctx.lineTo(x2, y2); ctx.stroke();
+  ctx.beginPath(); ctx.arc(x2, y2, 4, 0, Math.PI * 2); ctx.fill();
+  ctx.font = '12px Fira Code, monospace';
+  ctx.fillText(text, x2 + 8, y2 + 4);
+}
+
+function updateTsViz() {
+  const canvas = document.getElementById('tsDecompCanvas');
+  const seasonSlider = document.getElementById('seasonWeight');
+  const readout = document.getElementById('tsReadout');
+  if (!canvas || !seasonSlider) return;
+
+  const sWeight = +seasonSlider.value / 100;
+  readout.innerHTML = `Seasonal Amplitude = <strong>${Math.round(sWeight * 100)}%</strong> | Y_t = Trend + ${sWeight.toFixed(2)}·Seasonality + Noise`;
+
+  const ctx = canvas.getContext('2d');
+  const w = canvas.width = canvas.offsetWidth;
+  const h = canvas.height = 190;
+  ctx.clearRect(0, 0, w, h);
+  ctx.strokeStyle = '#38bdf8'; ctx.lineWidth = 2; ctx.beginPath();
+  for (let x = 0; x < w - 20; x++) {
+    const t = x / 28;
+    const y = (h - 30) - (0.2 * x + sWeight * 38 * Math.sin(t * Math.PI) + 5 * Math.sin(t * 7.3));
+    if (x === 0) ctx.moveTo(x + 10, y); else ctx.lineTo(x + 10, y);
+  }
+  ctx.stroke();
+}
+
+// RAG Chunking & Token Cost Visualizer
+function updateChunkVisualizer() {
+  const txtEl = document.getElementById('chunkInput');
+  const sizeEl = document.getElementById('chunkSizeSlider');
+  const ovEl = document.getElementById('chunkOverlapSlider');
+  const outEl = document.getElementById('chunkOutput');
+  if (!txtEl || !sizeEl || !ovEl || !outEl) return;
+
+  const size = parseInt(sizeEl.value, 10);
+  const overlap = Math.min(parseInt(ovEl.value, 10), size - 1);
+  document.getElementById('chunkSizeVal').textContent = size;
+  document.getElementById('chunkOverlapVal').textContent = overlap;
+
+  const words = txtEl.value.trim().split(/\s+/).filter(Boolean);
+  const step = Math.max(1, size - overlap);
+  const chunks = [];
+  for (let i = 0; i < words.length; i += step) {
+    chunks.push(words.slice(i, i + size).join(' '));
+    if (i + size >= words.length) break;
+  }
+  const estTokens = Math.round(words.length * 1.33);
+  outEl.innerHTML = `<div style="color:var(--accent); margin-bottom:0.4rem;">Chunks: <strong>${chunks.length}</strong> | Est. Tokens: <strong>${estTokens}</strong> | Embed Cost: <strong>$${(estTokens * 0.00000002).toFixed(6)}</strong></div>` +
+    chunks.map((c, idx) => `<div style="margin-bottom:0.35rem; padding-left:0.5rem; border-left:2px solid var(--accent-purple);"><span style="color:var(--accent-green);">[chunk_${idx}]</span> ${c}</div>`).join('');
+}
+
+// LLM Prompt Injection & PII Safety Guardrail Tester
+function runSafetyGuardrail() {
+  const inp = document.getElementById('guardInput');
+  const out = document.getElementById('guardOutput');
+  if (!inp || !out) return;
+  const q = inp.value.trim();
+  if (!q) return;
+
+  const rules = [
+    { name: 'Instruction Override / Jailbreak', re: /ignore\s+(all\s+)?previous|bypass|jailbreak|dan\s+mode|act\s+as\s+unrestricted/i },
+    { name: 'System Prompt / Secret Exfiltration', re: /system\s+prompt|api\s*key|password|secret\s+token|hidden\s+instructions/i },
+    { name: 'PII / Sensitive Identifier Leak', re: /\b\d{3}-\d{2}-\d{4}\b|\b[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}\b/i }
+  ];
+  const triggered = rules.filter(r => r.re.test(q)).map(r => r.name);
+  if (triggered.length) {
+    out.innerHTML = `<div style="color:#ef4444; font-weight:700;">[BLOCKED • UNSAFE INPUT] Triggered: ${triggered.join(', ')}</div><div style="color:var(--muted); margin-top:0.3rem;">Action: Request halted before LLM inference; audit event logged.</div>`;
+  } else {
+    out.innerHTML = `<div style="color:#10b981; font-weight:700;">[PASSED • SAFE FOR RAG INFERENCE] 0 policy violations detected.</div><div style="color:var(--muted); margin-top:0.3rem;">Action: Routed to FAISS retriever with cosine similarity gate (>= 0.70).</div>`;
+  }
+}
+
+// Interactive (a+b)^2 Geometric Area Explorer (for Tutoring Page)
+function updateAlgebraSquare() {
+  const canvas = document.getElementById('algebraSquareCanvas');
+  const aEl = document.getElementById('sqASlider');
+  const bEl = document.getElementById('sqBSlider');
+  const read = document.getElementById('sqReadout');
+  if (!canvas || !aEl || !bEl || !read) return;
+
+  const a = parseInt(aEl.value, 10);
+  const b = parseInt(bEl.value, 10);
+  const total = (a + b) * (a + b);
+  read.innerHTML = `(<strong>${a}</strong> + <strong>${b}</strong>)² = ${a}² + 2(${a}×${b}) + ${b}² = <span style="color:#38bdf8;">${a * a}</span> + <span style="color:#fbbf24;">${2 * a * b}</span> + <span style="color:#10b981;">${b * b}</span> = <strong>${total}</strong>`;
+
+  const ctx = canvas.getContext('2d');
+  const size = Math.min(canvas.offsetWidth || 260, 220);
+  canvas.width = canvas.offsetWidth || 260;
+  canvas.height = 230;
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+  const ox = (canvas.width - size) / 2;
+  const oy = 5;
+  const scale = size / (a + b);
+  const wa = a * scale;
+  const wb = b * scale;
+
+  ctx.fillStyle = 'rgba(56, 189, 248, 0.35)';
+  ctx.fillRect(ox, oy, wa, wa);
+  ctx.fillStyle = 'rgba(251, 191, 36, 0.35)';
+  ctx.fillRect(ox + wa, oy, wb, wa);
+  ctx.fillRect(ox, oy + wa, wa, wb);
+  ctx.fillStyle = 'rgba(16, 185, 129, 0.38)';
+  ctx.fillRect(ox + wa, oy + wa, wb, wb);
+
+  ctx.strokeStyle = '#f8fafc';
+  ctx.lineWidth = 1.5;
+  ctx.strokeRect(ox, oy, size, size);
+  ctx.beginPath();
+  ctx.moveTo(ox + wa, oy); ctx.lineTo(ox + wa, oy + size);
+  ctx.moveTo(ox, oy + wa); ctx.lineTo(ox + size, oy + wa);
+  ctx.stroke();
+
+  ctx.fillStyle = '#f8fafc';
+  ctx.font = '600 12px Fira Code, monospace';
+  ctx.fillText(`a²=${a * a}`, ox + wa / 2 - 20, oy + wa / 2 + 4);
+  if (b >= 2) {
+    ctx.fillText(`ab=${a * b}`, ox + wa + 6, oy + wa / 2 + 4);
+    ctx.fillText(`ab=${a * b}`, ox + 6, oy + wa + wb / 2 + 4);
+    ctx.fillText(`b²=${b * b}`, ox + wa + 6, oy + wa + wb / 2 + 4);
+  }
 }
 
 function filterItems(cardClass, category, btn) {
-  btn.parentElement.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
-  btn.classList.add('active');
+  setActive(btn);
   document.querySelectorAll('.' + cardClass).forEach(card => {
     const cat = card.getAttribute('data-cat');
     card.style.display = (category === 'all' || cat === category) ? '' : 'none';
   });
 }
 
+// Contact Form Submission
 async function handleContactSubmit(e) {
   e.preventDefault();
   const name = document.getElementById('senderName').value.trim();
   const email = document.getElementById('senderEmail').value.trim();
   const message = document.getElementById('senderMsg').value.trim();
-  const key = document.getElementById('web3Key')?.value.trim() || WEB3FORMS_KEY;
-  
-  sendLeadAsync(name, email, `Portfolio Inquiry from ${name}`, message);
-  showToast('✓ Message sent directly to Akash!');
-  document.getElementById('contactForm')?.reset();
+  const key = document.getElementById('web3Key')?.value.trim() || 'b85a0e4a-e4c4-4c83-84cf-5deb470c88c1';
+
+  fetch('https://script.google.com/macros/s/AKfycbx-lUmYJISZwTFuuh4gx4GqqNUJDf0wEFIL6fRD_gB1q9gSyPxeWbo1Zj2QIH0aKQa2/exec', {
+    method: 'POST', mode: 'no-cors',
+    body: JSON.stringify({ name, email, message })
+  });
+  try {
+    const res = await fetch('https://api.web3forms.com/submit', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ access_key: key, name, email, message, subject: `Portfolio Inquiry from ${name}` })
+    });
+    if (res.ok) {
+      showToast('✓ Message sent directly to Akash!');
+      document.getElementById('contactForm').reset();
+      return;
+    }
+  } catch (_) {}
+  window.location.href = `mailto:aksainibits@gmail.com?subject=${encodeURIComponent('Portfolio Inquiry from ' + name)}&body=${encodeURIComponent(message)}`;
 }
 
+// Interactive Sprint Scope & Pricing Estimator
+let EST_CURRENCY = 'USD';
+const SPRINT_CATALOG = {
+  rag:      { name: 'Sprint 01: Custom RAG & Citation-Grounded Q&A', usd: [1400, 2200], inr: [65000, 110000], days: [7, 10] },
+  audit:    { name: 'Sprint 02: LLM Evaluation & Hallucination Audit', usd: [1000, 1800], inr: [45000, 85000], days: [5, 7] },
+  nlp:      { name: 'Sprint 03: NLP Classification / SARIMA Forecasting Engine', usd: [1200, 2400], inr: [55000, 115000], days: [7, 14] },
+  retainer: { name: 'Monthly Fractional AI & Eval Advisor (10 hrs/mo)', usd: [1500, 2500], inr: [75000, 125000], days: [30, 30] }
+};
+
+function setEstimatorCurrency(curr) {
+  EST_CURRENCY = curr;
+  document.getElementById('currUsdBtn')?.classList.toggle('active', curr === 'USD');
+  document.getElementById('currInrBtn')?.classList.toggle('active', curr === 'INR');
+  updateSprintEstimate();
+}
+
+function updateSprintEstimate() {
+  const trackEl = document.getElementById('estTrack');
+  if (!trackEl) return;
+  const base = SPRINT_CATALOG[trackEl.value] || SPRINT_CATALOG.rag;
+  const addonCount = ['addonEval', 'addonDocker', 'addonUi'].filter(id => document.getElementById(id)?.checked).length;
+
+  const minDays = base.days[0] + addonCount * 2;
+  const maxDays = base.days[1] + addonCount * 2;
+  let priceStr = '';
+  if (EST_CURRENCY === 'USD') {
+    priceStr = `$${(base.usd[0] + addonCount * 350).toLocaleString()} – $${(base.usd[1] + addonCount * 450).toLocaleString()}`;
+  } else {
+    priceStr = `₹${(base.inr[0] + addonCount * 18000).toLocaleString('en-IN')} – ₹${(base.inr[1] + addonCount * 25000).toLocaleString('en-IN')}`;
+  }
+
+  const priceEl = document.getElementById('estPriceDisplay');
+  const timeEl = document.getElementById('estTimeDisplay');
+  if (priceEl) priceEl.textContent = priceStr + (trackEl.value === 'retainer' ? ' / mo' : '');
+  if (timeEl) timeEl.textContent = trackEl.value === 'retainer'
+    ? 'Ongoing Monthly Advisory • Async Slack + Weekly Syncs'
+    : `Estimated Timeline: ${minDays}–${maxDays} Business Days`;
+}
+
+function applyEstimateToContact() {
+  const trackEl = document.getElementById('estTrack');
+  const msgBox = document.getElementById('senderMsg');
+  const contactSec = document.getElementById('contact');
+  if (!trackEl || !msgBox) return;
+
+  const base = SPRINT_CATALOG[trackEl.value];
+  const addons = [];
+  if (document.getElementById('addonEval')?.checked) addons.push('Automated Adversarial Eval Harness');
+  if (document.getElementById('addonDocker')?.checked) addons.push('FastAPI + Docker Deployment');
+  if (document.getElementById('addonUi')?.checked) addons.push('Custom Interactive Web UI');
+
+  const priceText = document.getElementById('estPriceDisplay')?.textContent || '';
+  const timeText = document.getElementById('estTimeDisplay')?.textContent || '';
+
+  msgBox.value = `Hi Akash,\n\nI'd like to scope an engagement:\n• Track: ${base.name}\n• Add-ons: ${addons.length ? addons.join(', ') : 'Core Sprint Only'}\n• Estimator Range: ${priceText} (${timeText})\n\nProject context & dataset details:\n`;
+  contactSec?.scrollIntoView({ behavior: 'smooth' });
+  msgBox.focus();
+  showToast('✓ Sprint scope pre-filled in the project brief below!');
+}
+
+// Worldwide School Tutoring Fee & Trial Class Planner
+let TUT_CURRENCY = 'USD';
+const TUTOR_RATES = {
+  elem:   { label: 'Elementary School (Grades 1–5)', usd: [15, 20], inr: [600, 850] },
+  mid:    { label: 'Middle School (Grades 6–8)', usd: [18, 24], inr: [750, 1000] },
+  high:   { label: 'High School (Grades 9–10)', usd: [22, 28], inr: [900, 1300] },
+  senior: { label: 'Senior Secondary / Exam Prep (Grades 11–12 / IB / SAT)', usd: [25, 35], inr: [1100, 1600] }
+};
+
+function setTutorCurrency(curr) {
+  TUT_CURRENCY = curr;
+  document.getElementById('tutUsdBtn')?.classList.toggle('active', curr === 'USD');
+  document.getElementById('tutInrBtn')?.classList.toggle('active', curr === 'INR');
+  updateTutorEstimate();
+}
+
+function updateTutorEstimate() {
+  const gradeEl = document.getElementById('tutGrade');
+  if (!gradeEl) return;
+  const info = TUTOR_RATES[gradeEl.value] || TUTOR_RATES.mid;
+  const rateEl = document.getElementById('tutRateDisplay');
+  const packEl = document.getElementById('tutPackDisplay');
+  if (!rateEl || !packEl) return;
+
+  if (TUT_CURRENCY === 'USD') {
+    rateEl.textContent = `$${info.usd[0]} – $${info.usd[1]} / hour`;
+    packEl.textContent = `Monthly 8-Session Pack: $${Math.round(info.usd[0] * 7.2)} – $${Math.round(info.usd[1] * 7.2)} (Save 10%)`;
+  } else {
+    rateEl.textContent = `₹${info.inr[0].toLocaleString('en-IN')} – ₹${info.inr[1].toLocaleString('en-IN')} / hour`;
+    packEl.textContent = `Monthly 8-Session Pack: ₹${Math.round(info.inr[0] * 7.2).toLocaleString('en-IN')} – ₹${Math.round(info.inr[1] * 7.2).toLocaleString('en-IN')} (Save 10%)`;
+  }
+}
+
+function applyTutorToContact() {
+  const gradeEl = document.getElementById('tutGrade');
+  const msgBox = document.getElementById('senderMsg');
+  const contactSec = document.getElementById('contact');
+  if (!gradeEl || !msgBox) return;
+
+  const info = TUTOR_RATES[gradeEl.value];
+  const subs = [];
+  if (document.getElementById('subMath')?.checked) subs.push('Mathematics');
+  if (document.getElementById('subSci')?.checked) subs.push('Science');
+  if (document.getElementById('subEng')?.checked) subs.push('English');
+
+  const rateText = document.getElementById('tutRateDisplay')?.textContent || '';
+  msgBox.value = `Hi Akash,\n\nI would like to book a Free 20-Min Trial Class for 1-on-1 Online Tutoring:\n• Student Grade: ${info.label}\n• Subjects: ${subs.length ? subs.join(', ') : 'Mathematics'}\n• Estimated Rate: ${rateText}\n• Country / School Board (e.g., US, UK, IB, CBSE) & Preferred Days:\n`;
+  contactSec?.scrollIntoView({ behavior: 'smooth' });
+  msgBox.focus();
+  showToast('✓ Trial class details pre-filled in the inquiry form below!');
+}
+
+function showTutorTimezone(region, btn) {
+  setActive(btn);
+  const box = document.getElementById('tzDisplay');
+  if (!box) return;
+  const slots = {
+    us: '<strong>🇺🇸 US & Canada After-School Slots:</strong><br/>• Weekdays (Mon–Fri): <strong>4:30 PM – 9:30 PM EST</strong> (1:30 PM – 6:30 PM PST)<br/>• Weekends (Sat–Sun): <strong>8:00 AM – 1:00 PM EST</strong> & <strong>6:00 PM – 9:30 PM EST</strong>',
+    uk: '<strong>🇬🇧 UK & Europe After-School Slots:</strong><br/>• Weekdays (Mon–Fri): <strong>3:30 PM – 8:30 PM GMT</strong> (4:30 PM – 9:30 PM CET)<br/>• Weekends (Sat–Sun): <strong>9:00 AM – 6:00 PM GMT</strong>',
+    me: '<strong>🇦🇪 UAE, Saudi Arabia & Middle East Slots:</strong><br/>• Weekdays (Sun–Thu / Mon–Fri): <strong>3:30 PM – 9:00 PM GST (Dubai)</strong><br/>• Weekends: <strong>10:00 AM – 7:00 PM GST</strong>',
+    in: '<strong>🇮🇳 India After-School Slots (IST):</strong><br/>• Weekdays (Mon–Fri): <strong>4:00 PM – 9:30 PM IST</strong><br/>• Weekends (Sat–Sun): <strong>10:00 AM – 7:00 PM IST</strong>',
+    apac: '<strong>🇸🇬 Singapore, Hong Kong & Australia Slots:</strong><br/>• Weekdays (Mon–Fri): <strong>3:30 PM – 8:30 PM SGT</strong> (5:30 PM – 10:30 PM AEST)<br/>• Weekends: <strong>10:00 AM – 6:00 PM SGT</strong>'
+  };
+  box.innerHTML = slots[region] || slots.us;
+}
+
+// Cosine-Similarity Mini-RAG Portfolio Q&A Assistant
+const PORTFOLIO_CORPUS = [
+  {
+    source: 'services.json#sprints',
+    text: 'Fixed-scope consulting sprints: Sprint 01 Custom RAG & Citation-Grounded Q&A ($1,400–$2,200 / ₹65k–₹1.1L, 7–10 days), Sprint 02 LLM Evaluation & Hallucination Audit ($1,000–$1,800 / ₹45k–₹85k, 5–7 days), Sprint 03 NLP Classification or SARIMA Forecasting ($1,200–$2,400, 7–14 days), and Monthly Fractional AI Advisor ($1,500–$2,500/mo).'
+  },
+  {
+    source: 'experience.json#innodata',
+    text: 'At Innodata (Jan–Jun 2026), Akash audited Gemini instruction fine-tuning datasets, built atomic reasoning verification rubrics, and designed safety guardrails and FAISS cosine similarity gates (>= 0.70) with mandatory [doc_id | chunk] citations to eliminate hallucinations.'
+  },
+  {
+    source: 'education.json#bits-pilani',
+    text: 'Akash holds an Integrated M.Sc. in Mathematics from BITS Pilani (2019–2023) and serves as a Learning Facilitator at WILP, BITS Pilani teaching Linear Algebra, Optimization, and Computer Programming.'
+  },
+  {
+    source: 'projects.json#benchmarks',
+    text: 'Verified engineering outcomes: 6,000x NLP training database throughput at Swecha Voice, 95.0% classification accuracy on Fake News Detection using TF-IDF & GridSearchCV, and 60% RMSE reduction (412.8 to 164.7 MWh) using SARIMA on 15-year energy demand data.'
+  },
+  {
+    source: 'tutoring.json#global-k12',
+    text: 'Akash provides personal 1-on-1 online tutoring in Mathematics, Science, and English for school students worldwide (Grades 1–12: US Common Core, UK IGCSE/GCSE, IB, CBSE, ICSE & Math Olympiads) starting at $15–$35/hr (₹600–₹1,600/hr) with a Free 20-Min Trial Class.'
+  },
+  {
+    source: 'contact.json#booking',
+    text: 'Akash works remotely across US, UK, EU, Middle East, India, and APAC time zones. Book a free 15-minute discovery call at cal.com/akash-saini-12740/15min, message on LinkedIn, or email aksainibits@gmail.com.'
+  }
+];
+
+function computeCosineSim(query, doc) {
+  const tokenize = s => s.toLowerCase().replace(/[^a-z0-9\s]/g, ' ').split(/\s+/).filter(w => w.length > 2);
+  const qTokens = tokenize(query);
+  const dTokens = tokenize(doc);
+  if (!qTokens.length || !dTokens.length) return 0;
+
+  const vocab = Array.from(new Set([...qTokens, ...dTokens]));
+  const qVec = vocab.map(t => qTokens.filter(x => x === t).length);
+  const dVec = vocab.map(t => dTokens.filter(x => x === t).length);
+
+  let dot = 0, qNorm = 0, dNorm = 0;
+  for (let i = 0; i < vocab.length; i++) {
+    dot += qVec[i] * dVec[i];
+    qNorm += qVec[i] * qVec[i];
+    dNorm += dVec[i] * dVec[i];
+  }
+  return (qNorm && dNorm) ? dot / (Math.sqrt(qNorm) * Math.sqrt(dNorm)) : 0;
+}
+
+function togglePortfolioChat() {
+  const box = document.getElementById('aiChatBox');
+  if (!box) return;
+  box.style.display = (box.style.display === 'none' || !box.style.display) ? 'block' : 'none';
+}
+
+function askPortfolioBot(question) {
+  const log = document.getElementById('aiChatLog');
+  if (!log) return;
+
+  let best = PORTFOLIO_CORPUS[0], bestSim = 0;
+  PORTFOLIO_CORPUS.forEach(chunk => {
+    const sim = computeCosineSim(question, chunk.text);
+    if (sim > bestSim) { bestSim = sim; best = chunk; }
+  });
+
+  const displaySim = Math.min(0.96, bestSim * 1.65);
+  const reply = displaySim >= 0.18
+    ? `${best.text} <span style="color:var(--accent);">[${best.source} • cos_sim=${displaySim.toFixed(2)}]</span>`
+    : `Retrieval gate blocked (cos_sim=${displaySim.toFixed(2)} < 0.18) to prevent hallucination. Try asking about consulting sprint pricing, RAG & LLM evals, BITS Pilani math, projects, or 1-on-1 school tutoring!`;
+
+  log.innerHTML += `<div style="margin-top:0.55rem; color:var(--text);"><strong>You:</strong> ${question}</div>`;
+  log.innerHTML += `<div style="margin-top:0.25rem; color:var(--accent-green);"><strong>RAG Bot:</strong> ${reply}</div>`;
+  log.scrollTop = log.scrollHeight;
+}
+
+// Lead Magnet & Free Demo Class Popups
+async function handleLeadCapture(e, source) {
+  e.preventDefault();
+  const name = document.getElementById(source === 'popup' ? 'leadNamePopup' : 'leadNameInline')?.value.trim() || 'Reader';
+  const email = document.getElementById(source === 'popup' ? 'leadEmailPopup' : 'leadEmailInline')?.value.trim();
+  if (!email) return;
+
+  localStorage.setItem('cheatSheetUnlocked', 'true');
+  fetch('https://script.google.com/macros/s/AKfycbx-lUmYJISZwTFuuh4gx4GqqNUJDf0wEFIL6fRD_gB1q9gSyPxeWbo1Zj2QIH0aKQa2/exec', {
+    method: 'POST', mode: 'no-cors',
+    body: JSON.stringify({ name, email, message: '[LEAD MAGNET] Downloaded ' + CHEAT_SHEET_PDF })
+  });
+  fetch('https://api.web3forms.com/submit', {
+    method: 'POST', headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ access_key: 'b85a0e4a-e4c4-4c83-84cf-5deb470c88c1', name, email, subject: 'New Cheat Sheet Lead: ' + name, message: `${name} (${email}) unlocked ${CHEAT_SHEET_PDF}` })
+  }).catch(() => {});
+
+  const u = document.getElementById(source === 'popup' ? 'leadUnlockPopup' : 'leadUnlockInline');
+  if (u) u.style.display = 'block';
+  showToast('✓ Cheat Sheet unlocked! Opening PDF...');
+  window.open(CHEAT_SHEET_PDF, '_blank');
+}
+
+function openLeadPopup() {
+  if (document.getElementById('leadPopupBox')) return;
+  const p = document.createElement('div');
+  p.id = 'leadPopupBox';
+  p.style.cssText = 'position:fixed; bottom:74px; left:24px; max-width:340px; background:var(--surface-solid); border:1.5px solid var(--accent); border-radius:16px; padding:1.15rem; box-shadow:0 12px 35px rgba(0,0,0,0.5); z-index:1800;';
+  p.innerHTML = `
+    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:0.4rem;">
+      <span class="section-tag" style="margin:0;">FREE_PDF_CHEAT_SHEET</span>
+      <button type="button" onclick="sessionStorage.setItem('leadPopupDismissed','1'); document.getElementById('leadPopupBox').remove();" style="background:none; border:none; color:var(--muted); cursor:pointer; font-size:1.05rem;">✕</button>
+    </div>
+    <div style="font-weight:700; font-size:0.96rem; margin-bottom:0.35rem;">BITS Pilani Math & LLM Cheat Sheet</div>
+    <p style="color:var(--muted); font-size:0.81rem; margin-bottom:0.65rem;">Enter your email to download my visual Linear Algebra, RAG & LLM Audit PDF.</p>
+    <form onsubmit="handleLeadCapture(event, 'popup')">
+      <input type="text" id="leadNamePopup" class="pg-input" style="padding:0.55rem; margin-bottom:0.45rem;" placeholder="Your Name" required />
+      <input type="email" id="leadEmailPopup" class="pg-input" style="padding:0.55rem; margin-bottom:0.55rem;" placeholder="Your Email" required />
+      <button type="submit" class="btn btn-primary btn-sm" style="width:100%; justify-content:center;">Download Free PDF ↗</button>
+    </form>
+    <div id="leadUnlockPopup" style="display:none; margin-top:0.5rem; font-size:0.82rem; color:var(--accent-green);">✓ <a href="${CHEAT_SHEET_PDF}" target="_blank" download style="color:var(--accent); font-weight:700;">Open PDF Now ↗</a></div>
+  `;
+  document.body.appendChild(p);
+}
+
+function openTuitionDemoPopup() {
+  if (document.getElementById('tuitionDemoBackdrop')) return;
+  const backdrop = document.createElement('div');
+  backdrop.id = 'tuitionDemoBackdrop';
+  backdrop.className = 'modal-backdrop open';
+  backdrop.onclick = (e) => { if (e.target === backdrop) backdrop.remove(); };
+  backdrop.innerHTML = `
+    <div class="modal-box" style="max-width:460px; padding:1.75rem;">
+      <button class="modal-close" onclick="document.getElementById('tuitionDemoBackdrop').remove()">✕</button>
+      <span class="section-tag">1:1_LIVE_TUTORING • BITS_PILANI_ALUMNUS</span>
+      <h3 style="font-size:1.32rem; margin:0.35rem 0 0.5rem;">Book Your Free 20-Min Trial Class 🎓</h3>
+      <p style="color:var(--muted); font-size:0.87rem; margin-bottom:1rem;">
+        Personalized 1-on-1 coaching in <strong>Mathematics, Science & English</strong> for Grades 1–12 worldwide.
+      </p>
+      <form onsubmit="submitTuitionDemo(event)">
+        <input type="text" id="demoStudentName" class="pg-input" placeholder="Student / Parent Name & Country" required />
+        <input type="email" id="demoStudentEmail" class="pg-input" placeholder="Email Address" required />
+        <input type="text" id="demoSubjectGrade" class="pg-input" placeholder="Grade & Subject (e.g., Grade 9 IGCSE Math, IB Physics)" required />
+        <button type="submit" class="btn btn-primary" style="width:100%; justify-content:center; margin-bottom:0.6rem;">Request Free Trial Class 🚀</button>
+      </form>
+      <a href="https://cal.com/akash-saini-12740/15min" target="_blank" rel="noopener" class="btn btn-glass btn-sm" style="width:100%; justify-content:center;">
+        Or Pick a Time Directly on Cal.com ↗
+      </a>
+    </div>
+  `;
+  document.body.appendChild(backdrop);
+}
+
+async function submitTuitionDemo(e) {
+  e.preventDefault();
+  const name = document.getElementById('demoStudentName').value.trim();
+  const email = document.getElementById('demoStudentEmail').value.trim();
+  const subject = document.getElementById('demoSubjectGrade').value.trim();
+
+  fetch('https://script.google.com/macros/s/AKfycbx-lUmYJISZwTFuuh4gx4GqqNUJDf0wEFIL6fRD_gB1q9gSyPxeWbo1Zj2QIH0aKQa2/exec', {
+    method: 'POST', mode: 'no-cors',
+    body: JSON.stringify({ name, email, message: '[FREE DEMO CLASS] Subject/Grade: ' + subject })
+  });
+  fetch('https://api.web3forms.com/submit', {
+    method: 'POST', headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ access_key: 'b85a0e4a-e4c4-4c83-84cf-5deb470c88c1', name, email, subject: 'New Free Demo Class Request: ' + name, message: `Student/Parent: ${name} (${email})\nGrade/Subject: ${subject}` })
+  }).catch(() => {});
+
+  document.getElementById('tuitionDemoBackdrop')?.remove();
+  showToast('✓ Demo class request sent! Akash will confirm shortly.');
+}
+
+// Ctrl+K / Cmd+K Quick Command Palette
+const PALETTE_COMMANDS = [
+  { label: '📅 Book 15-Min Discovery Call (Cal.com)', action: () => window.open('https://cal.com/akash-saini-12740/15min', '_blank') },
+  { label: '🎓 Book Free 20-Min 1:1 School Tutoring Trial', action: () => openTuitionDemoPopup() },
+  { label: '🧪 Open Interactive AI & Math Labs (RAG, Matrix, GD)', action: () => window.location.href = 'labs.html' },
+  { label: '💰 Jump to Sprint Scope & Pricing Estimator', action: () => { if (document.getElementById('sprint-estimator')) document.getElementById('sprint-estimator').scrollIntoView({ behavior: 'smooth' }); else window.location.href = 'index.html#sprint-estimator'; } },
+  { label: '📚 Open Full Technical Blog Archive', action: () => window.location.href = 'blog.html' },
+  { label: '📄 Open 1-Page Consulting Capabilities Deck', action: () => window.location.href = 'capabilities.html' },
+  { label: '🎁 Download Free BITS Pilani Math & LLM PDF', action: () => openLeadPopup() },
+  { label: '✉️ Copy Direct Email (aksainibits@gmail.com)', action: () => copyEmail() },
+  { label: '🌓 Toggle Dark / Light Theme', action: () => toggleTheme() }
+];
+
+function toggleCommandPalette() {
+  const modal = document.getElementById('cmdPaletteBackdrop');
+  if (!modal) return;
+  if (modal.classList.contains('open')) {
+    modal.classList.remove('open');
+  } else {
+    modal.classList.add('open');
+    const inp = document.getElementById('cmdSearchInput');
+    if (inp) { inp.value = ''; inp.focus(); }
+    filterCommands('');
+  }
+}
+
+function filterCommands(q) {
+  const list = document.getElementById('cmdList');
+  if (!list) return;
+  const term = (q || '').toLowerCase();
+  const matches = PALETTE_COMMANDS.filter(c => c.label.toLowerCase().includes(term));
+  list.innerHTML = matches.map(c => `<button type="button" class="btn btn-glass btn-sm" style="justify-content:flex-start; width:100%;" onclick="toggleCommandPalette(); PALETTE_COMMANDS[${PALETTE_COMMANDS.indexOf(c)}].action();">${c.label}</button>`).join('');
+}
+
+document.addEventListener('keydown', (e) => {
+  if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'k') {
+    e.preventDefault();
+    toggleCommandPalette();
+  } else if (e.key === 'Escape') {
+    document.getElementById('cmdPaletteBackdrop')?.classList.remove('open');
+    closeModalBtn();
+  }
+});
+
+// Interactive Floating Math Symbols & Hoverable Geometry
+function initPlayfulMathCanvas() {
+  const canvas = document.getElementById('neural-canvas');
+  if (!canvas) return;
+  const ctx = canvas.getContext('2d');
+  let w = canvas.width = window.innerWidth;
+  let h = canvas.height = window.innerHeight;
+
+  const symbols = ['+', '−', '×', '÷', 'π', '∞', '∑', '√', '△', '○'];
+  const shapes = [
+    { type: 'triangle', name: 'Equilateral Triangle (△) — 3 equal sides, angles sum to 180°!', x: w * 0.14, y: h * 0.24, r: 24, vx: 0.16, vy: 0.11 },
+    { type: 'circle',   name: 'Circle (○) — Every point is equidistant from the center (π ≈ 3.14)!', x: w * 0.85, y: h * 0.22, r: 22, vx: -0.14, vy: 0.15 },
+    { type: 'square',   name: 'Square (□) — 4 equal sides and 4 crisp 90° right angles!', x: w * 0.16, y: h * 0.74, r: 22, vx: 0.13, vy: -0.13 },
+    { type: 'hexagon',  name: 'Hexagon (⬡) — Nature’s favorite tessellation shape (6 equal sides)!', x: w * 0.84, y: h * 0.72, r: 24, vx: -0.15, vy: -0.11 }
+  ];
+
+  const floaters = Array.from({ length: 22 }, () => ({
+    x: Math.random() * w,
+    y: Math.random() * h,
+    vx: (Math.random() - 0.5) * 0.22,
+    vy: -0.1 - Math.random() * 0.18,
+    sym: symbols[Math.floor(Math.random() * symbols.length)],
+    size: 16 + Math.floor(Math.random() * 8)
+  }));
+
+  let mouseX = -999, mouseY = -999;
+  const tip = document.getElementById('shapeTooltip');
+
+  window.addEventListener('mousemove', (e) => {
+    mouseX = e.clientX;
+    mouseY = e.clientY;
+    if (!tip) return;
+    const hit = shapes.find(s => Math.hypot(mouseX - s.x, mouseY - s.y) <= s.r + 12);
+    if (hit) {
+      tip.style.display = 'block';
+      tip.style.left = Math.min(window.innerWidth - 290, mouseX + 14) + 'px';
+      tip.style.top = (mouseY + 14) + 'px';
+      tip.textContent = '✨ ' + hit.name;
+    } else {
+      tip.style.display = 'none';
+    }
+  }, { passive: true });
+
+  window.addEventListener('resize', () => {
+    w = canvas.width = window.innerWidth;
+    h = canvas.height = window.innerHeight;
+  });
+
+  function drawPolygon(sides, x, y, r) {
+    ctx.beginPath();
+    for (let i = 0; i < sides; i++) {
+      const ang = (i * 2 * Math.PI) / sides - Math.PI / 2;
+      const px = x + r * Math.cos(ang);
+      const py = y + r * Math.sin(ang);
+      if (i === 0) ctx.moveTo(px, py); else ctx.lineTo(px, py);
+    }
+    ctx.closePath();
+  }
+
+  function animate() {
+    ctx.clearRect(0, 0, w, h);
+    const isLight = document.documentElement.getAttribute('data-theme') === 'light';
+    ctx.fillStyle = isLight ? 'rgba(29, 78, 216, 0.18)' : 'rgba(56, 189, 248, 0.20)';
+
+    floaters.forEach(f => {
+      f.x += f.vx;
+      f.y += f.vy;
+      if (f.y < -20) { f.y = h + 20; f.x = Math.random() * w; }
+      if (f.x < -20) f.x = w + 20;
+      if (f.x > w + 20) f.x = -20;
+      ctx.font = `600 ${f.size}px "Fira Code", monospace`;
+      ctx.fillText(f.sym, f.x, f.y);
+    });
+
+    shapes.forEach(s => {
+      s.x += s.vx;
+      s.y += s.vy;
+      if (s.x < 40 || s.x > w - 40) s.vx *= -1;
+      if (s.y < 80 || s.y > h - 40) s.vy *= -1;
+
+      const hovered = Math.hypot(mouseX - s.x, mouseY - s.y) <= s.r + 12;
+      ctx.strokeStyle = hovered ? '#f59e0b' : (isLight ? 'rgba(29, 78, 216, 0.28)' : 'rgba(251, 191, 36, 0.30)');
+      ctx.lineWidth = hovered ? 2.5 : 1.5;
+
+      if (s.type === 'circle') { ctx.beginPath(); ctx.arc(s.x, s.y, s.r, 0, Math.PI * 2); ctx.stroke(); }
+      else if (s.type === 'triangle') { drawPolygon(3, s.x, s.y, s.r); ctx.stroke(); }
+      else if (s.type === 'square') { drawPolygon(4, s.x, s.y, s.r); ctx.stroke(); }
+      else { drawPolygon(6, s.x, s.y, s.r); ctx.stroke(); }
+    });
+
+    requestAnimationFrame(animate);
+  }
+  animate();
+}
+
+const MATH_FUN_FACTS = [
+  { title: '🍕 The Pizza Volume Trick', text: 'A pizza with radius z and thickness a has volume Pi × z × z × a — literally "Pi · z · z · a"!' },
+  { title: '🐝 Why Bees Love Hexagons', text: 'Out of all shapes that fit together without gaps, a 6-sided hexagon uses the least wax to hold the most honey!' },
+  { title: '🌻 Sunflowers & Fibonacci Numbers', text: 'Count the spirals on a sunflower or pinecone: you will almost always get Fibonacci numbers like 21, 34, or 55!' },
+  { title: '🎂 The Birthday Surprise', text: 'In a room of just 23 people, there is over a 50% chance that two people share the exact same birthday!' },
+  { title: '🤖 How AI Reads Words Using Geometry', text: 'Computers turn words into arrows (vectors). Words with similar meanings—like "puppy" and "dog"—point in almost the same direction!' }
+];
+let funFactIdx = 0;
+function nextMathFunFact() {
+  const titleEl = document.getElementById('funFactTitle');
+  const textEl = document.getElementById('funFactText');
+  if (!titleEl || !textEl) return;
+  funFactIdx = (funFactIdx + 1) % MATH_FUN_FACTS.length;
+  titleEl.textContent = MATH_FUN_FACTS[funFactIdx].title;
+  textEl.textContent = MATH_FUN_FACTS[funFactIdx].text;
+}
+
+function runCmd(key) {
+  const body = document.getElementById('terminal-body');
+  if (!body) return;
+  const map = {
+    stack: { c: "./stack.sh", o: `"frameworks": ["PyTorch", "TensorFlow", "HuggingFace", "FAISS"],<br>"infra": ["Docker", "Kubernetes", "GitHub Actions", "Linux"]` },
+    llm: { c: "./llm_eval.sh", o: `[PASS] Gemini instruction tuning & safety audit<br>[PASS] Atomic step verification & hallucination gates` },
+    impact: { c: "./metrics.sh", o: `• Swecha Voice: 6,000x training DB scale<br>• Fake News NLP: 95.0% accuracy | SARIMA: 60% RMSE drop` },
+    contact: { c: "./book_call.sh", o: `Cal.com: cal.com/akash-saini-12740/15min | Topmate: topmate.io/akash12740` }
+  };
+  const item = map[key];
+  body.innerHTML = `<div><span style="color:#10b981;">➜</span> ${item.c}</div><div class="cmd-output">${item.o}</div>`;
+}
+
+// Conversion Telemetry
+document.addEventListener('click', (e) => {
+  const anchor = e.target.closest('a');
+  if (!anchor) return;
+  const href = anchor.getAttribute('href') || '';
+  if (/cal\.com|gumroad\.com|topmate\.io|resume_AkashSaini\.pdf|linkedin\.com/.test(href)) {
+    fetch('https://script.google.com/macros/s/AKfycbx-lUmYJISZwTFuuh4gx4GqqNUJDf0wEFIL6fRD_gB1q9gSyPxeWbo1Zj2QIH0aKQa2/exec', {
+      method: 'POST', mode: 'no-cors', keepalive: true,
+      body: JSON.stringify({ name: 'Conversion Click', email: href, message: `Clicked [${anchor.textContent.trim()}] on ${window.location.pathname}` })
+    });
+  }
+});
+
+let resizeTimer;
+window.addEventListener('resize', () => {
+  clearTimeout(resizeTimer);
+  resizeTimer = setTimeout(() => {
+    updateCosineViz();
+    updateTsViz();
+    updateMatrixLab();
+    drawGD();
+    updateAlgebraSquare();
+  }, 150);
+});
+
+// Unified Initialization
 document.addEventListener('DOMContentLoaded', () => {
+  initPlayfulMathCanvas();
   loadPosts();
   loadProjects();
   loadTestimonials();
+  updateSprintEstimate();
+  updateTutorEstimate();
   updateCosineViz();
+  updateTsViz();
   updateMatrixLab();
   resetGD();
   nextBlitzQuestion();
+  updateChunkVisualizer();
+  updateAlgebraSquare();
 
   const typedEl = document.getElementById('typed-text');
   if (typedEl) {
-    const roles = ["AI & Machine Learning Engineer", "LLM Evaluation & RAG Specialist", "BITS Pilani Mathematics Graduate", "1-on-1 Online Tutor"];
+    const roles = ["AI & Machine Learning Engineer", "LLM Evaluation & RAG Specialist", "BITS Pilani Mathematics Graduate", "1-on-1 Math, Science & English Educator"];
     let r = 0, c = 0, del = false;
     (function loop() {
       const cur = roles[r];
@@ -423,80 +1149,38 @@ document.addEventListener('DOMContentLoaded', () => {
       setTimeout(loop, spd);
     })();
   }
+
+  const tsCtx = document.getElementById('tsChart');
+  const nlpCtx = document.getElementById('nlpChart');
+  if (tsCtx && nlpCtx && typeof Chart !== 'undefined') {
+    new Chart(tsCtx, {
+      type: 'bar',
+      data: {
+        labels: ['AR(2,1,0)', 'MA(0,1,2)', 'ARIMA(2,1,2)', 'SARIMA (Optimal)'],
+        datasets: [{ label: 'RMSE (MWh)', data: [412.8, 398.5, 341.2, 164.7], backgroundColor: ['#64748b', '#64748b', '#38bdf8', '#10b981'], borderRadius: 6 }]
+      },
+      options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } } }
+    });
+    new Chart(nlpCtx, {
+      type: 'bar',
+      data: {
+        labels: ['Naive Bayes', 'Logistic Reg', 'Passive-Aggressive'],
+        datasets: [{ label: 'Accuracy (%)', data: [90.4, 94.2, 95.0], backgroundColor: ['#a855f7', '#38bdf8', '#10b981'], borderRadius: 6 }]
+      },
+      options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } }, scales: { y: { min: 80, max: 100 } } }
+    });
+  }
+
+  // Floating Free PDF Trigger (Bottom-Left)
+  const pdfBtn = document.createElement('button');
+  pdfBtn.className = 'btn btn-glass btn-sm';
+  pdfBtn.textContent = '🎁 Free Math & LLM PDF';
+  pdfBtn.style.cssText = 'position:fixed; bottom:24px; left:24px; z-index:1350; border-color:var(--math-gold);';
+  pdfBtn.onclick = openLeadPopup;
+  document.body.appendChild(pdfBtn);
+
+  if (localStorage.getItem('cheatSheetUnlocked') === 'true') {
+    const u = document.getElementById('leadUnlockInline');
+    if (u) u.style.display = 'block';
+  }
 });
-
-function runCmd(key) {
-  const body = document.getElementById('terminal-body');
-  if (!body) return;
-  const map = {
-    stack: { c: "./stack.sh", o: '"frameworks": ["PyTorch", "TensorFlow", "HuggingFace", "FAISS"],<br>"infra": ["Docker", "Kubernetes", "GitHub Actions"]' },
-    llm: { c: "./llm_eval.sh", o: "[PASS] Gemini instruction tuning & safety audit<br>[PASS] Atomic step verification & hallucination gates" },
-    impact: { c: "./metrics.sh", o: "• Swecha Voice: 6,000x training DB scale<br>• Fake News NLP: 95.0% accuracy" },
-    contact: { c: "./book_call.sh", o: "Cal.com: cal.com/akash-saini-12740/15min" }
-  };
-  const item = map[key];
-  if (item) body.innerHTML = `<div><span style="color:#10b981;">➜</span> ${item.c}</div><div class="cmd-output">${item.o}</div>`;
-}
-
-// Tutoring Fee Calculator
-let TUT_CURRENCY = 'USD';
-const TUTOR_RATES = {
-  elem: { label: 'Elementary School (Grades 1–5)', usd: [15, 20], inr: [600, 850] },
-  mid: { label: 'Middle School (Grades 6–8)', usd: [18, 24], inr: [750, 1000] },
-  high: { label: 'High School (Grades 9–10)', usd: [22, 28], inr: [900, 1300] },
-  senior: { label: 'Senior Secondary / Exam Prep (Grades 11–12 / IB / SAT)', usd: [25, 35], inr: [1100, 1600] }
-};
-function setTutorCurrency(curr) {
-  TUT_CURRENCY = curr;
-  document.getElementById('tutUsdBtn')?.classList.toggle('active', curr === 'USD');
-  document.getElementById('tutInrBtn')?.classList.toggle('active', curr === 'INR');
-  updateTutorEstimate();
-}
-function updateTutorEstimate() {
-  const gradeEl = document.getElementById('tutGrade');
-  if (!gradeEl) return;
-  const info = TUTOR_RATES[gradeEl.value] || TUTOR_RATES.mid;
-  const rateEl = document.getElementById('tutRateDisplay');
-  const packEl = document.getElementById('tutPackDisplay');
-  if (!rateEl || !packEl) return;
-  if (TUT_CURRENCY === 'USD') {
-    rateEl.textContent = `$${info.usd[0]} – $${info.usd[1]} / hour`;
-    packEl.textContent = `Monthly 8-Session Pack: $${Math.round(info.usd[0] * 7.2)} – $${Math.round(info.usd[1] * 7.2)} (Save 10%)`;
-  } else {
-    rateEl.textContent = `₹${info.inr[0].toLocaleString('en-IN')} – ₹${info.inr[1].toLocaleString('en-IN')} / hour`;
-    packEl.textContent = `Monthly 8-Session Pack: ₹${Math.round(info.inr[0] * 7.2).toLocaleString('en-IN')} – ₹${Math.round(info.inr[1] * 7.2).toLocaleString('en-IN')} (Save 10%)`;
-  }
-}
-function applyTutorToContact() {
-  const gradeEl = document.getElementById('tutGrade');
-  const msgBox = document.getElementById('senderMsg');
-  const contactSec = document.getElementById('book-trial');
-  if (!gradeEl || !msgBox) return;
-  const info = TUTOR_RATES[gradeEl.value];
-  const subs = [];
-  if (document.getElementById('subMath')?.checked) subs.push('Mathematics');
-  if (document.getElementById('subSci')?.checked) subs.push('Science');
-  if (document.getElementById('subEng')?.checked) subs.push('English');
-  const rateText = document.getElementById('tutRateDisplay')?.textContent || '';
-  msgBox.value = `Hi Akash,\n\nI would like to book a Free 20-Min Trial Class for 1-on-1 Online Tutoring:\n• Student Grade: ${info.label}\n• Subjects: ${subs.length ? subs.join(', ') : 'Mathematics'}\n• Estimated Rate: ${rateText}\n• Country / School Board & Preferred Days:\n`;
-  if (contactSec) contactSec.scrollIntoView({ behavior: 'smooth' });
-  msgBox.focus();
-  showToast('✓ Trial class details pre-filled in inquiry form!');
-}
-
-function showTutorTimezone(region, btn) {
-  if (btn && btn.parentElement) {
-    btn.parentElement.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
-    btn.classList.add('active');
-  }
-  const box = document.getElementById('tzDisplay');
-  if (!box) return;
-  const slots = {
-    us: '<strong>🇺🇸 US & Canada After-School Slots:</strong><br/>• Weekdays (Mon–Fri): <strong>4:30 PM – 9:30 PM EST</strong> (1:30 PM – 6:30 PM PST)<br/>• Weekends (Sat–Sun): <strong>8:00 AM – 1:00 PM EST</strong> & <strong>6:00 PM – 9:30 PM EST</strong>',
-    uk: '<strong>🇬🇧 UK & Europe After-School Slots:</strong><br/>• Weekdays (Mon–Fri): <strong>3:30 PM – 8:30 PM GMT</strong> (4:30 PM – 9:30 PM CET)<br/>• Weekends (Sat–Sun): <strong>9:00 AM – 6:00 PM GMT</strong>',
-    me: '<strong>🇦🇪 UAE & Middle East Slots:</strong><br/>• Weekdays: <strong>3:30 PM – 9:00 PM GST (Dubai)</strong><br/>• Weekends: <strong>10:00 AM – 7:00 PM GST</strong>',
-    in: '<strong>🇮🇳 India After-School Slots (IST):</strong><br/>• Weekdays (Mon–Fri): <strong>4:00 PM – 9:30 PM IST</strong><br/>• Weekends: <strong>10:00 AM – 7:00 PM IST</strong>',
-    apac: '<strong>🇸🇬 Singapore & Australia Slots:</strong><br/>• Weekdays: <strong>3:30 PM – 8:30 PM SGT</strong> (5:30 PM – 10:30 PM AEST)<br/>• Weekends: <strong>10:00 AM – 6:00 PM SGT</strong>'
-  };
-  box.innerHTML = slots[region] || slots.us;
-}

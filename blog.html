@@ -6,7 +6,7 @@
   <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net https://www.googletagmanager.com https://static.cloudflareinsights.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https:; frame-src https://akash12740-rag-document-qa-demo.static.hf.space; connect-src 'self' https://api.web3forms.com https://script.google.com https://script.googleusercontent.com https://www.google-analytics.com https://cloudflareinsights.com; base-uri 'self'; form-action 'self' https://api.web3forms.com;" />
   <meta name="referrer" content="strict-origin-when-cross-origin" />
   <meta http-equiv="Permissions-Policy" content="camera=(), microphone=(), geolocation=(), payment=()" />
-  <title>AI, Machine Learning & Data Science Technical Blog | Akash Saini</title>
+  <title>AI, Machine Learning &amp; Data Science Technical Blog | Akash Saini</title>
   <link rel="icon" type="image/svg+xml" href="assets/img/logo.svg" />
   <meta name="description" content="In-depth engineering articles on LLMs, RAG pipelines, Machine Learning generalization, Data Science, Data Analytics, and Applied Mathematics by Akash Saini (BITS Pilani)." />
   <meta name="robots" content="index, follow, max-image-preview:large" />
@@ -19,46 +19,32 @@
   <meta property="og:description" content="Practical architectures, mathematical foundations, and production lessons on LLMs, RAG, NLP, and forecasting." />
   <meta property="og:image" content="https://akash12740.github.io/IMG_Akash_Saini.jpg" />
 
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "Blog",
-    "name": "Akash Saini — AI, Mathematics & Data Science Engineering Notes",
-    "url": "https://akash12740.github.io/blog.html",
-    "author": {
-      "@type": "Person",
-      "name": "Akash Saini",
-      "url": "https://akash12740.github.io/"
-    }
-  }
-  </script>
-
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-VHLC0PBK1D"></script>
   <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-VHLC0PBK1D');</script>
   <script type="module" src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token": "759cdca45cac4461a43be4d13fcd7c42"}'></script>
   <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="assets/css/style.css?v=7" />
+  <link rel="stylesheet" href="assets/css/style.css?v=6" />
 </head>
 <body>
+  <div id="scroll-progress"></div>
   <div id="toast"></div>
   <nav>
-  <a href="index.html" class="logo"><<span>Akash.MathAI</span>/></a>
-  <button class="mobile-menu-btn" onclick="toggleMobileNav()" aria-label="Toggle Menu">☰</button>
-  <div class="nav-links">
-    <a href="index.html">🏠 Home</a>
-    <a href="tutoring.html">🎓 Tutoring</a>
-    <a href="index.html#services">🛠️ Services</a>
-    <a href="index.html#reasoning-lab">🧮 Math Lab</a>
-    <a href="blog.html">📖 Blog</a>
-    <a href="capabilities.html">📄 Summary</a>
-    <a href="index.html#contact" class="nav-cta">💬 Connect</a>
-    <button type="button" id="themeToggle" class="theme-btn" onclick="toggleTheme()">☀️ Light</button>
-  </div>
-</nav>
+    <a href="index.html" class="logo">&lt;<span>Akash.MathAI</span>/&gt;</a>
+    <button class="mobile-menu-btn" onclick="toggleMobileNav()" aria-label="Toggle Menu">☰</button>
+    <div class="nav-links">
+      <a href="index.html">🏠 Home</a>
+      <a href="tutoring.html">🎓 Tutoring</a>
+      <a href="labs.html">🧪 AI &amp; Math Labs</a>
+      <a href="blog.html" class="active-page">📖 Blog</a>
+      <a href="capabilities.html">📄 Summary</a>
+      <a href="index.html#contact" class="nav-cta">💬 Connect</a>
+      <button type="button" id="themeToggle" class="theme-btn" onclick="toggleTheme()">☀️ Light</button>
+    </div>
+  </nav>
 
   <main class="container" style="padding-top:3rem; padding-bottom:4rem; max-width:900px;">
     <span class="section-tag">// ENGINEERING_NOTES_&_ARTICLES</span>
-    <h1>AI, Machine Learning & Data Science Blog</h1>
+    <h1>AI, Machine Learning &amp; Data Science Blog</h1>
     <p class="hero-desc">Technical notes on Artificial Intelligence, Machine Learning, Data Science, and Applied Mathematics by Akash Saini (BITS Pilani).</p>
 
     <input type="text" id="blogSearch" class="pg-input" placeholder="Search articles by keyword (e.g., RAG, SARIMA, Regularization)..." oninput="renderBlogArchive(window.curTopic || 'all', this.value)" />
@@ -69,7 +55,7 @@
       <button class="filter-btn" onclick="window.curTopic='ml'; setActive(this); renderBlogArchive('ml', document.getElementById('blogSearch').value)">Machine Learning</button>
       <button class="filter-btn" onclick="window.curTopic='ds'; setActive(this); renderBlogArchive('ds', document.getElementById('blogSearch').value)">Data Science</button>
       <button class="filter-btn" onclick="window.curTopic='da'; setActive(this); renderBlogArchive('da', document.getElementById('blogSearch').value)">Data Analytics</button>
-      <button class="filter-btn" onclick="window.curTopic='llm'; setActive(this); renderBlogArchive('llm', document.getElementById('blogSearch').value)">LLMs & RAG</button>
+      <button class="filter-btn" onclick="window.curTopic='llm'; setActive(this); renderBlogArchive('llm', document.getElementById('blogSearch').value)">LLMs &amp; RAG</button>
     </div>
 
     <div class="card" style="margin-bottom:1.75rem; padding:1.1rem 1.4rem;">
@@ -77,33 +63,10 @@
       <div id="blog-toc"></div>
     </div>
 
-    
-<!-- Free Cheat Sheet Lead Magnet -->
-<section id="free-cheatsheet" style="padding: 2rem 0;">
-  <div class="card" style="border-color: var(--accent); background: linear-gradient(135deg, rgba(0,242,254,0.07), rgba(168,85,247,0.07));">
-    <div class="grid-2" style="align-items: center;">
-      <div>
-        <span class="section-tag">FREE_PDF_DOWNLOAD • BITS_PILANI_NOTES</span>
-        <h2 style="margin-bottom: 0.5rem;">Get the Free "BITS Pilani Math & LLM Cheat Sheet"</h2>
-        <p style="color: var(--muted); font-size: 0.93rem; margin-bottom: 0.75rem;">A concise, beginner-friendly visual PDF covering <strong>Linear Algebra, Vector Space RAG Math, Optimization & LLM Reasoning Audits</strong>.</p>
-        <div class="tags"><span class="tag">Instant PDF Download</span><span class="tag">Worked Examples</span><span class="tag">Zero Spam</span></div>
-      </div>
-      <div>
-        <form id="leadMagnetForm" onsubmit="handleLeadCapture(event, 'inline')">
-          <input type="text" id="leadNameInline" class="pg-input" placeholder="Your First Name" required />
-          <input type="email" id="leadEmailInline" class="pg-input" placeholder="Enter your email to unlock PDF..." required />
-          <button type="submit" class="btn btn-primary" style="width: 100%; justify-content: center;">Unlock Free Cheat Sheet PDF ↓</button>
-        </form>
-        <div id="leadUnlockInline" style="display:none; margin-top:0.75rem; padding:0.75rem; border-radius:8px; background:rgba(16,185,129,0.14); border:1px solid var(--accent-green);">✓ Unlocked! <a href="BITS_Pilani_Math_LLM_Cheat_Sheet.pdf" target="_blank" download style="color:var(--accent); font-weight:700;">Download BITS_Pilani_Math_LLM_Cheat_Sheet.pdf ↗</a></div>
-      </div>
-    </div>
-  </div>
-</section>
-<div id="all-blogs-list"></div>
+    <div id="all-blogs-list"></div>
   </main>
 
   <footer>© 2026 AKASH SAINI • GLOBAL AI/ML ENGINEERING BLOG • AKASH12740.GITHUB.IO</footer>
-  <script>function setActive(b){document.querySelectorAll('.filter-btn').forEach(x=>x.classList.remove('active'));b.classList.add('active');}</script>
-  <script src="assets/js/app.js?v=7"></script>
+  <script src="assets/js/app.js?v=6"></script>
 </body>
 </html>

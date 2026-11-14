@@ -3,26 +3,28 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>1-on-1 Online Maths, Science &amp; English Tuition (Grades 1–12) | Akash Saini (BITS Pilani)</title>
-  <meta name="description" content="Personal 1-on-1 online tuition in Mathematics, Science, and English for school students worldwide (Grades 1–12: US Common Core, UK GCSE/IGCSE, IB, CBSE, ICSE &amp; Olympiad prep) by BITS Pilani Mathematics graduate Akash Saini." />
+  <title>1-on-1 Online Maths, Science &amp; English Tutor Worldwide (Grades 1–12) | Akash Saini (BITS Pilani)</title>
+  <meta name="description" content="Personal 1-on-1 online tutoring in Mathematics, Science, and English for school students worldwide (Grades 1–12: US Common Core, UK GCSE/IGCSE, IB, CBSE, ICSE & Olympiad prep) by BITS Pilani Mathematics graduate Akash Saini." />
   <link rel="canonical" href="https://akash12740.github.io/tutoring.html" />
   <link rel="icon" type="image/svg+xml" href="assets/img/logo.svg" />
   <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;600;700&family=Inter:wght@400;600;800&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="assets/css/style.css?v=8" />
+  <link rel="stylesheet" href="assets/css/style.css?v=6" />
 </head>
 <body>
+<div id="scroll-progress"></div>
+<canvas id="neural-canvas"></canvas>
 <div id="toast"></div>
 
 <nav>
   <a href="index.html" class="logo">&lt;<span>Akash.MathAI</span>/&gt;</a>
-  <button type="button" class="mobile-menu-btn" onclick="toggleMobileNav()" aria-label="Toggle Menu">☰</button>
+  <button class="mobile-menu-btn" onclick="toggleMobileNav()" aria-label="Toggle Menu">☰</button>
   <div class="nav-links">
     <a href="index.html">🏠 Home</a>
-    <a href="tutoring.html" style="color:var(--accent); font-weight:700;">🎓 Tuition</a>
-    <a href="labs.html">🧮 Math &amp; AI Labs</a>
+    <a href="tutoring.html" class="active-page">🎓 Tutoring</a>
+    <a href="labs.html">🧪 AI &amp; Math Labs</a>
     <a href="blog.html">📖 Blog</a>
-    <a href="capabilities.html">📄 Capabilities</a>
-    <a href="#book-trial" class="nav-cta">📅 Free Demo</a>
+    <a href="capabilities.html">📄 Summary</a>
+    <a href="#book-trial" class="nav-cta">💬 Book Trial</a>
     <button type="button" id="themeToggle" class="theme-btn" onclick="toggleTheme()">☀️ Light</button>
   </div>
 </nav>
@@ -31,72 +33,96 @@
   <header>
     <div>
       <div class="status-pill"><span class="pulse-dot"></span><span>ENROLLING WORLDWIDE • GRADES 1–12 (ALL BOARDS)</span></div>
-      <h1>1-on-1 Online <span class="gradient-text">Maths, Science &amp; English</span> Tuition</h1>
+      <h1>1-on-1 Online <span class="gradient-text">Maths, Science &amp; English</span> Tutor</h1>
       <p class="hero-desc">
-        Hi parents and students! I'm <strong>Akash Saini</strong>, an <strong>Integrated M.Sc. Mathematics graduate from BITS Pilani</strong>. I teach 1-on-1 online classes for school students across the <strong>US, UK, Europe, Middle East, India &amp; APAC</strong>—turning confusing chapters into crystal-clear visual intuition.
+        Hi parents and students! I'm <strong>Akash Saini</strong>, a <strong>BITS Pilani Mathematics graduate</strong> and experienced educator. I help school students across the <strong>US, UK, Europe, Middle East, India &amp; Asia-Pacific</strong> build deep conceptual confidence, boost grades, and genuinely enjoy learning.
       </p>
       <div class="cta-group">
-        <button type="button" onclick="openTuitionDemoPopup()" class="btn btn-primary">🎓 Book Free 20-Min Demo Class</button>
-        <a href="https://cal.com/akash-saini-12740/15min" target="_blank" rel="noopener" class="btn btn-purple">📅 Pick Slot on Cal.com ↗</a>
-        <a href="#fee-planner" class="btn btn-glass">💰 Fee Calculator ↓</a>
+        <button type="button" onclick="openTuitionDemoPopup()" class="btn btn-primary">📅 Book Free 20-Min Trial Class</button>
+        <a href="#fee-planner" class="btn btn-purple">💰 Check Fees &amp; Timezones ↓</a>
+        <a href="labs.html#math-games" class="btn btn-glass">🎲 Try Free Math Games</a>
       </div>
     </div>
 
     <div class="hero-right">
       <div class="profile-showcase">
-        <div class="avatar-ring"><img src="IMG_Akash_Saini.jpg" alt="Akash Saini — BITS Pilani Online Tutor" /></div>
+        <div class="avatar-ring"><img src="IMG_Akash_Saini.jpg" alt="Akash Saini — Online Maths, Science & English Tutor" /></div>
         <div>
           <h3>Akash Saini</h3>
           <span class="uni-badge">🎓 Integrated M.Sc. Mathematics, BITS Pilani</span>
-          <span class="loc-text">🌍 Teaching Globally • Interactive Whiteboard + Custom Notes</span>
+          <span class="loc-text">🌍 Teaching Students Globally • Digital Whiteboard + Worksheets</span>
         </div>
       </div>
       <div class="card">
-        <span class="section-tag">HOW EVERY 1-ON-1 LESSON WORKS</span>
+        <span class="section-tag">WHY PARENTS CHOOSE 1-ON-1 LESSONS</span>
         <ul class="item-list" style="margin-top:0.35rem;">
-          <li><strong>Concept-First Teaching:</strong> Visual step-by-step explanations instead of rote formulas.</li>
-          <li><strong>All Global Boards:</strong> US Common Core, UK GCSE/IGCSE, IB, CBSE, ICSE, SAT &amp; Olympiads.</li>
-          <li><strong>Parent Progress Notes:</strong> Custom homework sheets and regular feedback after sessions.</li>
+          <li><strong>Zero Rote Memorization:</strong> Visual, step-by-step explanations tailored to your child's pace.</li>
+          <li><strong>All Global Curricula:</strong> US Common Core, UK GCSE/IGCSE, IB, CBSE, ICSE, SAT &amp; Olympiads.</li>
+          <li><strong>Weekly Parent Updates:</strong> Clear progress notes, homework support &amp; custom practice sheets.</li>
         </ul>
       </div>
     </div>
   </header>
 
-  <section id="subjects">
-    <span class="section-tag">01. CORE_SUBJECTS • GRADES 1 TO 12</span>
-    <h2>Subjects &amp; Curriculum Coverage</h2>
-    <div class="grid-3">
-      <div class="card">
-        <span class="section-tag">SUBJECT 01</span>
-        <h3>📐 Mathematics</h3>
-        <p style="color:var(--muted); font-size:0.9rem; margin:0.45rem 0 0.8rem;">Arithmetic, fractions, algebra, geometry, trigonometry, probability, calculus, and competition math (AMC, Kangaroo, IMO foundations).</p>
-        <div class="tags"><span class="tag">Grades 1–12</span><span class="tag">Visual Intuition</span><span class="tag">Olympiad &amp; SAT</span></div>
-      </div>
-      <div class="card">
-        <span class="section-tag">SUBJECT 02</span>
-        <h3>🔬 Science</h3>
-        <p style="color:var(--muted); font-size:0.9rem; margin:0.45rem 0 0.8rem;">General Science, Physics (motion, forces, electricity, optics), Chemistry (atoms, bonding, reactions), and scientific reasoning.</p>
-        <div class="tags"><span class="tag">Physics &amp; Chemistry</span><span class="tag">Real-Life Examples</span><span class="tag">Exam Mastery</span></div>
-      </div>
-      <div class="card">
-        <span class="section-tag">SUBJECT 03</span>
-        <h3>📚 English</h3>
-        <p style="color:var(--muted); font-size:0.9rem; margin:0.45rem 0 0.8rem;">Grammar clarity, reading comprehension, structured essay &amp; creative writing, vocabulary building, and confident speaking.</p>
-        <div class="tags"><span class="tag">Grammar &amp; Essays</span><span class="tag">Comprehension</span><span class="tag">Spoken Confidence</span></div>
+  <!-- Interactive Sample Visual Mini-Lesson -->
+  <section id="sample-lesson">
+    <span class="section-tag">SAMPLE_VISUAL_MINI_LESSON • HOW_I_TEACH</span>
+    <h2>Interactive Visual Proof: Why Does (a + b)² = a² + 2ab + b²?</h2>
+    <div class="card">
+      <div class="grid-2" style="align-items:center;">
+        <div>
+          <p style="color:var(--muted); font-size:0.92rem; margin-bottom:0.8rem;">
+            Instead of memorizing formulas blindly, students see <em>why</em> every algebra identity works geometrically. Drag the sliders to split a square of side <code>(a + b)</code> into four clean rectangles:
+          </p>
+          <label style="display:block; font-family:'Fira Code',monospace; font-size:0.8rem; margin-bottom:0.5rem;">Side a: <input type="range" id="sqASlider" min="2" max="8" value="5" oninput="updateAlgebraSquare()" /></label>
+          <label style="display:block; font-family:'Fira Code',monospace; font-size:0.8rem; margin-bottom:0.65rem;">Side b: <input type="range" id="sqBSlider" min="1" max="6" value="3" oninput="updateAlgebraSquare()" /></label>
+          <div id="sqReadout" class="trace-box"></div>
+        </div>
+        <div>
+          <canvas id="algebraSquareCanvas" class="math-canvas" style="height:230px;"></canvas>
+        </div>
       </div>
     </div>
   </section>
 
+  <!-- Subjects Covered -->
+  <section id="subjects">
+    <span class="section-tag">CORE_SUBJECTS • GRADES 1 TO 12</span>
+    <h2>Three Core Subjects, One Dedicated Mentor</h2>
+    <div class="grid-3">
+      <div class="card">
+        <span class="section-tag">SUBJECT 01</span>
+        <h3>📐 Mathematics</h3>
+        <p style="color:var(--muted); font-size:0.9rem; margin:0.45rem 0 0.8rem;">Arithmetic, fractions, ratios, pre-algebra, algebra, geometry, trigonometry, probability, calculus, and competition math (AMC, Kangaroo, IMO foundations).</p>
+        <div class="tags"><span class="tag">Grades 1–12</span><span class="tag">Visual Problem Solving</span><span class="tag">Exam &amp; Olympiad Prep</span></div>
+      </div>
+      <div class="card">
+        <span class="section-tag">SUBJECT 02</span>
+        <h3>🔬 Science</h3>
+        <p style="color:var(--muted); font-size:0.9rem; margin:0.45rem 0 0.8rem;">General Science, Physics (motion, forces, electricity, optics), Chemistry (atoms, reactions, stoichiometry), and scientific curiosity connected to real life.</p>
+        <div class="tags"><span class="tag">Physics &amp; Chemistry</span><span class="tag">Everyday Examples</span><span class="tag">Lab &amp; Test Mastery</span></div>
+      </div>
+      <div class="card">
+        <span class="section-tag">SUBJECT 03</span>
+        <h3>📚 English</h3>
+        <p style="color:var(--muted); font-size:0.9rem; margin:0.45rem 0 0.8rem;">Grammar rules made simple, reading comprehension, structured essay &amp; creative writing, vocabulary expansion, and clear spoken communication.</p>
+        <div class="tags"><span class="tag">Grammar &amp; Writing</span><span class="tag">Reading Fluency</span><span class="tag">Public Speaking</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Global Timezone & Slot Finder -->
   <section id="timezones">
-    <span class="section-tag">02. WORLDWIDE_SCHEDULING</span>
-    <h2>After-School Class Windows by Region</h2>
+    <span class="section-tag">WORLDWIDE_SCHEDULING</span>
+    <h2>After-School Class Times in Your Country</h2>
     <div class="card">
+      <p style="color:var(--muted); font-size:0.9rem; margin-bottom:0.85rem;">Select your region below to see convenient after-school and weekend 1-on-1 teaching windows:</p>
       <div class="filter-bar" id="tzButtons">
-        <button type="button" class="filter-btn active" onclick="showTutorTimezone('us', this)">🇺🇸 US &amp; Canada</button>
-        <button type="button" class="filter-btn" onclick="showTutorTimezone('uk', this)">🇬🇧 UK &amp; Europe</button>
-        <button type="button" class="filter-btn" onclick="showTutorTimezone('me', this)">🇦🇪 UAE &amp; Middle East</button>
+        <button type="button" class="filter-btn active" onclick="showTutorTimezone('us', this)">🇺🇸 US &amp; Canada (EST / PST)</button>
+        <button type="button" class="filter-btn" onclick="showTutorTimezone('uk', this)">🇬🇧 UK &amp; Europe (GMT / CET)</button>
+        <button type="button" class="filter-btn" onclick="showTutorTimezone('me', this)">🇦🇪 UAE &amp; Middle East (GST)</button>
         <button type="button" class="filter-btn" onclick="showTutorTimezone('in', this)">🇮🇳 India (IST)</button>
-        <button type="button" class="filter-btn" onclick="showTutorTimezone('apac', this)">🇸🇬 Singapore &amp; Australia</button>
+        <button type="button" class="filter-btn" onclick="showTutorTimezone('apac', this)">🇸🇬 Singapore &amp; Australia (SGT / AEST)</button>
       </div>
       <div id="tzDisplay" class="trace-box" style="margin:0;">
         <strong>🇺🇸 US &amp; Canada After-School Slots:</strong><br/>
@@ -106,17 +132,19 @@
     </div>
   </section>
 
+  <!-- Interactive Fee Planner -->
   <section id="fee-planner">
-    <span class="section-tag">03. TRANSPARENT_TUITION_PLANNER</span>
-    <h2>1-on-1 Tuition Fee Calculator</h2>
+    <span class="section-tag">TRANSPARENT_TUITION_&_TRIAL_BOOKING</span>
+    <h2>1-on-1 Tuition Fee Planner &amp; Free Trial Request</h2>
     <div class="card" style="border-color:var(--accent-green);">
       <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:0.75rem; margin-bottom:0.85rem;">
-        <h3 style="margin:0;">Estimate Hourly or Monthly Pack Rate</h3>
+        <h3 style="margin:0;">Calculate Monthly or Hourly Tuition</h3>
         <div style="display:flex; gap:0.4rem;">
           <button type="button" class="filter-btn active" id="tutUsdBtn" onclick="setTutorCurrency('USD')">USD ($)</button>
           <button type="button" class="filter-btn" id="tutInrBtn" onclick="setTutorCurrency('INR')">INR (₹)</button>
         </div>
       </div>
+
       <div class="grid-2" style="align-items:start;">
         <div>
           <label style="display:block; font-family:'Fira Code',monospace; font-size:0.8rem; color:var(--muted); margin-bottom:0.35rem;">1. Student Grade Level:</label>
@@ -127,41 +155,43 @@
             <option value="senior">Senior Secondary &amp; Exam Prep (Grades 11–12 / IB / SAT)</option>
           </select>
           <label style="display:block; font-family:'Fira Code',monospace; font-size:0.8rem; color:var(--muted); margin:0.4rem 0;">2. Subjects Needed:</label>
-          <div style="display:flex; flex-wrap:wrap; gap:0.85rem; font-size:0.88rem;">
+          <div style="display:flex; flex-wrap:wrap; gap:0.85rem; font-size:0.88rem; color:var(--text);">
             <label style="cursor:pointer;"><input type="checkbox" id="subMath" checked onchange="updateTutorEstimate()" /> Mathematics</label>
             <label style="cursor:pointer;"><input type="checkbox" id="subSci" onchange="updateTutorEstimate()" /> Science</label>
             <label style="cursor:pointer;"><input type="checkbox" id="subEng" onchange="updateTutorEstimate()" /> English</label>
           </div>
         </div>
+
         <div class="trace-box" style="margin:0;">
           <div style="color:var(--muted); font-size:0.78rem;">ESTIMATED 1-ON-1 TUITION RATE</div>
           <div id="tutRateDisplay" style="font-size:1.45rem; font-weight:800; color:var(--accent-green); margin:0.3rem 0;">$18 – $24 / hour</div>
           <div id="tutPackDisplay" style="font-size:0.84rem; color:var(--accent); margin-bottom:0.45rem;">Monthly 8-Session Pack: $135 – $180 (Save 10%)</div>
-          <div style="font-size:0.8rem; color:var(--muted); margin-bottom:0.8rem;">First 20-minute trial class is 100% free. Includes custom worksheets &amp; parent feedback.</div>
-          <button type="button" class="btn btn-primary btn-sm" onclick="applyTutorToContact()">Pre-Fill Free Trial Request ↓</button>
+          <div style="font-size:0.8rem; color:var(--muted); margin-bottom:0.8rem;">First 20-minute diagnostic trial class is 100% free. International payments supported via Stripe, Wise, PayPal, or UPI/Bank Transfer.</div>
+          <a href="https://cal.com/akash-saini-12740/15min" target="_blank" rel="noopener" class="btn btn-primary btn-sm">Schedule Free Trial on Cal.com ↗</a>
         </div>
       </div>
     </div>
   </section>
 
+  <!-- Direct Parent Inquiry Form -->
   <section id="book-trial">
-    <span class="section-tag">04. BOOK_YOUR_FREE_DEMO</span>
+    <span class="section-tag">QUICK_PARENT_INQUIRY</span>
     <h2>Request a Free 20-Minute Trial Class</h2>
     <div class="grid-2">
       <div class="card">
         <h3>Parent &amp; Student FAQ</h3>
-        <div style="display:flex; flex-direction:column; gap:0.65rem; margin-top:0.75rem;">
-          <details open style="background:var(--code-bg); border:1px solid var(--border); border-radius:10px; padding:0.75rem 0.95rem;">
+        <div style="display:flex; flex-direction:column; gap:0.6rem; margin-top:0.75rem;">
+          <details style="background:var(--code-bg); border:1px solid var(--border); border-radius:10px; padding:0.7rem 0.95rem;">
             <summary style="cursor:pointer; font-weight:600;">How are online classes conducted?</summary>
-            <p style="color:var(--muted); font-size:0.86rem; margin-top:0.4rem;">Via Zoom or Google Meet using a live digital whiteboard, interactive visual explanations, and PDF revision notes sent after every class.</p>
+            <p style="color:var(--muted); font-size:0.86rem; margin-top:0.4rem;">Via Zoom or Google Meet with a shared interactive digital whiteboard, live step-by-step problem solving, and PDF notes sent right after every lesson.</p>
           </details>
-          <details style="background:var(--code-bg); border:1px solid var(--border); border-radius:10px; padding:0.75rem 0.95rem;">
-            <summary style="cursor:pointer; font-weight:600;">Can one tutor cover Maths, Science &amp; English?</summary>
-            <p style="color:var(--muted); font-size:0.86rem; margin-top:0.4rem;">Yes—many families schedule 2–3 sessions a week splitting focus across Mathematics, Science, and English with one consistent mentor.</p>
+          <details style="background:var(--code-bg); border:1px solid var(--border); border-radius:10px; padding:0.7rem 0.95rem;">
+            <summary style="cursor:pointer; font-weight:600;">Can one tutor cover Maths, Science, and English together?</summary>
+            <p style="color:var(--muted); font-size:0.86rem; margin-top:0.4rem;">Yes! Many parents book 2–3 sessions per week splitting time across Mathematics, Science, and English so their child has one consistent, trusted mentor.</p>
           </details>
-          <details style="background:var(--code-bg); border:1px solid var(--border); border-radius:10px; padding:0.75rem 0.95rem;">
-            <summary style="cursor:pointer; font-weight:600;">What happens in the free 20-minute demo?</summary>
-            <p style="color:var(--muted); font-size:0.86rem; margin-top:0.4rem;">We meet the student, walk through a live topic together so you can experience my teaching style, and map out a weekly study plan.</p>
+          <details style="background:var(--code-bg); border:1px solid var(--border); border-radius:10px; padding:0.7rem 0.95rem;">
+            <summary style="cursor:pointer; font-weight:600;">How do we get started?</summary>
+            <p style="color:var(--muted); font-size:0.86rem; margin-top:0.4rem;">Book a free 20-minute trial class where we meet, assess your child's current topics, and create a personalized study plan.</p>
           </details>
         </div>
       </div>
@@ -169,10 +199,11 @@
       <div class="card">
         <h3>Send Trial Class Details</h3>
         <form id="contactForm" onsubmit="handleContactSubmit(event)" style="margin-top:0.75rem;">
-          <input type="text" id="senderName" class="pg-input" placeholder="Parent / Student Name &amp; Country" required />
+          <input type="hidden" id="web3Key" value="b85a0e4a-e4c4-4c83-84cf-5deb470c88c1" />
+          <input type="text" id="senderName" class="pg-input" placeholder="Parent / Student Name & Country" required />
           <input type="email" id="senderEmail" class="pg-input" placeholder="Parent Email or WhatsApp Number" required />
-          <textarea id="senderMsg" class="pg-textarea" rows="4" placeholder="Student Grade, School Board (US, UK, IB, CBSE, ICSE), Subjects &amp; Preferred Days..." required></textarea>
-          <button type="submit" class="btn btn-primary" style="width:100%; justify-content:center;">Request Free 20-Min Demo Class 🎓</button>
+          <textarea id="senderMsg" class="pg-textarea" rows="4" placeholder="Student Grade, School Board (US, UK, IB, CBSE, ICSE), Subjects (Maths/Science/English) & Preferred Days..." required></textarea>
+          <button type="submit" class="btn btn-primary" style="width:100%; justify-content:center;">Request Free Trial Class 🎓</button>
         </form>
       </div>
     </div>
@@ -182,15 +213,16 @@
 <footer>
   <div style="display:flex; justify-content:center; flex-wrap:wrap; gap:1rem; margin-bottom:0.75rem;">
     <a href="index.html" style="color:var(--accent); text-decoration:none;">Home</a>
-    <a href="tutoring.html" style="color:var(--accent); text-decoration:none;">1-on-1 Tuition</a>
-    <a href="labs.html" style="color:var(--accent); text-decoration:none;">Math &amp; AI Labs</a>
-    <a href="blog.html" style="color:var(--accent); text-decoration:none;">Blog</a>
-    <a href="https://cal.com/akash-saini-12740/15min" target="_blank" rel="noopener" style="color:var(--accent); text-decoration:none;">Cal.com ↗</a>
+    <a href="tutoring.html" style="color:var(--accent); text-decoration:none;">1-on-1 Tutoring</a>
+    <a href="https://cal.com/akash-saini-12740/15min" target="_blank" rel="noopener" style="color:var(--accent); text-decoration:none;">Book Trial (Cal.com)</a>
+    <a href="https://topmate.io/akash12740/" target="_blank" rel="noopener" style="color:var(--accent); text-decoration:none;">Topmate</a>
+    <a href="https://www.linkedin.com/in/akash-saini-83a42a1b1/" target="_blank" rel="noopener" style="color:var(--accent); text-decoration:none;">LinkedIn</a>
     <a href="mailto:aksainibits@gmail.com" style="color:var(--accent); text-decoration:none;">aksainibits@gmail.com</a>
   </div>
-  <div>Akash Saini • Integrated M.Sc. Mathematics, BITS Pilani • Worldwide 1-on-1 Online Tutor</div>
+  <div>Akash Saini • Integrated M.Sc. Mathematics, BITS Pilani • Worldwide Online Tutor</div>
 </footer>
 
-<script src="assets/js/app.js?v=8"></script>
+<div id="shapeTooltip"></div>
+<script src="assets/js/app.js?v=6"></script>
 </body>
 </html>
