@@ -974,3 +974,64 @@ function nextMathFunFact() {
 }
 
 document.addEventListener('DOMContentLoaded', initPlayfulMathCanvas);
+// Worldwide School Tutoring Fee & Trial Class Planner
+let TUT_CURRENCY = 'USD';
+const TUTOR_RATES = {
+  elem:   { label: 'Elementary School (Grades 1–5)', usd: [15, 20], inr: [600, 850] },
+  mid:    { label: 'Middle School (Grades 6–8)', usd: [18, 24], inr: [750, 1000] },
+  high:   { label: 'High School (Grades 9–10)', usd: [22, 28], inr: [900, 1300] },
+  senior: { label: 'Senior Secondary / Exam Prep (Grades 11–12 / IB / SAT)', usd: [25, 35], inr: [1100, 1600] }
+};
+
+function setTutorCurrency(curr) {
+  TUT_CURRENCY = curr;
+  document.getElementById('tutUsdBtn')?.classList.toggle('active', curr === 'USD');
+  document.getElementById('tutInrBtn')?.classList.toggle('active', curr === 'INR');
+  updateTutorEstimate();
+}
+
+function updateTutorEstimate() {
+  const gradeEl = document.getElementById('tutGrade');
+  if (!gradeEl) return;
+  const info = TUTOR_RATES[gradeEl.value] || TUTOR_RATES.mid;
+  const rateEl = document.getElementById('tutRateDisplay');
+  const packEl = document.getElementById('tutPackDisplay');
+
+  if (TUT_CURRENCY === 'USD') {
+    rateEl.textContent = `$${info.usd[0]} – $${info.usd[1]} / hour`;
+    packEl.textContent = `Monthly 8-Session Pack: $${Math.round(info.usd[0] * 7.2)} – $${Math.round(info.usd[1] * 7.2)} (Save 10%)`;
+  } else {
+    rateEl.textContent = `₹${info.inr[0].toLocaleString('en-IN')} – ₹${info.inr[1].toLocaleString('en-IN')} / hour`;
+    packEl.textContent = `Monthly 8-Session Pack: ₹${Math.round(info.inr[0] * 7.2).toLocaleString('en-IN')} – ₹${Math.round(info.inr[1] * 7.2).toLocaleString('en-IN')} (Save 10%)`;
+  }
+}
+
+function applyTutorToContact() {
+  const gradeEl = document.getElementById('tutGrade');
+  const msgBox = document.getElementById('senderMsg');
+  const contactSec = document.getElementById('contact');
+  if (!gradeEl || !msgBox) return;
+
+  const info = TUTOR_RATES[gradeEl.value];
+  const subs = [];
+  if (document.getElementById('subMath')?.checked) subs.push('Mathematics');
+  if (document.getElementById('subSci')?.checked) subs.push('Science');
+  if (document.getElementById('subEng')?.checked) subs.push('English');
+
+  const rateText = document.getElementById('tutRateDisplay')?.textContent || '';
+  msgBox.value = `Hi Akash,\n\nI would like to book a Free 20-Min Trial Class for 1-on-1 Online Tutoring:\n• Student Grade: ${info.label}\n• Subjects: ${subs.length ? subs.join(', ') : 'Mathematics'}\n• Estimated Rate: ${rateText}\n• Country / School Board (e.g., US, UK, IB, CBSE) & Preferred Days:\n`;
+  if (contactSec) contactSec.scrollIntoView({ behavior: 'smooth' });
+  msgBox.focus();
+  showToast('✓ Trial class details pre-filled in the inquiry form below!');
+}
+
+if (typeof PORTFOLIO_KB !== 'undefined') {
+  PORTFOLIO_KB.unshift({
+    keys: ['tutor', 'tutoring', 'school', 'student', 'kids', 'child', 'grade', 'maths', 'math', 'science', 'english', 'ib', 'igcse', 'cbse', 'sat', 'trial', 'class', 'teacher'],
+    ans: 'Akash offers personal 1-on-1 online tutoring in Mathematics, Science, and English for school students worldwide (Grades 1–12: US Common Core, UK GCSE/IGCSE, IB, CBSE, ICSE & Olympiad prep). Check the Tutoring section to see rates and book a Free 20-Min Trial Class!'
+  });
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+  if (typeof updateTutorEstimate === 'function') updateTutorEstimate();
+});
