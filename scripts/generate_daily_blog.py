@@ -107,7 +107,7 @@ def update_feeds(posts: list, today_str: str):
     rss_xml = f"""<?xml version="1.0" encoding="UTF-8"?>
 <rss version="2.0">
   <channel>
-    <title>Akash Saini — AI, LLMs &amp; Applied Mathematics Blog</title>
+    <title>Akash Saini — AI, LLMs & Applied Mathematics Blog</title>
     <link>https://akash12740.github.io/blog.html</link>
     <description>Technical articles on RAG architectures, LLM evaluation, NLP, and time-series forecasting.</description>
 {chr(10).join(items_xml)}
@@ -136,8 +136,12 @@ def main():
     if not article:
         article = fallback_post(topic_code, topic_label, angle, len(posts) + 1)
 
+    # Calculate next post ID safely without backslashes in f-string expressions
+    existing_ids = [int(p['id'].split('-')[1]) for p in posts if '-' in p.get('id', '')]
+    next_id_num = max(existing_ids + [len(posts)]) + 1
+
     new_entry = {
-        "id": f"post-{max([int(p[\"id\"].split(\"-\")[1]) for p in posts if \"-\" in p.get(\"id\", \"\")] + [len(posts)]) + 1:03d}",
+        "id": f"post-{next_id_num:03d}",
         "date": today_str,
         "topic": article["topic"],
         "topic_label": article["topic_label"],
