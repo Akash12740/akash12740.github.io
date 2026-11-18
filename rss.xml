@@ -8,63 +8,63 @@
       <title><![CDATA[Applied SQL Window Functions, Anomaly Detection & STL Seasonal Decomposition: Mathematical Foundations & Production Patterns (#9)]]></title>
       <link>https://akash12740.github.io/blog.html#post-011</link>
       <guid>https://akash12740.github.io/blog.html#post-011</guid>
-      <pubDate>Wed, 18 Nov 2026 11:57:00 +0000</pubDate>
+      <pubDate>Wed, 18 Nov 2026 17:34:16 +0000</pubDate>
       <description><![CDATA[A practical engineering breakdown of sql window functions, anomaly detection & stl seasonal decomposition designed for high-reliability AI systems, bridging statistical rigor with production deployment.]]></description>
     </item>
     <item>
       <title><![CDATA[Applied Covariate Shift Detection, Drift Auditing & Causal Inference Pipelines: Mathematical Foundations & Production Patterns (#8)]]></title>
       <link>https://akash12740.github.io/blog.html#post-010</link>
       <guid>https://akash12740.github.io/blog.html#post-010</guid>
-      <pubDate>Wed, 18 Nov 2026 11:57:00 +0000</pubDate>
+      <pubDate>Wed, 18 Nov 2026 17:34:16 +0000</pubDate>
       <description><![CDATA[A practical engineering breakdown of covariate shift detection, drift auditing & causal inference pipelines designed for high-reliability AI systems, bridging statistical rigor with production deployment.]]></description>
     </item>
     <item>
       <title><![CDATA[Applied Spectral Regularization, Convex Optimization & Generalization Bounds: Mathematical Foundations & Production Patterns (#7)]]></title>
       <link>https://akash12740.github.io/blog.html#post-009</link>
       <guid>https://akash12740.github.io/blog.html#post-009</guid>
-      <pubDate>Wed, 18 Nov 2026 11:57:00 +0000</pubDate>
+      <pubDate>Wed, 18 Nov 2026 17:34:16 +0000</pubDate>
       <description><![CDATA[A practical engineering breakdown of spectral regularization, convex optimization & generalization bounds designed for high-reliability AI systems, bridging statistical rigor with production deployment.]]></description>
     </item>
     <item>
       <title><![CDATA[Applied Verifier-Guided Decoding, Constitutional AI & Citation Grounding: Mathematical Foundations & Production Patterns (#6)]]></title>
       <link>https://akash12740.github.io/blog.html#post-008</link>
       <guid>https://akash12740.github.io/blog.html#post-008</guid>
-      <pubDate>Wed, 18 Nov 2026 11:57:00 +0000</pubDate>
+      <pubDate>Wed, 18 Nov 2026 17:34:16 +0000</pubDate>
       <description><![CDATA[A practical engineering breakdown of verifier-guided decoding, constitutional ai & citation grounding designed for high-reliability AI systems, bridging statistical rigor with production deployment.]]></description>
     </item>
     <item>
       <title><![CDATA[Mitigating LLM Hallucinations: Instruction Fine-Tuning, RAG & Citation Grounding]]></title>
       <link>https://akash12740.github.io/blog.html#post-005</link>
       <guid>https://akash12740.github.io/blog.html#post-005</guid>
-      <pubDate>Wed, 18 Nov 2026 11:57:00 +0000</pubDate>
+      <pubDate>Wed, 18 Nov 2026 17:34:16 +0000</pubDate>
       <description><![CDATA[Drawing from curating Gemini instruction fine-tuning workflows at Innodata and building FAISS RAG pipelines, here is a two-pronged defense against model fabrication.]]></description>
     </item>
     <item>
       <title><![CDATA[From Symbolic Rules to Agentic Workflows: Designing Reliable AI Systems]]></title>
       <link>https://akash12740.github.io/blog.html#post-004</link>
       <guid>https://akash12740.github.io/blog.html#post-004</guid>
-      <pubDate>Wed, 18 Nov 2026 11:57:00 +0000</pubDate>
+      <pubDate>Wed, 18 Nov 2026 17:34:16 +0000</pubDate>
       <description><![CDATA[Modern AI has evolved from static prediction endpoints into multi-step reasoning agents. Enterprise deployments succeed when probabilistic models are wrapped in deterministic verification gates.]]></description>
     </item>
     <item>
       <title><![CDATA[The Mathematics of Generalization: Regularization, Bias-Variance & Hyperparameter Tuning]]></title>
       <link>https://akash12740.github.io/blog.html#post-003</link>
       <guid>https://akash12740.github.io/blog.html#post-003</guid>
-      <pubDate>Wed, 18 Nov 2026 11:57:00 +0000</pubDate>
+      <pubDate>Wed, 18 Nov 2026 17:34:16 +0000</pubDate>
       <description><![CDATA[How L1/L2 regularization, stratified k-fold cross-validation, and margin maximization pushed our Fake News NLP pipeline to 95.0% out-of-sample accuracy.]]></description>
     </item>
     <item>
       <title><![CDATA[Why 80% of Data Science Impact Happens Before Model.fit()]]></title>
       <link>https://akash12740.github.io/blog.html#post-002</link>
       <guid>https://akash12740.github.io/blog.html#post-002</guid>
-      <pubDate>Wed, 18 Nov 2026 11:57:00 +0000</pubDate>
+      <pubDate>Wed, 18 Nov 2026 17:34:16 +0000</pubDate>
       <description><![CDATA[Lessons from scaling unstructured speech and text pipelines by 6,000x at Swecha: schema enforcement, deduplication, and metric alignment beat complex architectures.]]></description>
     </item>
     <item>
       <title><![CDATA[Why SARIMA Outperformed ARIMA by 60% RMSE on 15-Year Energy Demand]]></title>
       <link>https://akash12740.github.io/blog.html#post-001</link>
       <guid>https://akash12740.github.io/blog.html#post-001</guid>
-      <pubDate>Wed, 18 Nov 2026 11:57:00 +0000</pubDate>
+      <pubDate>Wed, 18 Nov 2026 17:34:16 +0000</pubDate>
       <description><![CDATA[Using Augmented Dickey-Fuller stationarity testing and seasonal differencing (D=1, s=12) to cut forecasting RMSE from 412.8 MWh down to 164.7 MWh.]]></description>
     </item>
   </channel>
