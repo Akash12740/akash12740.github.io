@@ -1,5 +1,30 @@
 [
   {
+    "id": "post-014",
+    "date": "2026-11-21",
+    "topic": "ml",
+    "topic_label": "Machine Learning",
+    "read_time": "5 MIN READ",
+    "title": "Applied Spectral Regularization, Convex Optimization & Generalization Bounds: Mathematical Foundations & Production Patterns (#12)",
+    "summary": "A practical engineering breakdown of spectral regularization, convex optimization & generalization bounds designed for high-reliability AI systems, bridging statistical rigor with production deployment.",
+    "architecture_flow": "Raw Input -> Schema Validation -> Mathematical Transformation -> Verifier Gate -> Production Output",
+    "sections": [
+      {
+        "heading": "Why Mathematical Rigor Matters in Production",
+        "body": "Deploying spectral regularization, convex optimization & generalization bounds requires bounding variance and eliminating silent distribution shifts before predictions reach downstream users."
+      },
+      {
+        "heading": "Deterministic Verification & Evaluation",
+        "body": "Every probabilistic model output should pass through automated invariant checks, confidence thresholds, and stratified holdout validation."
+      },
+      {
+        "heading": "Operationalizing for Low Latency",
+        "body": "Separating offline feature/index computation from lightweight online inference ensures sub-100ms p95 latency at scale."
+      }
+    ],
+    "takeaway": "Combining formal mathematical constraints with automated verification transforms Machine Learning prototypes into dependable systems."
+  },
+  {
     "id": "post-013",
     "date": "2026-11-20",
     "topic": "llm",
